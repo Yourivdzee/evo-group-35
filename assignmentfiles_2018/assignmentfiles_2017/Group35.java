@@ -4,13 +4,13 @@ import org.vu.contest.ContestEvaluation;
 import java.util.Random;
 import java.util.Properties;
 
-public class Evo35 implements ContestSubmission
+public class Group35 implements ContestSubmission
 {
 	Random rnd_;
 	ContestEvaluation evaluation_;
     private int evaluations_limit_;
 	
-	public Evo35()
+	public Group35()
 	{
 		rnd_ = new Random();
 	}
@@ -54,9 +54,21 @@ public class Evo35 implements ContestSubmission
         while(evals<evaluations_limit_){
             // Select parents
             // Apply crossover / mutation operators
-            double child[] = {0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
+            double child[] = {
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0
+            };
             // Check fitness of unknown fuction
             Double fitness = (double) evaluation_.evaluate(child);
+            System.out.println(fitness);
             evals++;
             // Select survivors
         }
