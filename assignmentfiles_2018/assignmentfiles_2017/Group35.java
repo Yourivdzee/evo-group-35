@@ -6,6 +6,7 @@ import java.util.Properties;
 
 public class Group35 implements ContestSubmission
 {
+	// Test
 	Random rnd_;
 	ContestEvaluation evaluation_;
     private int evaluations_limit_;
