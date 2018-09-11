@@ -1,9 +1,16 @@
+# Overleaf Link for Report
+
+https://www.overleaf.com/19471987rvpwvhsdtkhk
+
+
+# Assignment Description
+
 The goal of this assignment is twofold:
 
 1. Design an evolutionary algorithm (EA) that can optimise a given set of functions. Main evaluation criterion: **quality of obtained solutions**.
 2. Gain insights on how specific features influence the performance of an EA. Main evaluation criterion: **quality of your analysis**.
 
-# Details
+## Details
 
 You are required to design and implement an EA to maximise three continuous optimisation problems in 10 dimensions with a limited computational budget:
   * Bent Cigar
@@ -30,7 +37,7 @@ Your algorithm will be tested with different seeds and it will report the averag
 The online contest will close on the 20th of October (one day before the assignment deadline).
  
 
-# Programming environment
+## Programming environment
 
 We have created an environment (in Java) to design and test an evolutionary algorithm. This environment is also suitable for the (optional) online contest.
 We implemented a fitness function that scales the performance of your algorithm between 0 and 10.
@@ -42,7 +49,4 @@ You can check whether the functions have the following properties to adapt your 
   * whether it has a strong structure 
   * the number of available evaluations
  
-To setup your algorithm, perform the following steps:
-Download all the files herePreview the document
-Follow the instructions via tutorialPreview the document
 We tried to make the setup as robust as we could. Nevertheless, working with all different hardware and software platforms, we could still run into some problems. If you run into problems please ask fellow students, double check the tutorial, post questions on the discussion platform, or ask questions during the dedicated lecture on Monday the 10th of September. 
