@@ -1,6 +1,5 @@
 import java.util.ArrayList;
-
-import org.vu.contest.ContestSubmission;
+import java.util.Arrays;
 
 public class Population{
     Integer size;
@@ -13,26 +12,12 @@ public class Population{
 
     ArrayList<Individual> offsprings;
 
-    ContestEvaluation ContestEvaluation;
-
     public Population(Integer size){
         population = new ArrayList<>();
 
-        double[] baseline_fenotype = {
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
-        };
-
-        for(i = 0; i < size; i++){
-            population.add(new Individual(baseline_fenotype));
+        for(int i = 0; i < size; i++){
+            Individual indiv = new Individual();
+            population.add(indiv);
         }
     }
 

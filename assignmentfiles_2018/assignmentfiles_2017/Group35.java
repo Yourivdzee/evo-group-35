@@ -47,9 +47,13 @@ public class Group35 implements ContestSubmission
 	public void run()
 	{
 		// Run your algorithm here
-        
+        System.out.println("Initializing algorithm...");
+
         int evals = 0;
+        
         // init population
+        Population population = new Population(10);
+
         // calculate fitness
         while(evals<evaluations_limit_){
             // Select parents
@@ -68,10 +72,11 @@ public class Group35 implements ContestSubmission
             };
             // Check fitness of unknown fuction
             Double fitness = (double) evaluation_.evaluate(child);
-            System.out.println(fitness);
             evals++;
             // Select survivors
         }
 
 	}
 }
+
+

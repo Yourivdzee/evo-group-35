@@ -3,6 +3,8 @@ import java.util.ArrayList;
 
 import com.sun.org.apache.xpath.internal.SourceTree;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 public class Individual{
 
     double[] fenotype;
@@ -11,23 +13,32 @@ public class Individual{
 
     double fitness;
 
+    /**
+     * Initializes the individual with a random array of 10 doubles within 
+     * the interval [-5,5]
+     */
+    public Individual(){
+        double rand_genotype[] = new double[10];
+
+        for(int i = 0; i < rand_genotype.length; i++){
+            rand_genotype[i] = ThreadLocalRandom.current().nextInt(-5, 5 + 1);
+        }
+
+        genotype = rand_genotype;
+    }
+
+
+    /**
+     * Initializes the individual with a given fenotype.
+     * @param fenotype: the fenotype that the individual will have;
+     */
     public Individual(double[] fenotype){
+
         // Basic represention of solution
         this.fenotype = fenotype;
 
         // Advanced representation of solution
-        this.genotype = new double[]{
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
-        };
+        this.genotype = fenotype;
 
         this.fitness = 0.0;
     }
@@ -44,20 +55,12 @@ public class Individual{
         return new ArrayList<Individual>();
     }
 
+    /**
+     * Determines the genotype, based on the fenotype which was given as input (an array of doubles).
+     * This function will be used in case many different representations of genotype are used, besides the array of doubles.
+     * @return
+     */
     public double[] determineGenotype(){
-        double[] genotype = {
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
-        };
-
         return genotype;
     }
 
