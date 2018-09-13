@@ -35,12 +35,22 @@ public class Group35 implements ContestSubmission
         boolean isMultimodal = Boolean.parseBoolean(props.getProperty("Multimodal"));
         boolean hasStructure = Boolean.parseBoolean(props.getProperty("Regular"));
         boolean isSeparable = Boolean.parseBoolean(props.getProperty("Separable"));
+        // BentCigar: not multimodal, not structured, not seperable
+        // Katsuura: is multimodal, not structured, not seperable
+        // Schaffers: is multimodal, is structured, not seperable
 
-		// Do sth with property values, e.g. specify relevant settings of your algorithm
-        if(isMultimodal){
+        // Do sth with property values, e.g. specify relevant settings of your algorithm
+        if (!isMultimodal && !hasStructure) {
+            // BentCigar
             // Do sth
-        }else{
+        } else if (isMultimodal && !hasStructure) {
+            // Katsuura
             // Do sth else
+        } else if (isMultimodal && hasStructure) {
+            // Schaffers
+            // Do sth else
+        } else {
+            // Testfunction
         }
     }
     
