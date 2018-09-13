@@ -3,6 +3,10 @@ import java.util.ArrayList;
 
 import java.util.concurrent.ThreadLocalRandom;
 
+import java.lang.Math;
+
+import java.util.Random;
+
 public class Individual{
 
     double[] fenotype;
@@ -11,15 +15,19 @@ public class Individual{
 
     double fitness;
 
+    Random rand = new Random();
+
+    int genosize = 10;
+
     /**
      * Initializes the individual with a random array of 10 doubles within 
      * the interval [-5,5]
      */
     public Individual(){
-        double rand_genotype[] = new double[10];
+        double rand_genotype[] = new double[genosize];
 
         for(int i = 0; i < rand_genotype.length; i++){
-            rand_genotype[i] = ThreadLocalRandom.current().nextInt(-5, 5 + 1);
+            rand_genotype[i] = ThreadLocalRandom.current().nextDouble(-5, 5 );
         }
 
         genotype = rand_genotype;
@@ -31,7 +39,6 @@ public class Individual{
      * @param fenotype: the fenotype that the individual will have;
      */
     public Individual(double[] fenotype){
-
         // Basic represention of solution
         this.fenotype = fenotype;
 
@@ -41,17 +48,137 @@ public class Individual{
         this.fitness = 0.0;
     }
 
-    public ArrayList<Individual> mate(Individual mate){
-        return new ArrayList<Individual>();
+    /**
+     * Mates this individual with another using one of the possible recombination strategies.
+     * @param mate: The individual to mate with
+     * @param strategy: The recombination strategy to be used. Available options are:
+     *                - "simple-arith" : Simple Arithmetic Recombination
+     *                - "single-arith" : Single Arithmetic Recombination
+     *                - "whole-arith" : Whole Arithmetic Recombination
+     * @return: ArrayList of all the offsprings
+     */
+    public ArrayList<Individual> mate(Individual mate, String strategy) {
+        ArrayList<Individual> offsprings = new ArrayList<>();
+
+        double[] offspringGenotype1 = new double[genotype.length];
+        double[] offspringGenotype2 = new double[genotype.length];
+
+        double alfa = 0.5; // need to find a way of encapsulating this, since it is only used for whole arithmetic recombination
+
+        switch (strategy){
+            case "simple-arith":
+                simpleArithmeticRecombination(mate, offspringGenotype1, offspringGenotype2);
+                break;
+            case "single-arith":
+                singleArithmeticRecombination(mate, offspringGenotype1, offspringGenotype2);
+                break;
+            case "whole-arith":
+                wholeArithmeticRecombination(mate, offspringGenotype1, offspringGenotype2, alfa);
+                break;
+            case "BLX":
+                blendCrossover(mate, offspringGenotype1, offspringGenotype2, alfa);
+                break;
+        }
+
+        offsprings.add(new Individual(offspringGenotype1));
+        offsprings.add(new Individual(offspringGenotype2));
+
+        return offsprings;
+
+    }
+    /**
+     * Mates two different individuals, resulting in two offsprings.
+     * This recombination method starts by picking a random value k, takes the first
+     * k genes from the parents, and averages the rest. The difference between the offsprings
+     * comes from whose parents' genes are used in the first part.
+     * @param mate: The partner with who mating will occur;
+     * @return an ArrayList of the offsprings
+     */
+    public void simpleArithmeticRecombination(Individual mate, double[] genotype1, double[] genotype2){
+        int k = ThreadLocalRandom.current().nextInt(1, genotype.length);
+
+        for (int i = 0; i < genotype.length ; i++){
+            if(i < k) {
+                genotype1[i] = genotype[i];        // First offspring
+                genotype2[i] = mate.genotype[i];   // Second offspring
+            } else {
+                double average = (genotype[i] + mate.genotype[i]) / 2;
+                genotype1[i] = average;
+                genotype2[i] = average;
+            }
+        }
     }
 
-    public void mutate(){
-        System.out.print("MUTATING");
+    /**
+     * Mates two different individuals, resulting in two offsprings.
+     * This recombination method starts by picking a random value k which corresponds to the position
+     * of the gene that will be averaged. The rest of the genotype is kept from one of the parents.
+     * The difference between the offsprings comes from whose parents' genes are used.
+     * @param mate: The partner with who mating will occur;
+     * @return an ArrayList of the offsprings
+     */
+    public void singleArithmeticRecombination(Individual mate, double[] genotype1, double[] genotype2){
+        int k = ThreadLocalRandom.current().nextInt(1, genotype.length);
+
+        for (int i = 0; i < genotype.length ; i++){
+            if(i == k) {
+                double average = (genotype[i] + mate.genotype[i])/2;
+                genotype1[i] = average;        // First offspring
+                genotype2[i] = average;        // Second offspring
+            } else {
+                genotype1[i] = genotype[i];
+                genotype2[i] = mate.genotype[i];
+            }
+        }
+
     }
 
-    public ArrayList<Individual> mate(ArrayList<Individual> mates){
-        return new ArrayList<Individual>();
+    /**
+     * Mates two different individuals, resulting in two offsprings.
+     * This recombination method takes a weighted sum of both parents using a parameter alfa.
+     * @param mate: The partner with who mating will occur;
+     * @return an ArrayList of the offsprings
+     */
+    public void wholeArithmeticRecombination(Individual mate, double[] genotype1, double[] genotype2, double alfa) {
+        for (int i = 0; i < genotype.length ; i++){
+            genotype1[i] = alfa * genotype[i] + (1 - alfa) * mate.genotype[i];  // First offspring
+            genotype2[i] = alfa * mate.genotype[i] + (1 - alfa) * genotype[i];  // Second offspring
+        }
     }
+
+    public void blendCrossover(Individual mate, double[] genotype1, double[] genotype2, double alfa) {
+        for (int i = 0; i < genotype.length ; i++){
+            double dist = Math.abs(genotype[i] - mate.genotype[i]); // not needed??
+            double gama = (1 - 2*alfa)*rand.nextDouble() - alfa;
+            genotype1[i] = (1 - gama)*genotype[i] + gama*mate.genotype[i];
+            genotype2[i] = (1 - gama)*mate.genotype[i] + gama*genotype[i];
+        }
+    }
+
+    /**
+     * Mutates the current individual's genome with a uniform mutation.
+     * Uniform mutation randomly draws a value from [-5,5]
+     */
+    public void uniformMutate(double mutation_prob){
+        // Uniform mutation
+        for (int i = 0; i < genotype.length; i++) {
+            if (Math.random() < mutation_prob)
+                genotype[i] = ThreadLocalRandom.current().nextInt(-5, 5 + 1);
+        }
+    }
+
+
+    /**
+     *  Mutates the current individual's genome with a non uniform mutation.
+     *  Non-uniform mutation adds a small value to each gene drawn randomly from a gaussian/cauchy distribution.
+     */
+    public void nonUniformMutate(double stdDeviation, double mean) {
+        for (int i = 0; i < genotype.length; i++) {
+            genotype[i] = genotype[i] + (rand.nextGaussian()*stdDeviation + mean);
+
+        }
+    }
+
 
     /**
      * Determines the genotype, based on the fenotype which was given as input (an array of doubles).
