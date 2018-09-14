@@ -13,7 +13,9 @@ public class Individual{
 
     double[] genotype;
 
-    double fitness;
+    double fitness = 0.0;
+
+    double selection_prob = 0.0;
 
     Random rand = new Random();
 
@@ -45,7 +47,6 @@ public class Individual{
         // Advanced representation of solution
         this.genotype = fenotype;
 
-        this.fitness = 0.0;
     }
 
     /**
@@ -55,6 +56,7 @@ public class Individual{
      *                - "simple-arith" : Simple Arithmetic Recombination
      *                - "single-arith" : Single Arithmetic Recombination
      *                - "whole-arith" : Whole Arithmetic Recombination
+     *                - "BLX" : Blend Crossover
      * @return: ArrayList of all the offsprings
      */
     public ArrayList<Individual> mate(Individual mate, String strategy) {
@@ -86,6 +88,7 @@ public class Individual{
         return offsprings;
 
     }
+
     /**
      * Mates two different individuals, resulting in two offsprings.
      * This recombination method starts by picking a random value k, takes the first
@@ -146,6 +149,13 @@ public class Individual{
         }
     }
 
+    /**
+     *
+     * @param mate
+     * @param genotype1
+     * @param genotype2
+     * @param alfa
+     */
     public void blendCrossover(Individual mate, double[] genotype1, double[] genotype2, double alfa) {
         for (int i = 0; i < genotype.length ; i++){
             double dist = Math.abs(genotype[i] - mate.genotype[i]); // not needed??
@@ -163,7 +173,7 @@ public class Individual{
         // Uniform mutation
         for (int i = 0; i < genotype.length; i++) {
             if (Math.random() < mutation_prob)
-                genotype[i] = ThreadLocalRandom.current().nextInt(-5, 5 + 1);
+                genotype[i] = ThreadLocalRandom.current().nextInt(-5, 5);
         }
     }
 
