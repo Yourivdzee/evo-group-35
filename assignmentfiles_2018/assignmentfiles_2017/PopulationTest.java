@@ -14,7 +14,7 @@ public class PopulationTest {
 
     Random rand;
 
-    @BeforeAll
+    @Before
     public void init() {
         pop = new Population(5);
         rand = new Random();
@@ -32,9 +32,7 @@ public class PopulationTest {
 
         for(Individual individual: pop.population) {
             individual.fitness = rand.nextDouble();
-            
         }
-
 
         pop.sortPopulationByFitness();
     }

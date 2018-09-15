@@ -28,8 +28,11 @@ public class Individual{
     public Individual(){
         double rand_genotype[] = new double[genosize];
 
+        double rangeMin = -5;
+        double rangeMax = 5;
+
         for(int i = 0; i < rand_genotype.length; i++){
-            rand_genotype[i] = ThreadLocalRandom.current().nextDouble(-5, 5 );
+            rand_genotype[i] = rangeMin + (rangeMax - rangeMin) * rand.nextDouble();
         }
 
         genotype = rand_genotype;
@@ -41,11 +44,33 @@ public class Individual{
      * @param fenotype: the fenotype that the individual will have;
      */
     public Individual(double[] fenotype){
+
         // Basic represention of solution
         this.fenotype = fenotype;
 
         // Advanced representation of solution
         this.genotype = fenotype;
+
+
+    }
+
+    /**
+     * Initializes the individual with a specific seed, mainly for testing.
+     * @param seed: the seed to initialize the individual with.
+     */
+    public Individual(int seed){
+        rand = new Random(seed);
+
+        double rand_genotype[] = new double[genosize];
+
+        double rangeMin = -5;
+        double rangeMax = 5;
+
+        for(int i = 0; i < rand_genotype.length; i++){
+            rand_genotype[i] = rangeMin + (rangeMax - rangeMin) * rand.nextDouble();
+        }
+
+        genotype = rand_genotype;
 
     }
 
@@ -98,7 +123,7 @@ public class Individual{
      * @return an ArrayList of the offsprings
      */
     public void simpleArithmeticRecombination(Individual mate, double[] genotype1, double[] genotype2){
-        int k = ThreadLocalRandom.current().nextInt(1, genotype.length);
+        int k = rand.nextInt(10);
 
         for (int i = 0; i < genotype.length ; i++){
             if(i < k) {
@@ -121,7 +146,7 @@ public class Individual{
      * @return an ArrayList of the offsprings
      */
     public void singleArithmeticRecombination(Individual mate, double[] genotype1, double[] genotype2){
-        int k = ThreadLocalRandom.current().nextInt(1, genotype.length);
+        int k = rand.nextInt(10);
 
         for (int i = 0; i < genotype.length ; i++){
             if(i == k) {
@@ -170,10 +195,13 @@ public class Individual{
      * Uniform mutation randomly draws a value from [-5,5]
      */
     public void uniformMutate(double mutation_prob){
+        double rangeMin = -5;
+        double rangeMax = 5;
+
         // Uniform mutation
         for (int i = 0; i < genotype.length; i++) {
-            if (Math.random() < mutation_prob)
-                genotype[i] = ThreadLocalRandom.current().nextInt(-5, 5);
+            if (rand.nextDouble() < mutation_prob)
+                genotype[i] = rangeMin + (rangeMax - rangeMin) * rand.nextDouble();
         }
     }
 
