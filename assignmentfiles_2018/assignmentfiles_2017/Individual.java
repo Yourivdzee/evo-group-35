@@ -212,7 +212,7 @@ public class Individual{
      */
     public void nonUniformMutate(double stdDeviation, double mean) {
         for (int i = 0; i < genotype.length; i++) {
-            genotype[i] = genotype[i] + (rand.nextGaussian()*stdDeviation + mean);
+            genotype[i] = genotype[i] + (rand.nextDouble()*stdDeviation + mean);
 
         }
     }

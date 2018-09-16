@@ -8,7 +8,7 @@ public class Population{
 
     ArrayList<Individual> population;
     
-    ArrayList<Individual> matingPool;
+    Individual[] matingPool;
 
     ArrayList<Individual> offsprings;
 
@@ -16,6 +16,10 @@ public class Population{
 
     public Population(Integer size){
         population = new ArrayList<>();
+
+        this.size = size;
+
+        matingPool = new Individual[size];
 
         for(int i = 0; i < size; i++){
             Individual indiv = new Individual();
@@ -33,22 +37,37 @@ public class Population{
      * on a linear model.
      * @param s: parametrization values, should be 1<s<=2
      */
-    public void calculateLinearReproductionProbability(double s){
-        for (int i = 0; i < size; i++)
-            population.get(i).selection_prob = (2 - s)/size + 2*i*(s-1)/(size*(size-1));
+    public void calculateLinearReproductionProbability(double s) {
+        sortPopulationByFitness();
+        for(int i = 0; i < size; i++){
+            population.get(i).selection_prob = (2 - s) / size + 2 * i * (s - 1) / (size * (size - 1));
+        }
     }
 
 
     /**
      * Calculates and assigns the reproduction probability of each individual based
      * on an exponential model.
-     * @param c: normalisation factor, should be chosen so that the sum of probabilities
-     * is 1.
      */
-    public void calculateExponentialReproductionProbability(double c){
-        for (int i = 0; i < size; i++)
-            population.get(i).selection_prob = (1- Math.pow(Math.E,-i))/c;
+    public void calculateExponentialReproductionProbability( ){
+        sortPopulationByFitness();
+        ArrayList<Double> exponentialFactiors = new ArrayList<>();
+        double sum = 0.0;
+
+        for (int i = 0; i < size; i++) {
+            double factor = (1 - Math.pow(Math.E, -i));
+            exponentialFactiors.add(factor);
+            sum += factor;
+        }
+
+        double c = sum;
+
+        for (int i = 0; i < size; i++) {
+            population.get(i).selection_prob = exponentialFactiors.get(i)/c;
+        }
+
     }
+
 
     public ArrayList<Individual> selectParentsByRank(String strategy, double s) {
         ArrayList<Individual> selection = new ArrayList<>();
@@ -72,7 +91,7 @@ public class Population{
      *  since that would require performing several loops over the whole population)
      * @return: An ArrayList with 4 stats given in the order mentioned above.
      */
-    private ArrayList<Double> calculateFitnessStatistics() {
+    public ArrayList<Double> calculateFitnessStatistics() {
         ArrayList<Double> stats = new ArrayList<>();
 
         double total_fitness = 0;
@@ -106,7 +125,7 @@ public class Population{
      * @return ArrayList of doubles in which each index corresponds to the index in the
      * population array.
      */
-    private ArrayList<Double> calculateCumulativeReproductionProbability () {
+    public ArrayList<Double> calculateCumulativeReproductionProbability () {
         ArrayList<Double> cumulativeProbability = new ArrayList<Double>();
 
         double acc = 0;
@@ -130,16 +149,16 @@ public class Population{
      * ALgorithm taken from the book.
      */
     public void rouletteWheel() {
-        int currentMember = 1;
+        int currentMember = 0;
 
         ArrayList<Double> cumulativeProbability = calculateCumulativeReproductionProbability();
-
         while (currentMember < size) {
-            double r = rand.nextGaussian();
-            int i = 1;
+            double r = rand.nextDouble();
+            int i = 0;
             while (cumulativeProbability.get(i) < r)
                 i++;
-            matingPool.set(currentMember, population.get(i));
+            matingPool[currentMember] =  population.get(i);
+            currentMember++;
         }
 
     }
@@ -149,17 +168,17 @@ public class Population{
      * Algorithm taken from the book.
      */
     public void stochasticUniversalSampling() {
-        int currentMember = 1;
-        int i = 1;
+        int currentMember = 0;
+        int i = 0;
         int matingPoolSize = size;
 
         ArrayList<Double> cumulativeProbability = calculateCumulativeReproductionProbability();
 
-        double r = rand.nextGaussian() * 1/matingPoolSize;
+        double r = rand.nextDouble() * 1./matingPoolSize;
 
         while (currentMember < matingPoolSize) {
             while ( r < cumulativeProbability.get(i)){
-                matingPool.set(currentMember, population.get(i));
+                matingPool[currentMember] = population.get(i);
                 r = r + 1./matingPoolSize;
                 currentMember++;
             }
@@ -173,7 +192,7 @@ public class Population{
      * Calculates the standard deviation of the population's fitness.
      * @return
      */
-    private double calculateStandardDeviation() {
+    public double calculateStandardDeviation() {
         ArrayList<Double> stats = calculateFitnessStatistics();
         double mean = stats.get(3);
 
