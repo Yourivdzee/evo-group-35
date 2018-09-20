@@ -7,8 +7,8 @@ public class Population{
     Integer age;
 
     ArrayList<Individual> population;
-    
-    Individual[] matingPool;
+
+    ArrayList<Individual> matingPool;
 
     ArrayList<Individual> offsprings;
 
@@ -19,7 +19,7 @@ public class Population{
 
         this.size = size;
 
-        matingPool = new Individual[size];
+        matingPool = new ArrayList<Individual>();
 
         for(int i = 0; i < size; i++){
             Individual indiv = new Individual();
@@ -150,6 +150,7 @@ public class Population{
      */
     public void rouletteWheel() {
         int currentMember = 0;
+        Individual[] result = new Individual[size];
 
         ArrayList<Double> cumulativeProbability = calculateCumulativeReproductionProbability();
         while (currentMember < size) {
@@ -157,9 +158,11 @@ public class Population{
             int i = 0;
             while (cumulativeProbability.get(i) < r)
                 i++;
-            matingPool[currentMember] =  population.get(i);
+            result[currentMember] =  population.get(i);
             currentMember++;
         }
+
+        Collections.addAll(matingPool, result);
 
     }
 
@@ -171,6 +174,7 @@ public class Population{
         int currentMember = 0;
         int i = 0;
         int matingPoolSize = size;
+        Individual[] result = new Individual[size];
 
         ArrayList<Double> cumulativeProbability = calculateCumulativeReproductionProbability();
 
@@ -178,12 +182,14 @@ public class Population{
 
         while (currentMember < matingPoolSize) {
             while ( r < cumulativeProbability.get(i)){
-                matingPool[currentMember] = population.get(i);
+                result[currentMember] = population.get(i);
                 r = r + 1./matingPoolSize;
                 currentMember++;
             }
             i++;
         }
+
+        Collections.addAll(matingPool, result);
     }
 
 
@@ -206,9 +212,120 @@ public class Population{
         return std_deviation;
     }
 
+    /**
+     * Sorts the population by fitness.
+     */
     public void sortPopulationByFitness(){
         Collections.sort(population, (i1, i2) -> Double.compare(i1.fitness, i2.fitness));
-        return;
+    }
+
+    /**
+     * Replaces the current population by the current offsprings following one of two strategies:
+     *  1. All parents are replaced by the offsprings. The new generation is ENTIRELY new.
+     *  2. When there are less offsprings than parents, part of the new population is compos
+     */
+    public void replacePopulationByAge() {
+        if (offsprings.size() == population.size()){
+            population.clear();
+            population.addAll(offsprings);
+            offsprings.clear();
+
+        } else if (offsprings.size() < population.size() ) {
+            population.clear();
+            population.addAll(offsprings);
+            offsprings.clear();
+
+            while (population.size() < size)
+                population.add(matingPool.get(rand.nextInt(matingPool.size())));
+
+            assert (population.size() == size);
+
+        } else {
+            System.out.println("Currently have " + Double.toString(offsprings.size()) + " offsprings and " + Double.toString(population.size()) + " population. Did not expect to have a higer offspring count");
+        }
+    }
+
+    /**
+     * Replaces the individuals with less fitness of a population
+     */
+    public void replaceWorst() {
+        sortPopulationByFitness();
+        while (offsprings.size() > 0){
+            population.remove(0);
+            Individual offspring = offsprings.remove(0);
+            population.add(offspring);
+        }
+    }
+
+    /**
+     * In this selection strategy the parents and offsprings are all joined together
+     * and the ones with top fitness are the survivors.
+     */
+    public void muPlusLambdaSelection() {
+        ArrayList<Individual> result = new ArrayList<Individual>();
+        result.addAll(offsprings);
+        result.addAll(matingPool);
+        Collections.sort(result, (i1, i2) -> Double.compare(i1.fitness, i2.fitness));
+
+        result.subList(result.size() - size, result.size());
+
+        population.clear();
+        population.addAll(result);
+        offsprings.clear();
+    }
+
+    /**
+     * Selection when there are more offsprings than population size.
+     * ALl offsprings are added to the current generation, and then the ones
+     * with lower fitness are progressively removed until the generation has the expected size.
+     */
+    public void muCommaLambdaSelection() {
+        ArrayList<Individual> result = new ArrayList<Individual>();
+        result.addAll(offsprings);
+        Collections.sort(result, (i1, i2) -> Double.compare(i1.fitness, i2.fitness));
+        while (result.size() > size)
+            result.remove(0);
+
+    }
+
+    /**
+     *  Tournament selection of survivors. The mating pool and the offsprings are all
+     *  joined into one list. Each of them 'fights' 10 random peers and depending on the amount
+     *  of wins, is put in a specific position.
+     *  After the tournament, the top winners are added to the list of survivors until the
+     *  current population reaches the expected size.
+     */
+    public void roundRobinTournamentSelection() {
+        ArrayList<Individual> tournamentPool = new ArrayList<Individual>();
+        tournamentPool.addAll(offsprings);
+        tournamentPool.addAll(matingPool);
+        int q = 10; // recommended
+
+        HashMap<Integer, ArrayList<Individual>> winCounts = new HashMap<>();
+        for(int i = 0; i <= q; i++){
+            winCounts.put(i, new ArrayList<Individual>());
+        }
+
+        for(Individual individual: tournamentPool){
+            tournamentPool.remove(individual);
+            int wins = 0;
+            for(int i = 0; i <= q; i++){
+                Individual opponent = tournamentPool.get(rand.nextInt(tournamentPool.size()));
+                if (individual.fitness > opponent.fitness)
+                    wins++;
+            }
+            winCounts.get(wins).add(individual);
+        }
+
+        population.clear();
+        int counter = q;
+        while(population.size() < size){
+            ArrayList<Individual> currentWinners = winCounts.get(counter);
+            if(currentWinners.size() <= size)
+                population.addAll(currentWinners);
+            else
+                population.addAll(currentWinners.subList(0,size));
+        }
     }
 
     public ArrayList<Individual> makeChildren(ArrayList<Individual> selection){

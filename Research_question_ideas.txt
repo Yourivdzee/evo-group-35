@@ -1,0 +1,10 @@
+1. Parameter tuning:
+   -Finding the effect that different parameters have on the performance of an algorithm on  DIFFERENT functions.
+   -Finding the effect that different parameters have on the performance of computing a solution to a SPECIFIC function.
+   -Finding an efficient way of tunning parameters so that they are workable with as soon as possible.
+   -Using EAs for parameter tuning.
+
+2. Variety in Population:
+   -Verifying how different strategies for maintaing variety work on a function where exploration > exploitation.
+   -Finding a way of maintaining enough variety in an EA so that it can be applied for functions regardless of their nature (can be generalized)
+

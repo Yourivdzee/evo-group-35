@@ -65,9 +65,14 @@ public class Group35 implements ContestSubmission
         Population population = new Population(10);
 
         // calculate fitness
+        for(Individual individual: population.population)
+            individual.fitness = (double) evaluation_.evaluate(individual.genotype);
+
         while(evals<evaluations_limit_){
             // Select parents
+
             // Apply crossover / mutation operators
+
             double child[] = {
                 0.0,
                 0.0,
