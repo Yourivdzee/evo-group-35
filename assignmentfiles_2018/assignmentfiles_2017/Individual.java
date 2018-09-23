@@ -77,14 +77,14 @@ public class Individual{
     /**
      * Mates this individual with another using one of the possible recombination strategies.
      * @param mate: The individual to mate with
-     * @param strategy: The recombination strategy to be used. Available options are:
+     * @param recombStrategy: The recombination strategy to be used. Available options are:
      *                - "simple-arith" : Simple Arithmetic Recombination
      *                - "single-arith" : Single Arithmetic Recombination
      *                - "whole-arith" : Whole Arithmetic Recombination
      *                - "BLX" : Blend Crossover
-     * @return: ArrayList of all the offsprings
+     * @return: ArrayList of --> 2 <-- offsprings
      */
-    public ArrayList<Individual> mate(Individual mate, String strategy) {
+    public ArrayList<Individual> mate(Individual mate, String recombStrategy) {
         ArrayList<Individual> offsprings = new ArrayList<>();
 
         double[] offspringGenotype1 = new double[genotype.length];
@@ -92,7 +92,7 @@ public class Individual{
 
         double alfa = 0.5; // need to find a way of encapsulating this, since it is only used for whole arithmetic recombination
 
-        switch (strategy){
+        switch (recombStrategy){
             case "simple-arith":
                 simpleArithmeticRecombination(mate, offspringGenotype1, offspringGenotype2);
                 break;
@@ -106,6 +106,7 @@ public class Individual{
                 blendCrossover(mate, offspringGenotype1, offspringGenotype2, alfa);
                 break;
         }
+
 
         offsprings.add(new Individual(offspringGenotype1));
         offsprings.add(new Individual(offspringGenotype2));
@@ -194,13 +195,13 @@ public class Individual{
      * Mutates the current individual's genome with a uniform mutation.
      * Uniform mutation randomly draws a value from [-5,5]
      */
-    public void uniformMutate(double mutation_prob){
+    public void uniformMutate(double mutationRate){
         double rangeMin = -5;
         double rangeMax = 5;
 
         // Uniform mutation
         for (int i = 0; i < genotype.length; i++) {
-            if (rand.nextDouble() < mutation_prob)
+            if (rand.nextDouble() < mutationRate)
                 genotype[i] = rangeMin + (rangeMax - rangeMin) * rand.nextDouble();
         }
     }

@@ -181,4 +181,80 @@ public class PopulationTest {
             System.out.println("Individual with fitness " + Double.toString(individual.fitness) + "selected");
         }
     }
+
+    @Test
+    public void testReplacePopulationByAge() {
+        ArrayList<Individual> parents = new ArrayList<>();
+
+        double parentGenotype[] = {
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                1.1
+        };
+
+        Individual parent = new Individual(parentGenotype);
+        parents.add(parent);
+
+        ArrayList<Individual> offsprings = new ArrayList<>();
+
+        double childGenotype[] = {
+                1.1,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0
+        };
+
+        Individual offspring = new Individual(childGenotype);
+        offsprings.add(offspring);
+
+        pop.offsprings.addAll(offsprings);
+        pop.matingPool.addAll(parents);
+        pop.population.addAll(parents);
+
+        pop.replacePopulationByAge();
+        assertFalse(pop.population.get(0).equals(parent));
+
+    }
+
+    @Test
+    public void testReplaceWorst () {
+        pop.population.clear();
+
+        Individual offspring = new Individual();
+        offspring.fitness = 9.0;
+        pop.offsprings.add(offspring);
+
+        Individual badParent = new Individual();
+        badParent.fitness = 1.0;
+
+        Individual goodParent = new Individual();
+        goodParent.fitness = 5.0;
+
+        pop.population.add(badParent);
+        pop.population.add(goodParent);
+
+        pop.replaceWorst();
+
+        assertTrue(pop.offsprings.size() == 0);
+        assertTrue(pop.population.size() == 2);
+        assertFalse(pop.population.contains(badParent));
+    }
+
+    @Test
+    public void tournamentSelection () {
+        System.out.print("MISSING TEST");
+    }
 }

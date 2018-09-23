@@ -15,21 +15,18 @@ public class Population{
     Random rand = new Random();
 
     public Population(Integer size){
+        System.out.println("Initializing population of size " + Integer.toString(size));
         population = new ArrayList<>();
 
         this.size = size;
 
         matingPool = new ArrayList<Individual>();
+        offsprings = new ArrayList<Individual>();
 
         for(int i = 0; i < size; i++){
             Individual indiv = new Individual();
             population.add(indiv);
         }
-    }
-
-    public ArrayList<Individual> selectParentsFitnessProportional(Integer num){
-
-        return new ArrayList<>();
     }
 
     /**
@@ -68,17 +65,6 @@ public class Population{
 
     }
 
-
-    public ArrayList<Individual> selectParentsByRank(String strategy, double s) {
-        ArrayList<Individual> selection = new ArrayList<>();
-
-        sortPopulationByFitness();
-
-
-
-        return selection;
-
-    }
 
     /**
      * Calculates all relevant fitness statistics of a population, including:
@@ -149,10 +135,15 @@ public class Population{
      * ALgorithm taken from the book.
      */
     public void rouletteWheel() {
+        System.out.println("Starting roulette wheel selection");
+
         int currentMember = 0;
         Individual[] result = new Individual[size];
 
         ArrayList<Double> cumulativeProbability = calculateCumulativeReproductionProbability();
+
+        assert (cumulativeProbability.get(cumulativeProbability.size() - 1) == 1.0);
+
         while (currentMember < size) {
             double r = rand.nextDouble();
             int i = 0;
@@ -328,26 +319,58 @@ public class Population{
         }
     }
 
-    public ArrayList<Individual> makeChildren(ArrayList<Individual> selection){
-        return new ArrayList<>();
+    /**
+     * Fills in the offspring arraylist with babies according to the given recombination
+     * strategy. If given a mutation probability the mutation will be uniform, if given
+     * a standard deviation and a mean, mutation will be non-uniform.
+     * @param recombStrategy
+     *
+     */
+    public void makeBabies (String recombStrategy, double mutationProb) {
+        while (matingPool.size() > 0){
+            ArrayList<Individual> parents = randomSelectMates(2);
+            Individual parent = parents.get(0);
+            Individual mate = parents.get(1);
+
+            // Make babies
+            ArrayList<Individual> babies = parent.mate(mate,recombStrategy);
+
+            for(Individual baby: babies)
+                baby.uniformMutate(mutationProb);
+
+            offsprings.addAll(babies);
+        }
     }
 
+    public void makeBabies (String recombStrategy, double stdDeviation, double mean) {
+        while (matingPool.size() >= 2){
+            ArrayList<Individual> parents = randomSelectMates(2);
+            Individual parent = parents.get(0);
+            Individual mate = parents.get(1);
 
-    public void evaluatePopulation(){
-        return;
+            // Make babies
+            ArrayList<Individual> babies = parent.mate(mate,recombStrategy);
+
+            for(Individual baby: babies)
+                baby.nonUniformMutate(stdDeviation,mean);
+
+            offsprings.addAll(babies);
+        }
     }
-    
 
+    /**
+     * Randomly selects num mates from the mating pool
+     * @param num: the number of mates to select.
+     * @return ArrayList<Individuals> of length num.
+     */
+    private ArrayList<Individual> randomSelectMates(int num) {
+        ArrayList<Individual> mates = new ArrayList<>();
 
+        for(int i = 0; i < num ; i++){
+            mates.add(matingPool.remove(rand.nextInt(matingPool.size())));
+        }
 
-
-    public void createMatingPool(){
-        return;
+        return mates;
     }
 
-
-    public void updateGeneration(){
-        return;
-    }
-    
 }
