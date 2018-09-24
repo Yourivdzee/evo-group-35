@@ -6,6 +6,7 @@
 .idea/
 out/
 local.properties
+*.txt
 
 # Generic Android ignores #
 ###########################

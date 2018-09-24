@@ -1,14 +1,20 @@
 import org.vu.contest.ContestSubmission;
 import org.vu.contest.ContestEvaluation;
 
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.*;
+import java.io.FileWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Group35 implements ContestSubmission
 {
 	Random rnd_;
 	ContestEvaluation evaluation_;
     private int evaluations_limit_;
-	
+
 	public Group35()
 	{
 		rnd_ = new Random();
@@ -38,6 +44,7 @@ public class Group35 implements ContestSubmission
         // Katsuura: is multimodal, not structured, not seperable
         // Schaffers: is multimodal, is structured, not seperable
 
+
         // Do sth with property values, e.g. specify relevant settings of your algorithm
         if (!isMultimodal && !hasStructure) {
             // BentCigar
@@ -46,18 +53,21 @@ public class Group35 implements ContestSubmission
             // Katsuura
             // Do sth else
         } else if (isMultimodal && hasStructure) {
-            // Schaffers
+            // Schaffers]
             // Do sth else
         } else {
             // Testfunction
         }
+
+
     }
-    
+
+
+
 	public void run()
 	{
 		// Run your algorithm here
         System.out.println("Initializing algorithm...");
-
 
 
         // ------- PARAMETERS ------- //
@@ -73,7 +83,7 @@ public class Group35 implements ContestSubmission
                 "whole-arith",   // no parameter needed
                 "BLX"            // needs parameter alfa
         );
-        double alfa = 0;
+        double alfa = 0.5;
 
         String recombinationStrategy = recombinationStrategies.get(0);
 
@@ -84,9 +94,9 @@ public class Group35 implements ContestSubmission
                 "non-uniform"   // needs parameter stdDeviation and Mean
         );
         double mutationRate = 0.05; // default
-        double stdDeviation = -1.0; // ???
+        double stdDeviation = 0.2; // ???
         double mean = 0;            // ???
-        String mutationStrategy = mutationStrategies.get(0);
+        String mutationStrategy = mutationStrategies.get(1);
 
         //    ** REPRODUCTION PROBABILITY **     //
         double s = 1.5; // should be between 1 and 2

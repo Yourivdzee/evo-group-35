@@ -1,10 +1,5 @@
-
 import java.util.ArrayList;
-
-import java.util.concurrent.ThreadLocalRandom;
-
 import java.lang.Math;
-
 import java.util.Random;
 
 public class Individual{
@@ -90,7 +85,7 @@ public class Individual{
         double[] offspringGenotype1 = new double[genotype.length];
         double[] offspringGenotype2 = new double[genotype.length];
 
-        double alfa = 0.5; // need to find a way of encapsulating this, since it is only used for whole arithmetic recombination
+        double alfa = 0.2; // need to find a way of encapsulating this, since it is only used for whole arithmetic recombination
 
         switch (recombStrategy){
             case "simple-arith":
