@@ -3,7 +3,11 @@ import java.lang.Math;
 
 public class Population{
     Integer size;
-    
+
+    Integer matingPoolSize;
+
+    Integer offspringsSize;
+
     Integer age;
 
     ArrayList<Individual> population;
@@ -12,59 +16,26 @@ public class Population{
 
     ArrayList<Individual> offsprings;
 
+    ArrayList<Individual> bestIndividuals;
+
     Random rand = new Random();
 
-    public Population(Integer size){
-        System.out.println("Initializing population of size " + Integer.toString(size));
+    public Population(Integer size, Integer matingPoolSize, Integer offspringsSize){
         population = new ArrayList<>();
 
         this.size = size;
+        this.matingPoolSize = matingPoolSize;
+        this.offspringsSize = offspringsSize;
 
         matingPool = new ArrayList<Individual>();
         offsprings = new ArrayList<Individual>();
+        bestIndividuals = new ArrayList<Individual>();
 
         for(int i = 0; i < size; i++){
             Individual indiv = new Individual();
             population.add(indiv);
         }
     }
-
-    /**
-     * Calculates and assigns the reproduction probability of each individual based
-     * on a linear model.
-     * @param s: parametrization values, should be 1<s<=2
-     */
-    public void calculateLinearReproductionProbability(double s) {
-        sortPopulationByFitness();
-        for(int i = 0; i < size; i++){
-            population.get(i).selection_prob = (2 - s) / size + 2 * i * (s - 1) / (size * (size - 1));
-        }
-    }
-
-
-    /**
-     * Calculates and assigns the reproduction probability of each individual based
-     * on an exponential model.
-     */
-    public void calculateExponentialReproductionProbability( ){
-        sortPopulationByFitness();
-        ArrayList<Double> exponentialFactiors = new ArrayList<>();
-        double sum = 0.0;
-
-        for (int i = 0; i < size; i++) {
-            double factor = (1 - Math.pow(Math.E, -i));
-            exponentialFactiors.add(factor);
-            sum += factor;
-        }
-
-        double c = sum;
-
-        for (int i = 0; i < size; i++) {
-            population.get(i).selection_prob = exponentialFactiors.get(i)/c;
-        }
-
-    }
-
 
     /**
      * Calculates all relevant fitness statistics of a population, including:
@@ -106,6 +77,60 @@ public class Population{
     }
 
     /**
+     * Calculates the standard deviation of the population's fitness.
+     * @return
+     */
+    public double calculateStandardDeviation() {
+        ArrayList<Double> stats = calculateFitnessStatistics();
+        double mean = stats.get(3);
+
+        double sum = 0;
+        for (Individual individual: population){
+            sum = sum + Math.pow(individual.fitness - mean, 2);
+        }
+
+        double std_deviation = Math.sqrt(sum/population.size());
+
+        return std_deviation;
+    }
+
+    /**
+     * Calculates and assigns the reproduction probability of each individual based
+     * on a linear model.
+     * @param s: parametrization values, should be 1<s<=2
+     */
+    public void calculateLinearReproductionProbability(double s) {
+        sortPopulationByFitness();
+        for(int i = 0; i < size; i++){
+            population.get(i).selection_prob = (2 - s) / size + 2 * i * (s - 1) / (size * (size - 1));
+        }
+    }
+
+
+    /**
+     * Calculates and assigns the reproduction probability of each individual based
+     * on an exponential model.
+     */
+    public void calculateExponentialReproductionProbability( ){
+        sortPopulationByFitness();
+        ArrayList<Double> exponentialFactiors = new ArrayList<>();
+        double sum = 0.0;
+
+        for (int i = 0; i < size; i++) {
+            double factor = (1 - Math.pow(Math.E, -i));
+            exponentialFactiors.add(factor);
+            sum += factor;
+        }
+
+        double c = sum;
+
+        for (int i = 0; i < size; i++) {
+            population.get(i).selection_prob = exponentialFactiors.get(i)/c;
+        }
+
+    }
+
+    /**
      * Calculates the cumulative reproduction probability of a population.
      * Must be used after calculating the reproduction probabilities of each individual.
      * @return ArrayList of doubles in which each index corresponds to the index in the
@@ -138,13 +163,13 @@ public class Population{
         System.out.println("Starting roulette wheel selection");
 
         int currentMember = 0;
-        Individual[] result = new Individual[size];
+        Individual[] result = new Individual[matingPoolSize];
 
         ArrayList<Double> cumulativeProbability = calculateCumulativeReproductionProbability();
 
         assert (cumulativeProbability.get(cumulativeProbability.size() - 1) == 1.0);
 
-        while (currentMember < size) {
+        while (currentMember < matingPoolSize) {
             double r = rand.nextDouble();
             int i = 0;
             while (cumulativeProbability.get(i) < r)
@@ -164,8 +189,7 @@ public class Population{
     public void stochasticUniversalSampling() {
         int currentMember = 0;
         int i = 0;
-        int matingPoolSize = size;
-        Individual[] result = new Individual[size];
+        Individual[] result = new Individual[matingPoolSize];
 
         ArrayList<Double> cumulativeProbability = calculateCumulativeReproductionProbability();
 
@@ -183,31 +207,37 @@ public class Population{
         Collections.addAll(matingPool, result);
     }
 
-
-
-    /**
-     * Calculates the standard deviation of the population's fitness.
-     * @return
-     */
-    public double calculateStandardDeviation() {
-        ArrayList<Double> stats = calculateFitnessStatistics();
-        double mean = stats.get(3);
-
-        double sum = 0;
-        for (Individual individual: population){
-            sum = sum + Math.pow(individual.fitness - mean, 2);
-        }
-
-        double std_deviation = Math.sqrt(sum/population.size());
-
-        return std_deviation;
-    }
-
     /**
      * Sorts the population by fitness.
      */
     public void sortPopulationByFitness(){
         Collections.sort(population, (i1, i2) -> Double.compare(i1.fitness, i2.fitness));
+    }
+
+
+    /**
+     * Stores the most fit individuals
+     * @param num: how many individuals to store.
+     */
+    public void storeBestIndividuals(int num) {
+        sortPopulationByFitness();
+        for (int i = 0 ; i < num; i++)
+            bestIndividuals.add(population.get(population.size()- 1 - i));
+    }
+
+    /**
+     * Reinserts the best individuals into the population by the removing the worst
+     * newborns.
+     */
+    public void reinsertBestIndividuals() {
+        sortPopulationByFitness();
+        for (int i = 0; i < bestIndividuals.size() ; i++){
+            Individual newborn = population.get(0);
+            if(newborn.fitness < bestIndividuals.get(i).fitness) {
+                population.remove(newborn);
+                population.add(bestIndividuals.get(i));
+            }
+        }
     }
 
     /**
@@ -246,6 +276,8 @@ public class Population{
             Individual offspring = offsprings.remove(0);
             population.add(offspring);
         }
+
+        assert (population.size() == size);
     }
 
     /**
@@ -263,6 +295,8 @@ public class Population{
         population.clear();
         population.addAll(result);
         offsprings.clear();
+
+        assert (population.size() == size);
     }
 
     /**
@@ -317,6 +351,8 @@ public class Population{
             else
                 population.addAll(currentWinners.subList(0,size));
         }
+
+        assert (population.size() == size);
     }
 
     /**
@@ -324,13 +360,16 @@ public class Population{
      * strategy. If given a mutation probability the mutation will be uniform, if given
      * a standard deviation and a mean, mutation will be non-uniform.
      * @param recombStrategy
+     * ATTENTION: same individual mating is made possible
      *
      */
     public void makeBabies (String recombStrategy, double mutationProb) {
         while (matingPool.size() > 0){
+
             ArrayList<Individual> parents = randomSelectMates(2);
             Individual parent = parents.get(0);
             Individual mate = parents.get(1);
+
 
             // Make babies
             ArrayList<Individual> babies = parent.mate(mate,recombStrategy);
@@ -343,7 +382,7 @@ public class Population{
     }
 
     public void makeBabies (String recombStrategy, double stdDeviation, double mean) {
-        while (matingPool.size() >= 2){
+        while (matingPool.size() > 0) {
             ArrayList<Individual> parents = randomSelectMates(2);
             Individual parent = parents.get(0);
             Individual mate = parents.get(1);

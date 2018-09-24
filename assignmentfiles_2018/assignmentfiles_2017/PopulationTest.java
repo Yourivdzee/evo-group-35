@@ -16,10 +16,12 @@ public class PopulationTest {
     Random rand;
 
     int popSize = 10;
+    int offspringSize = 10;
+    int matingPoolSize = 10;
 
     @Before
     public void init() {
-        pop = new Population(popSize);
+        pop = new Population(popSize, matingPoolSize, offspringSize);
         rand = new Random();
         rand.setSeed(1);
     }

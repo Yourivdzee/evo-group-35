@@ -62,7 +62,9 @@ public class Group35 implements ContestSubmission
 
         // ------- PARAMETERS ------- //
         //      ** GENERAL **         //
-        int populationSize = 10;
+        int populationSize = 50;
+        int offspringsSize = 50;
+        int matingPoolSize = offspringsSize;
 
         //    ** RECOMBINATION **     //
         List<String> recombinationStrategies = Arrays.asList(
@@ -93,7 +95,8 @@ public class Group35 implements ContestSubmission
         int evals = 0;
         
         // init population
-        Population population = new Population(populationSize);
+        System.out.println("Initializing population - μ: " + Integer.toString(populationSize) + "  λ:" + Integer.toString(offspringsSize));
+        Population population = new Population(populationSize, matingPoolSize, offspringsSize);
 
         // calculate fitness
         System.out.println("Calculating fitness of initial population");
@@ -107,6 +110,7 @@ public class Group35 implements ContestSubmission
             population.calculateLinearReproductionProbability(s);
             population.rouletteWheel();
             assert (!population.matingPool.isEmpty());
+            System.out.println("Finished parent selection with " + Integer.toString(population.matingPool.size()) + " candidates.");
 
             // Apply crossover / mutation operators
             System.out.println("Making babies with recombination " + recombinationStrategy);
@@ -116,8 +120,6 @@ public class Group35 implements ContestSubmission
 
             System.out.println("Evaluating newborns");
             for(Individual child: population.offsprings) {
-                if(evals > 990)
-                    System.out.println(Arrays.toString(child.genotype));
                 // Check fitness of unknown fuction
                 child.fitness = (double) evaluation_.evaluate(child.genotype);
             }
