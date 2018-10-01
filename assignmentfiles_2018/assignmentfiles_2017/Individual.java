@@ -98,8 +98,8 @@ public class Individual{
                 wholeArithmeticRecombination(mate, offspringGenotype1, offspringGenotype2, alfa);
                 break;
             case "BLX":
-                blendCrossover(mate, offspringGenotype1, offspringGenotype2, alfa);
-                break;
+                System.out.println("Please provide the alfa value for the BLX recombination strategy");
+                throw new IllegalArgumentException();
         }
 
 
@@ -108,6 +108,23 @@ public class Individual{
 
         return offsprings;
 
+    }
+
+    /**
+     * Same function as mate but for BLX crossover recombination strategy.
+     */
+    public ArrayList<Individual> mate(Individual mate, double alfa) {
+        ArrayList<Individual> offsprings = new ArrayList<>();
+
+        double[] offspringGenotype1 = new double[genotype.length];
+        double[] offspringGenotype2 = new double[genotype.length];
+
+        blendCrossover(mate, offspringGenotype1, offspringGenotype2, alfa);
+
+        offsprings.add(new Individual(offspringGenotype1));
+        offsprings.add(new Individual(offspringGenotype2));
+
+        return offsprings;
     }
 
     /**

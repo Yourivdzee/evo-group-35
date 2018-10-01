@@ -72,8 +72,8 @@ public class Group35 implements ContestSubmission
 
         // ------- PARAMETERS ------- //
         //      ** GENERAL **         //
-        int populationSize = 50;
-        int offspringsSize = 50;
+        int populationSize = 10;
+        int offspringsSize = 10;
         int matingPoolSize = offspringsSize;
 
         //    ** RECOMBINATION **     //
@@ -99,6 +99,10 @@ public class Group35 implements ContestSubmission
         String mutationStrategy = mutationStrategies.get(1);
 
         //    ** REPRODUCTION PROBABILITY **     //
+        List<String> reproductionProbabilityStrategies = Arrays.asList(
+                "linear",       // needs parameter s
+                "exponential"   // no parameter needed
+        );
         double s = 1.5; // should be between 1 and 2
 
 
@@ -106,7 +110,13 @@ public class Group35 implements ContestSubmission
         
         // init population
         System.out.println("Initializing population - μ: " + Integer.toString(populationSize) + "  λ:" + Integer.toString(offspringsSize));
+
         Population population = new Population(populationSize, matingPoolSize, offspringsSize);
+        population.setReproductionProbabilityStrategy("linear", s);
+        population.setParentSelectionStrategy("SUS");
+        population.setRecombinationStrategy("simple-arith");
+        population.setMutationStrategy("uniform", 0.05);
+        population.setSurvivorSelectionStrategy("replaceWorst");
 
         // calculate fitness
         System.out.println("Calculating fitness of initial population");
@@ -117,14 +127,13 @@ public class Group35 implements ContestSubmission
             System.out.println("------- Generation " + Integer.toString(evals) + " -------");
 
             // Select parents
-            population.calculateLinearReproductionProbability(s);
-            population.rouletteWheel();
+            population.selectParents();
             assert (!population.matingPool.isEmpty());
             System.out.println("Finished parent selection with " + Integer.toString(population.matingPool.size()) + " candidates.");
 
             // Apply crossover / mutation operators
             System.out.println("Making babies with recombination " + recombinationStrategy);
-            population.makeBabies(recombinationStrategy,mutationRate);
+            population.makeBabies();
             System.out.println("Made " + Integer.toString(population.offsprings.size()) + " babies");
 
 
@@ -137,7 +146,7 @@ public class Group35 implements ContestSubmission
             evals++;
 
             // Select survivors
-            population.replaceWorst();
+            population.selectSurvivors();
         }
 
 	}

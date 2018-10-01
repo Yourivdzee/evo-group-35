@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="124c8272-ad3f-421f-a5a6-6dabf747012a" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Group35.class" beforeDir="false" afterPath="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Group35.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Group35.java" beforeDir="false" afterPath="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Group35.java" afterDir="false" />
@@ -11,8 +10,6 @@
       <change beforePath="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Population.class" beforeDir="false" afterPath="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Population.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Population.java" beforeDir="false" afterPath="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Population.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/submission.jar" beforeDir="false" afterPath="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/submission.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/tmp/data_f12/bbobexp_f12_DIM10.dat" beforeDir="false" afterPath="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/tmp/data_f12/bbobexp_f12_DIM10.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/tmp/data_f12/bbobexp_f12_DIM10.tdat" beforeDir="false" afterPath="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/tmp/data_f12/bbobexp_f12_DIM10.tdat" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -25,44 +22,47 @@
     <session id="773983913">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="9" />
+          <entry key="project.closed" value="10" />
           <entry key="project.open.time.11" value="1" />
           <entry key="project.open.time.3" value="1" />
           <entry key="project.open.time.32" value="2" />
           <entry key="project.open.time.35" value="1" />
+          <entry key="project.open.time.36" value="1" />
           <entry key="project.open.time.37" value="1" />
-          <entry key="project.open.time.38" value="1" />
+          <entry key="project.open.time.38" value="2" />
           <entry key="project.open.time.39" value="2" />
           <entry key="project.open.time.41" value="1" />
           <entry key="project.open.time.47" value="1" />
           <entry key="project.open.time.8" value="1" />
-          <entry key="project.opened" value="12" />
+          <entry key="project.opened" value="14" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="MF" value="1" />
           <entry key="class" value="1" />
-          <entry key="java" value="12" />
+          <entry key="java" value="13" />
+          <entry key="md" value="1" />
           <entry key="txt" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="CLASS" value="1" />
-          <entry key="JAVA" value="12" />
+          <entry key="JAVA" value="13" />
           <entry key="Manifest" value="1" />
+          <entry key="Markdown" value="1" />
           <entry key="PLAIN_TEXT" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="19404" />
+          <entry key="java" value="23205" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="19404" />
+          <entry key="JAVA" value="23205" />
         </counts>
       </usages-collector>
     </session>
@@ -71,13 +71,34 @@
     <splitter split-orientation="horizontal" split-proportion="0.43017545">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Population.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="207">
-                  <caret line="368" column="27" selection-start-line="368" selection-start-column="27" selection-end-line="368" selection-end-column="27" />
+                <state>
                   <folding>
                     <element signature="imports" expanded="true" />
+                    <element signature="e#1398#1526#0" />
+                    <element signature="e#1962#2099#0" />
+                    <element signature="e#2770#2992#0" />
+                    <element signature="e#2998#3188#0" />
+                    <element signature="method#calculateFitnessStatistics#0;class#Population#0" />
+                    <element signature="method#calculateStandardDeviation#0;class#Population#0" />
+                    <element signature="method#calculateLinearReproductionProbability#0;class#Population#0" />
+                    <element signature="method#calculateExponentialReproductionProbability#0;class#Population#0" />
+                    <element signature="method#calculateCumulativeReproductionProbability#0;class#Population#0" />
+                    <element signature="method#rouletteWheel#0;class#Population#0" />
+                    <element signature="method#stochasticUniversalSampling#0;class#Population#0" />
+                    <element signature="method#sortPopulationByFitness#0;class#Population#0" />
+                    <element signature="method#storeBestIndividuals#0;class#Population#0" />
+                    <element signature="method#reinsertBestIndividuals#0;class#Population#0" />
+                    <element signature="method#replacePopulationByAge#0;class#Population#0" />
+                    <element signature="method#replaceWorst#0;class#Population#0" />
+                    <element signature="method#muPlusLambdaSelection#0;class#Population#0" />
+                    <element signature="method#muCommaLambdaSelection#0;class#Population#0" />
+                    <element signature="method#roundRobinTournamentSelection#0;class#Population#0" />
+                    <element signature="method#mutate#0;class#Population#0" />
+                    <element signature="method#mutate#1;class#Population#0" />
+                    <element signature="method#randomSelectMates#0;class#Population#0" />
                   </folding>
                 </state>
               </provider>
@@ -86,22 +107,20 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/PopulationTest.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-2993">
+                <state relative-caret-position="345">
                   <caret line="23" column="67" selection-start-line="23" selection-start-column="67" selection-end-line="23" selection-end-column="67" />
                   <folding>
                     <element signature="imports" expanded="true" />
-                    <element signature="e#7678#7679#0" expanded="true" />
-                    <element signature="e#7726#7727#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Individual.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="187">
-                  <caret line="87" column="25" selection-start-line="87" selection-start-column="25" selection-end-line="87" selection-end-column="25" />
+                <state relative-caret-position="-1668">
+                  <caret line="70" lean-forward="true" selection-start-line="70" selection-end-line="70" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -112,8 +131,11 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/IndividualTest.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="90">
-                  <caret line="6" column="24" selection-start-line="6" selection-start-column="24" selection-end-line="6" selection-end-column="24" />
+                <state relative-caret-position="150">
+                  <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+                  <folding>
+                    <element signature="imports" expanded="true" />
+                  </folding>
                 </state>
               </provider>
             </entry>
@@ -125,8 +147,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Group35.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="465">
-                  <caret line="97" column="23" selection-start-line="97" selection-start-column="23" selection-end-line="97" selection-end-column="23" />
+                <state relative-caret-position="632">
+                  <caret line="106" lean-forward="true" selection-start-line="106" selection-end-line="106" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -159,10 +181,14 @@
       <find>mutation</find>
       <find>rate</find>
       <find>randomS</find>
+      <find>size</find>
+      <find>recombinationStr</find>
+      <find>matingPoolSize</find>
     </findStrings>
     <replaceStrings>
       <replace>nextFloat()</replace>
       <replace>nextDouble()</replace>
+      <replace>populationSize</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -174,9 +200,9 @@
         <option value="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/TestJunitTest.java" />
         <option value="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/IndividualTest.java" />
         <option value="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/PopulationTest.java" />
-        <option value="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Population.java" />
         <option value="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Individual.java" />
         <option value="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Group35.java" />
+        <option value="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Population.java" />
       </list>
     </option>
   </component>
@@ -200,7 +226,6 @@
     <panes>
       <pane id="Scope" />
       <pane id="AndroidView" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -217,6 +242,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -225,7 +251,7 @@
     <property name="Repository.Attach.Sources" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1537803101501" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1538424066244" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
     <property name="create.test.in.the.same.root" value="true" />
@@ -347,7 +373,9 @@
       <workItem from="1537463134885" duration="749000" />
       <workItem from="1537464551194" duration="1606000" />
       <workItem from="1537715611882" duration="7087000" />
-      <workItem from="1537794408831" duration="7340000" />
+      <workItem from="1537794408831" duration="8650000" />
+      <workItem from="1538145596387" duration="667000" />
+      <workItem from="1538405248258" duration="6141000" />
     </task>
     <servers />
   </component>
@@ -384,13 +412,13 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="59457000" />
+    <option name="totallyTimeSpent" value="67575000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="67" y="25" width="1853" height="1055" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2114001" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21582733" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -406,7 +434,7 @@
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.32972974" />
       <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="9" visible="true" weight="0.23891892" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="9" visible="true" weight="0.26378378" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="Messages" order="11" weight="0.32972974" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -448,39 +476,47 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/PopulationTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2993">
-          <caret line="23" column="67" selection-start-line="23" selection-start-column="67" selection-end-line="23" selection-end-column="67" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#7678#7679#0" expanded="true" />
-            <element signature="e#7726#7727#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Population.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="207">
-          <caret line="368" column="27" selection-start-line="368" selection-start-column="27" selection-end-line="368" selection-end-column="27" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="90">
+            <caret line="6" column="2" selection-start-line="6" selection-end-line="7" />
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/IndividualTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="24" selection-start-line="6" selection-start-column="24" selection-end-line="6" selection-end-column="24" />
+        <state relative-caret-position="150">
+          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Island.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="21" lean-forward="true" selection-start-column="21" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/PopulationTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="23" column="67" selection-start-line="23" selection-start-column="67" selection-end-line="23" selection-end-column="67" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Individual.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="87" column="25" selection-start-line="87" selection-start-column="25" selection-end-line="87" selection-end-column="25" />
+        <state relative-caret-position="-1668">
+          <caret line="70" lean-forward="true" selection-start-line="70" selection-end-line="70" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -489,10 +525,41 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Group35.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="465">
-          <caret line="97" column="23" selection-start-line="97" selection-start-column="23" selection-end-line="97" selection-end-column="23" />
+        <state relative-caret-position="632">
+          <caret line="106" lean-forward="true" selection-start-line="106" selection-end-line="106" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Population.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1398#1526#0" />
+            <element signature="e#1962#2099#0" />
+            <element signature="e#2770#2992#0" />
+            <element signature="e#2998#3188#0" />
+            <element signature="method#calculateFitnessStatistics#0;class#Population#0" />
+            <element signature="method#calculateStandardDeviation#0;class#Population#0" />
+            <element signature="method#calculateLinearReproductionProbability#0;class#Population#0" />
+            <element signature="method#calculateExponentialReproductionProbability#0;class#Population#0" />
+            <element signature="method#calculateCumulativeReproductionProbability#0;class#Population#0" />
+            <element signature="method#rouletteWheel#0;class#Population#0" />
+            <element signature="method#stochasticUniversalSampling#0;class#Population#0" />
+            <element signature="method#sortPopulationByFitness#0;class#Population#0" />
+            <element signature="method#storeBestIndividuals#0;class#Population#0" />
+            <element signature="method#reinsertBestIndividuals#0;class#Population#0" />
+            <element signature="method#replacePopulationByAge#0;class#Population#0" />
+            <element signature="method#replaceWorst#0;class#Population#0" />
+            <element signature="method#muPlusLambdaSelection#0;class#Population#0" />
+            <element signature="method#muCommaLambdaSelection#0;class#Population#0" />
+            <element signature="method#roundRobinTournamentSelection#0;class#Population#0" />
+            <element signature="method#mutate#0;class#Population#0" />
+            <element signature="method#mutate#1;class#Population#0" />
+            <element signature="method#randomSelectMates#0;class#Population#0" />
           </folding>
         </state>
       </provider>

@@ -1,17 +1,14 @@
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.*;
 import java.lang.Math;
 
 public class Population{
-    Integer size;
+    Integer populationSize;
 
     Integer matingPoolSize;
 
     Integer offspringsSize;
 
-    Integer age;
+    Integer age = 0;
 
     ArrayList<Individual> population;
 
@@ -23,10 +20,32 @@ public class Population{
 
     Random rand = new Random();
 
+    /* ---- PARAMETERS ---- */
+
+    String recombinationStrat;
+
+    String mutationStrat;
+
+    String reproductionProbabilityStrat;
+
+    String parentSelectionStrat;
+
+    String survivorSelectionStrat;
+
+    Double alfa;
+
+    Double mutationRate;
+
+    Double stdDeviation;
+
+    Double mean;
+
+    Double s;
+
     public Population(Integer size, Integer matingPoolSize, Integer offspringsSize){
         population = new ArrayList<>();
 
-        this.size = size;
+        this.populationSize = size;
         this.matingPoolSize = matingPoolSize;
         this.offspringsSize = offspringsSize;
 
@@ -34,10 +53,83 @@ public class Population{
         offsprings = new ArrayList<Individual>();
         bestIndividuals = new ArrayList<Individual>();
 
-        for(int i = 0; i < size; i++){
+        for(int i = 0; i < populationSize; i++){
             Individual indiv = new Individual();
             population.add(indiv);
         }
+    }
+
+    /**
+     * Sets the reproduction probability calculation strategy.
+     * @param strat: selected strategy. Possible strategies are:
+     *             - "linear" (needs parameter s)
+     *             - "exponential" (no paramter)
+     */
+    public void setReproductionProbabilityStrategy(String strat){
+        this.reproductionProbabilityStrat = strat;
+    }
+
+    public void setReproductionProbabilityStrategy(String strat, double s){
+        this.reproductionProbabilityStrat = strat;
+        this.s = s;
+    }
+
+    /**
+     * Sets the parent selection strategy.
+     * @param strat: selected strategy. Possible strategies are:
+     *             - Roulette wheel - "RW"
+     *             - Stochastic universal sampling - "SUS"
+     */
+    public void setParentSelectionStrategy(String strat){
+        this.parentSelectionStrat = strat;
+    }
+
+
+    /**
+     * Sets the recombination strategy for this population.
+     * @param strat: selected strategy. Possible strategies are:
+     *             - "simple-arith" : Simple Arithmetic Recombination
+     *             - "single-arith" : Single Arithmetic Recombination
+     *             - "whole-arith" : Whole Arithmetic Recombination
+     *             - "BLX" : Blend Crossover (needs parameter alfa)
+     */
+    public void setRecombinationStrategy(String strat, double alfa){
+        this.recombinationStrat = strat;
+        this.alfa = alfa;
+    }
+
+    public void setRecombinationStrategy(String strat){
+        this.recombinationStrat = strat;
+    }
+
+    /**
+     * Sets the mutation strategy for this population.
+     * @param strat: selected strategy. Possible strategies are:
+     *             - "Uniform" (needs mutation rate paramater)
+     *             - "Non-uniform" (needs stdDeviation and mean parameter)
+     */
+    public void setMutationStrategy(String strat, double mutationRate){
+        this.mutationStrat = strat;
+        this.mutationRate = mutationRate;
+    }
+
+    public void setMutationStrategy(String strat, double stdDeviation, double mean){
+        this.mutationStrat = strat;
+        this.stdDeviation = stdDeviation;
+        this.mean = mean;
+    }
+
+    /**
+     * Sets the survivor selection strategy for this population,
+     * @param strat: selected strategy. Possible strategies are:
+     *             - "tournament" - round-robin tournament
+     *             - "mu,lambda" - (mu,lambda)
+     *             - "mu+lambda" - (mu+lambda)
+     *             - "replaceWorst" - replace worst strategy
+     *             - "age" - age based survivor selection
+     */
+    public void setSurvivorSelectionStrategy(String strat){
+        this.survivorSelectionStrat = strat;
     }
 
     /**
@@ -83,7 +175,7 @@ public class Population{
      * Calculates the standard deviation of the population's fitness.
      * @return
      */
-    public double calculateStandardDeviation() {
+    private double calculateStandardDeviation() {
         ArrayList<Double> stats = calculateFitnessStatistics();
         double mean = stats.get(3);
 
@@ -104,8 +196,8 @@ public class Population{
      */
     public void calculateLinearReproductionProbability(double s) {
         sortPopulationByFitness();
-        for(int i = 0; i < size; i++){
-            population.get(i).selection_prob = (2 - s) / size + 2 * i * (s - 1) / (size * (size - 1));
+        for(int i = 0; i < populationSize; i++){
+            population.get(i).selection_prob = (2 - s) / populationSize + 2 * i * (s - 1) / (populationSize * (populationSize - 1));
         }
     }
 
@@ -119,7 +211,7 @@ public class Population{
         ArrayList<Double> exponentialFactiors = new ArrayList<>();
         double sum = 0.0;
 
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < populationSize; i++) {
             double factor = (1 - Math.pow(Math.E, -i));
             exponentialFactiors.add(factor);
             sum += factor;
@@ -127,7 +219,7 @@ public class Population{
 
         double c = sum;
 
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < populationSize; i++) {
             population.get(i).selection_prob = exponentialFactiors.get(i)/c;
         }
 
@@ -259,10 +351,10 @@ public class Population{
             population.addAll(offsprings);
             offsprings.clear();
 
-            while (population.size() < size)
+            while (population.size() < populationSize)
                 population.add(matingPool.get(rand.nextInt(matingPool.size())));
 
-            assert (population.size() == size);
+            assert (population.size() == populationSize);
 
         } else {
             System.out.println("Currently have " + Double.toString(offsprings.size()) + " offsprings and " + Double.toString(population.size()) + " population. Did not expect to have a higer offspring count");
@@ -280,7 +372,7 @@ public class Population{
             population.add(offspring);
         }
 
-        assert (population.size() == size);
+        assert (population.size() == populationSize);
     }
 
     /**
@@ -293,13 +385,13 @@ public class Population{
         result.addAll(matingPool);
         Collections.sort(result, (i1, i2) -> Double.compare(i1.fitness, i2.fitness));
 
-        result.subList(result.size() - size, result.size());
+        result.subList(result.size() - populationSize, result.size());
 
         population.clear();
         population.addAll(result);
         offsprings.clear();
 
-        assert (population.size() == size);
+        assert (population.size() == populationSize);
     }
 
     /**
@@ -311,7 +403,7 @@ public class Population{
         ArrayList<Individual> result = new ArrayList<Individual>();
         result.addAll(offsprings);
         Collections.sort(result, (i1, i2) -> Double.compare(i1.fitness, i2.fitness));
-        while (result.size() > size)
+        while (result.size() > populationSize)
             result.remove(0);
 
     }
@@ -347,26 +439,24 @@ public class Population{
 
         population.clear();
         int counter = q;
-        while(population.size() < size){
+        while(population.size() < populationSize){
             ArrayList<Individual> currentWinners = winCounts.get(counter);
-            if(currentWinners.size() <= size)
+            if(currentWinners.size() <= populationSize)
                 population.addAll(currentWinners);
             else
-                population.addAll(currentWinners.subList(0,size));
+                population.addAll(currentWinners.subList(0,populationSize));
         }
 
-        assert (population.size() == size);
+        assert (population.size() == populationSize);
     }
 
     /**
      * Fills in the offspring arraylist with babies according to the given recombination
      * strategy. If given a mutation probability the mutation will be uniform, if given
      * a standard deviation and a mean, mutation will be non-uniform.
-     * @param recombStrategy
      * ATTENTION: same individual mating is made possible
-     *
      */
-    public void makeBabies (String recombStrategy, double mutationProb) {
+    public void makeBabies () {
         while (matingPool.size() > 0){
 
             ArrayList<Individual> parents = randomSelectMates(2);
@@ -375,29 +465,36 @@ public class Population{
 
 
             // Make babies
-            ArrayList<Individual> babies = parent.mate(mate,recombStrategy);
+            ArrayList<Individual> babies = parent.mate(mate,recombinationStrat);
 
-            for(Individual baby: babies)
-                baby.uniformMutate(mutationProb);
+            if (mutationStrat.equals("uniform"))
+                mutate(babies,this.mutationRate);
+            else
+                mutate(babies,this.stdDeviation, this.mean);
 
             offsprings.addAll(babies);
         }
     }
 
-    public void makeBabies (String recombStrategy, double stdDeviation, double mean) {
-        while (matingPool.size() > 0) {
-            ArrayList<Individual> parents = randomSelectMates(2);
-            Individual parent = parents.get(0);
-            Individual mate = parents.get(1);
+    /**
+     * Mutates the list of babies with the adequate mutation strategy
+     * @param babies List of individuals to mutate
+     * @param mutationRate Uniform mutation rate parameter
+     */
+    public void mutate(ArrayList<Individual> babies, double mutationRate) {
+        for(Individual baby: babies)
+            baby.uniformMutate(mutationRate);
+    }
 
-            // Make babies
-            ArrayList<Individual> babies = parent.mate(mate,recombStrategy);
-
-            for(Individual baby: babies)
-                baby.nonUniformMutate(stdDeviation,mean);
-
-            offsprings.addAll(babies);
-        }
+    /**
+     * Mutates the list of babies with the adequate mutation strategy
+     * @param babies List of individuals to mutate
+     * @param stdDeviation No mutation rate parameter standard deviation
+     * @param mean No mutation rate parameter mean
+     */
+    public void mutate(ArrayList<Individual> babies, double stdDeviation, double mean) {
+        for(Individual baby: babies)
+            baby.nonUniformMutate(stdDeviation,mean);
     }
 
     /**
@@ -413,6 +510,73 @@ public class Population{
         }
 
         return mates;
+    }
+
+    /**
+     * Executes parent selection with the chosen reproduction probability
+     * calculation and the parent selection strategy.
+     */
+    public void selectParents() {
+        // Calculate reproduction probability
+        switch (reproductionProbabilityStrat) {
+            case "linear":
+                calculateLinearReproductionProbability(this.s);
+                break;
+            case "exponential":
+                this.calculateExponentialReproductionProbability();
+                break;
+            default:
+                throw new IllegalArgumentException();
+        }
+
+        // Execute parent selection
+        switch (parentSelectionStrat) {
+            case "RW":
+                rouletteWheel();
+                break;
+            case "SUS":
+                stochasticUniversalSampling();
+                break;
+            default:
+                throw new IllegalArgumentException();
+        }
+    }
+
+    /**
+     * Selects survivors based on the survivor selection strategy
+     */
+    public void selectSurvivors() {
+        age++;
+        switch (survivorSelectionStrat) {
+            case "tournament":
+                roundRobinTournamentSelection();
+                break;
+            case "mu,lambda":
+                muCommaLambdaSelection();
+                break;
+            case "mu+lambda":
+                muPlusLambdaSelection();
+                break;
+            case "replaceWorst":
+                replaceWorst();
+                break;
+            case "age":
+                replacePopulationByAge();
+                break;
+            default:
+                throw new IllegalArgumentException();
+        }
+
+    }
+
+    public void evolve() {
+        // Select parents
+        this.selectParents();
+        assert (!this.matingPool.isEmpty());
+
+        // Apply crossover / mutation operators
+        //this.makeBabies(this.recombinationStrat);
+
     }
 
 }
