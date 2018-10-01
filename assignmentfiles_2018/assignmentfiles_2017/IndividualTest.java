@@ -105,7 +105,7 @@ public class IndividualTest {
     @Test
     public void wholeArithmeticRecombination() {
         System.out.println(" -- Testing whole Arithmetic Recombination --");
-        ArrayList<Individual> offsprings = individual1.mate(individual2, "whole-arith");
+        ArrayList<Individual> offsprings = individual1.mate(individual2, "whole-arith", 0.5);
 
         System.out.println("Parent 1: " + Arrays.toString(individual1.genotype));
         System.out.println("Parent 2: " + Arrays.toString(individual2.genotype));
@@ -118,7 +118,7 @@ public class IndividualTest {
     @Test
     public void blendCrossover() {
         System.out.println(" -- Testing blend crossover  --");
-        ArrayList<Individual> offsprings = individual1.mate(individual2, "BLX");
+        ArrayList<Individual> offsprings = individual1.mate(individual2,"BLX",  0.2);
 
         System.out.println("Parent 1: " + Arrays.toString(individual1.genotype));
         System.out.println("Parent 2: " + Arrays.toString(individual2.genotype));

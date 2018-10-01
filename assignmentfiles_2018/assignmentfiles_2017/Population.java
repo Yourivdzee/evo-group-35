@@ -44,14 +44,13 @@ public class Population{
 
     public Population(Integer size, Integer matingPoolSize, Integer offspringsSize){
         population = new ArrayList<>();
+        matingPool = new ArrayList<>();
+        offsprings = new ArrayList<>();
+        bestIndividuals = new ArrayList<>();
 
         this.populationSize = size;
         this.matingPoolSize = matingPoolSize;
         this.offspringsSize = offspringsSize;
-
-        matingPool = new ArrayList<Individual>();
-        offsprings = new ArrayList<Individual>();
-        bestIndividuals = new ArrayList<Individual>();
 
         for(int i = 0; i < populationSize; i++){
             Individual indiv = new Individual();
@@ -175,7 +174,7 @@ public class Population{
      * Calculates the standard deviation of the population's fitness.
      * @return
      */
-    private double calculateStandardDeviation() {
+    public double calculateStandardDeviation() {
         ArrayList<Double> stats = calculateFitnessStatistics();
         double mean = stats.get(3);
 

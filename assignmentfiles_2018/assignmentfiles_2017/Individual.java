@@ -85,7 +85,7 @@ public class Individual{
         double[] offspringGenotype1 = new double[genotype.length];
         double[] offspringGenotype2 = new double[genotype.length];
 
-        double alfa = 0.2; // need to find a way of encapsulating this, since it is only used for whole arithmetic recombination
+        double alfa = 0.5; // need to find a way of encapsulating this, since it is only used for whole arithmetic recombination
 
         switch (recombStrategy){
             case "simple-arith":
@@ -111,15 +111,21 @@ public class Individual{
     }
 
     /**
-     * Same function as mate but for BLX crossover recombination strategy.
+     * Same function as mate but for BLX or crossover recombination strategy.
      */
-    public ArrayList<Individual> mate(Individual mate, double alfa) {
+    public ArrayList<Individual> mate(Individual mate, String recombStrategy, double alfa) {
         ArrayList<Individual> offsprings = new ArrayList<>();
 
         double[] offspringGenotype1 = new double[genotype.length];
         double[] offspringGenotype2 = new double[genotype.length];
 
-        blendCrossover(mate, offspringGenotype1, offspringGenotype2, alfa);
+        switch (recombStrategy) {
+            case "BLX":
+                blendCrossover(mate, offspringGenotype1, offspringGenotype2, alfa);
+                break;
+            case "whole-arith":
+                wholeArithmeticRecombination(mate,offspringGenotype1,offspringGenotype2,alfa);
+        }
 
         offsprings.add(new Individual(offspringGenotype1));
         offsprings.add(new Individual(offspringGenotype2));
@@ -178,6 +184,7 @@ public class Individual{
      * Mates two different individuals, resulting in two offsprings.
      * This recombination method takes a weighted sum of both parents using a parameter alfa.
      * @param mate: The partner with who mating will occur;
+     * @param alfa; the alfa value to be used
      * @return an ArrayList of the offsprings
      */
     public void wholeArithmeticRecombination(Individual mate, double[] genotype1, double[] genotype2, double alfa) {

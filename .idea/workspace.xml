@@ -2,14 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="124c8272-ad3f-421f-a5a6-6dabf747012a" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Group35.class" beforeDir="false" afterPath="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Group35.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Group35.java" beforeDir="false" afterPath="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Group35.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Individual.class" beforeDir="false" afterPath="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Individual.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Individual.java" beforeDir="false" afterPath="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Individual.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Population.class" beforeDir="false" afterPath="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Population.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/IndividualTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/IndividualTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Population.java" beforeDir="false" afterPath="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Population.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/submission.jar" beforeDir="false" afterPath="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/submission.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/PopulationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/PopulationTest.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -57,12 +53,12 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="23205" />
+          <entry key="java" value="23491" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="23205" />
+          <entry key="JAVA" value="23491" />
         </counts>
       </usages-collector>
     </session>
@@ -71,10 +67,11 @@
     <splitter split-orientation="horizontal" split-proportion="0.43017545">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Population.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state>
+                <state relative-caret-position="-730">
+                  <caret line="400" column="16" selection-start-line="400" selection-start-column="16" selection-end-line="400" selection-end-column="16" />
                   <folding>
                     <element signature="imports" expanded="true" />
                     <element signature="e#1398#1526#0" />
@@ -92,7 +89,6 @@
                     <element signature="method#storeBestIndividuals#0;class#Population#0" />
                     <element signature="method#reinsertBestIndividuals#0;class#Population#0" />
                     <element signature="method#replacePopulationByAge#0;class#Population#0" />
-                    <element signature="method#replaceWorst#0;class#Population#0" />
                     <element signature="method#muPlusLambdaSelection#0;class#Population#0" />
                     <element signature="method#muCommaLambdaSelection#0;class#Population#0" />
                     <element signature="method#roundRobinTournamentSelection#0;class#Population#0" />
@@ -107,8 +103,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/PopulationTest.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="345">
-                  <caret line="23" column="67" selection-start-line="23" selection-start-column="67" selection-end-line="23" selection-end-column="67" />
+                <state relative-caret-position="2205">
+                  <caret line="257" column="37" selection-start-line="257" selection-start-column="37" selection-end-line="257" selection-end-column="37" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -119,20 +115,29 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Individual.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-1668">
-                  <caret line="70" lean-forward="true" selection-start-line="70" selection-end-line="70" />
+                <state relative-caret-position="452">
+                  <caret line="127" column="9" selection-start-line="127" selection-start-column="9" selection-end-line="127" selection-end-column="9" />
                   <folding>
                     <element signature="imports" expanded="true" />
+                    <element signature="method#Individual#0;class#Individual#0" />
+                    <element signature="method#Individual#1;class#Individual#0" />
+                    <element signature="method#Individual#2;class#Individual#0" />
+                    <element signature="method#simpleArithmeticRecombination#0;class#Individual#0" />
+                    <element signature="method#singleArithmeticRecombination#0;class#Individual#0" />
+                    <element signature="method#uniformMutate#0;class#Individual#0" />
+                    <element signature="method#nonUniformMutate#0;class#Individual#0" />
+                    <element signature="e#8721#8722#0" expanded="true" />
+                    <element signature="e#8752#8753#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/IndividualTest.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="150">
-                  <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+                <state relative-caret-position="391">
+                  <caret line="120" column="78" selection-start-line="120" selection-start-column="78" selection-end-line="120" selection-end-column="78" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -147,7 +152,7 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Group35.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="632">
+                <state relative-caret-position="225">
                   <caret line="106" lean-forward="true" selection-start-line="106" selection-end-line="106" />
                   <folding>
                     <element signature="imports" expanded="true" />
@@ -181,9 +186,10 @@
       <find>mutation</find>
       <find>rate</find>
       <find>randomS</find>
-      <find>size</find>
       <find>recombinationStr</find>
       <find>matingPoolSize</find>
+      <find>private</find>
+      <find>size</find>
     </findStrings>
     <replaceStrings>
       <replace>nextFloat()</replace>
@@ -198,11 +204,11 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/TestJunitTest.java" />
-        <option value="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/IndividualTest.java" />
-        <option value="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/PopulationTest.java" />
-        <option value="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Individual.java" />
         <option value="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Group35.java" />
         <option value="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Population.java" />
+        <option value="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/PopulationTest.java" />
+        <option value="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Individual.java" />
+        <option value="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/IndividualTest.java" />
       </list>
     </option>
   </component>
@@ -251,7 +257,7 @@
     <property name="Repository.Attach.Sources" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1538424066244" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1538425720203" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
     <property name="create.test.in.the.same.root" value="true" />
@@ -289,30 +295,30 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="IndividualTest.blendCrossover" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="assignmentfiles_2018" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="IndividualTest" />
+      <option name="METHOD_NAME" value="blendCrossover" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="IndividualTest.wholeArithmeticRecombination" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="assignmentfiles_2018" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="IndividualTest" />
+      <option name="METHOD_NAME" value="wholeArithmeticRecombination" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="PopulationTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="assignmentfiles_2018" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="PopulationTest" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="PopulationTest.testCalculateFitnessStatistics" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="assignmentfiles_2018" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="PopulationTest" />
-      <option name="METHOD_NAME" value="testCalculateFitnessStatistics" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="PopulationTest.testReplacePopulationByAge" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="assignmentfiles_2018" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="PopulationTest" />
-      <option name="METHOD_NAME" value="testReplacePopulationByAge" />
-      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -338,17 +344,17 @@
       <item itemvalue="JAR Application.std" />
       <item itemvalue="JUnit.IndividualTest" />
       <item itemvalue="JUnit.PopulationTest" />
-      <item itemvalue="JUnit.PopulationTest.testCalculateFitnessStatistics" />
-      <item itemvalue="JUnit.PopulationTest.testReplacePopulationByAge" />
       <item itemvalue="JUnit.PopulationTest.testReplaceWorst" />
+      <item itemvalue="JUnit.IndividualTest.wholeArithmeticRecombination" />
+      <item itemvalue="JUnit.IndividualTest.blendCrossover" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.IndividualTest" />
+        <item itemvalue="JUnit.IndividualTest.blendCrossover" />
+        <item itemvalue="JUnit.IndividualTest.wholeArithmeticRecombination" />
         <item itemvalue="JUnit.PopulationTest" />
         <item itemvalue="JUnit.PopulationTest.testReplaceWorst" />
-        <item itemvalue="JUnit.PopulationTest.testReplacePopulationByAge" />
-        <item itemvalue="JUnit.PopulationTest.testCalculateFitnessStatistics" />
       </list>
     </recent_temporary>
   </component>
@@ -375,50 +381,50 @@
       <workItem from="1537715611882" duration="7087000" />
       <workItem from="1537794408831" duration="8650000" />
       <workItem from="1538145596387" duration="667000" />
-      <workItem from="1538405248258" duration="6141000" />
+      <workItem from="1538405248258" duration="7783000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="PopulationTest - 2018.09.19 at 13h 05m 21s.xml">
+    <history-entry file="PopulationTest_testReplaceWorst - 2018.10.01 at 22h 13m 28s.xml">
+      <configuration name="PopulationTest.testReplaceWorst" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="PopulationTest_testReplaceWorst - 2018.10.01 at 22h 13m 36s.xml">
+      <configuration name="PopulationTest.testReplaceWorst" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="PopulationTest_testReplaceWorst - 2018.10.01 at 22h 14m 19s.xml">
+      <configuration name="PopulationTest.testReplaceWorst" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="PopulationTest_testReplaceWorst - 2018.10.01 at 22h 14m 36s.xml">
+      <configuration name="PopulationTest.testReplaceWorst" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="PopulationTest_testReplaceWorst - 2018.10.01 at 22h 15m 43s.xml">
+      <configuration name="PopulationTest.testReplaceWorst" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="PopulationTest_testReplaceWorst - 2018.10.01 at 22h 15m 48s.xml">
+      <configuration name="PopulationTest.testReplaceWorst" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="PopulationTest_testReplaceWorst - 2018.10.01 at 22h 15m 51s.xml">
+      <configuration name="PopulationTest.testReplaceWorst" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="PopulationTest - 2018.10.01 at 22h 15m 56s.xml">
       <configuration name="PopulationTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="PopulationTest_testReplacePopulationByAge - 2018.09.23 at 17h 22m 57s.xml">
-      <configuration name="PopulationTest.testReplacePopulationByAge" configurationId="JUnit" />
+    <history-entry file="IndividualTest - 2018.10.01 at 22h 16m 05s.xml">
+      <configuration name="IndividualTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="PopulationTest_testReplacePopulationByAge - 2018.09.23 at 17h 23m 31s.xml">
-      <configuration name="PopulationTest.testReplacePopulationByAge" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="PopulationTest_testReplaceWorst - 2018.09.23 at 17h 27m 42s.xml">
-      <configuration name="PopulationTest.testReplaceWorst" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="PopulationTest_testReplaceWorst - 2018.09.23 at 17h 27m 56s.xml">
-      <configuration name="PopulationTest.testReplaceWorst" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="PopulationTest_testReplaceWorst - 2018.09.23 at 17h 28m 24s.xml">
-      <configuration name="PopulationTest.testReplaceWorst" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="PopulationTest_testReplaceWorst - 2018.09.23 at 17h 28m 56s.xml">
-      <configuration name="PopulationTest.testReplaceWorst" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="PopulationTest_testReplaceWorst - 2018.09.23 at 17h 29m 31s.xml">
-      <configuration name="PopulationTest.testReplaceWorst" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="PopulationTest - 2018.09.23 at 18h 25m 04s.xml">
-      <configuration name="PopulationTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="IndividualTest - 2018.09.24 at 15h 07m 45s.xml">
+    <history-entry file="IndividualTest - 2018.10.01 at 22h 17m 12s.xml">
       <configuration name="IndividualTest" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="67575000" />
+    <option name="totallyTimeSpent" value="69217000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="67" y="25" width="1853" height="1055" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21582733" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21582733" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -427,14 +433,14 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.23675676" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.3589189" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.32972974" />
       <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="9" visible="true" weight="0.26378378" />
+      <window_info anchor="bottom" id="Terminal" order="9" weight="0.26378378" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="Messages" order="11" weight="0.32972974" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -486,16 +492,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/IndividualTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Island.java">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -503,29 +499,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/PopulationTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="23" column="67" selection-start-line="23" selection-start-column="67" selection-end-line="23" selection-end-column="67" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Individual.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1668">
-          <caret line="70" lean-forward="true" selection-start-line="70" selection-end-line="70" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Group35.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="632">
+        <state relative-caret-position="225">
           <caret line="106" lean-forward="true" selection-start-line="106" selection-end-line="106" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -535,7 +511,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Population.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
+        <state relative-caret-position="-730">
+          <caret line="400" column="16" selection-start-line="400" selection-start-column="16" selection-end-line="400" selection-end-column="16" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1398#1526#0" />
@@ -553,13 +530,51 @@
             <element signature="method#storeBestIndividuals#0;class#Population#0" />
             <element signature="method#reinsertBestIndividuals#0;class#Population#0" />
             <element signature="method#replacePopulationByAge#0;class#Population#0" />
-            <element signature="method#replaceWorst#0;class#Population#0" />
             <element signature="method#muPlusLambdaSelection#0;class#Population#0" />
             <element signature="method#muCommaLambdaSelection#0;class#Population#0" />
             <element signature="method#roundRobinTournamentSelection#0;class#Population#0" />
             <element signature="method#mutate#0;class#Population#0" />
             <element signature="method#mutate#1;class#Population#0" />
             <element signature="method#randomSelectMates#0;class#Population#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/PopulationTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2205">
+          <caret line="257" column="37" selection-start-line="257" selection-start-column="37" selection-end-line="257" selection-end-column="37" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Individual.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="452">
+          <caret line="127" column="9" selection-start-line="127" selection-start-column="9" selection-end-line="127" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#Individual#0;class#Individual#0" />
+            <element signature="method#Individual#1;class#Individual#0" />
+            <element signature="method#Individual#2;class#Individual#0" />
+            <element signature="method#simpleArithmeticRecombination#0;class#Individual#0" />
+            <element signature="method#singleArithmeticRecombination#0;class#Individual#0" />
+            <element signature="method#uniformMutate#0;class#Individual#0" />
+            <element signature="method#nonUniformMutate#0;class#Individual#0" />
+            <element signature="e#8721#8722#0" expanded="true" />
+            <element signature="e#8752#8753#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/IndividualTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="120" column="78" selection-start-line="120" selection-start-column="78" selection-end-line="120" selection-end-column="78" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>

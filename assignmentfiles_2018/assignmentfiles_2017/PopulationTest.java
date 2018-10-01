@@ -99,7 +99,7 @@ public class PopulationTest {
         System.out.println(" -- Testing Calculate Fitness Statistics --");
 
         double sum = 0;
-        for (int i = 0; i < pop.size ; i++){
+        for (int i = 0; i < pop.populationSize ; i++){
             pop.population.get(i).fitness = i;
             sum = sum + i;
         }
@@ -117,7 +117,7 @@ public class PopulationTest {
     public void testCalculateStandardDeviation() {
         System.out.println(" -- Testing Calculate Standard Deviation --");
         double sums = 0;
-        for (int i = 0; i < pop.size ; i++){
+        for (int i = 0; i < pop.populationSize ; i++){
             pop.population.get(i).fitness = i;
             sums = sums + i;
         }
@@ -125,11 +125,11 @@ public class PopulationTest {
         double mean = sums/popSize;
 
         double sum = 0;
-        for (int i = 0; i < pop.size ; i++){
+        for (int i = 0; i < pop.populationSize ; i++){
             sum = sum + Math.pow(pop.population.get(i).fitness - mean,2);
         }
 
-        double expectedStdDev = Math.sqrt(sum/pop.size);
+        double expectedStdDev = Math.sqrt(sum/pop.populationSize);
         System.out.println("Expecting " + Double.toString(expectedStdDev) + " to be equal to " + Double.toString(pop.calculateStandardDeviation()));
         assertTrue(expectedStdDev == pop.calculateStandardDeviation());
     }
@@ -137,7 +137,7 @@ public class PopulationTest {
     @Test
     public void testCalculateCumulativeReproductionProbability() {
         System.out.println(" -- Testing Calculate Cumulative Reproduction Probability --");
-        for (int i = 0; i < pop.size ; i++){
+        for (int i = 0; i < pop.populationSize ; i++){
             pop.population.get(i).fitness = i;
         }
         pop.calculateLinearReproductionProbability(1.2);
@@ -151,7 +151,7 @@ public class PopulationTest {
     public void testRouletteWheel() {
         System.out.println(" -- Testing Roulette Wheel --");
 
-        for (int i = 0; i < pop.size ; i++){
+        for (int i = 0; i < pop.populationSize ; i++){
             pop.population.get(i).fitness = i;
             System.out.print("Assigning fitness " + Double.toString(pop.population.get(i).fitness) + "\n");
         }
@@ -170,8 +170,8 @@ public class PopulationTest {
     public void testStochasticUniversalSampling () {
         System.out.println(" -- Testing Stochastic Universal Sampling --");
 
-        for (int i = 0; i < pop.size ; i++){
-            pop.population.get(i).fitness = rand.nextDouble()*pop.size;
+        for (int i = 0; i < pop.populationSize ; i++){
+            pop.population.get(i).fitness = rand.nextDouble()*pop.populationSize;
             System.out.print("Assigning fitness " + Double.toString(pop.population.get(i).fitness) + "\n");
         }
 
@@ -234,7 +234,8 @@ public class PopulationTest {
     @Test
     public void testReplaceWorst () {
         pop.population.clear();
-
+        int oldSize = pop.populationSize;
+        pop.populationSize = 2;
         Individual offspring = new Individual();
         offspring.fitness = 9.0;
         pop.offsprings.add(offspring);
@@ -250,9 +251,11 @@ public class PopulationTest {
 
         pop.replaceWorst();
 
-        assertTrue(pop.offsprings.size() == 0);
-        assertTrue(pop.population.size() == 2);
+        assertEquals(0, pop.offsprings.size());
+        assertEquals(2, pop.population.size());
         assertFalse(pop.population.contains(badParent));
+
+        pop.populationSize = oldSize;
     }
 
     @Test
