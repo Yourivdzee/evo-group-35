@@ -38,19 +38,21 @@ public class Archipelago {
     public void migrate(String strat){
         switch (strat){
             case "circle":
-                for(int i = 1; i < islands.size() + 1 ; i++){
-                    int current = i%islands.size();
-                    int next = i+1%islands.size();
-                    islands.get(current).give(islands.get(next), numExchangeIndividuals, "whatever");
+                for(int i = 0; i < islands.size(); i++){
+                    int current = i%(islands.size());
+                    int next = (i+1)%(islands.size());
+                    islands.get(current).give(islands.get(next), numExchangeIndividuals, "best");
                 }
+                break;
             case "star":
                 for (Island island: islands ) {
                     Island randomIsland = islands.get(rand.nextInt(islands.size()));
                     while (randomIsland.recieved) {
                         randomIsland = islands.get(rand.nextInt(islands.size()));
                     }
-                    island.give(randomIsland, numExchangeIndividuals, "whatever");
+                    island.give(randomIsland, numExchangeIndividuals, "best");
                 }
+                break;
         }
 
         assert checkMigrationStatus();
@@ -62,7 +64,7 @@ public class Archipelago {
      * Used as an assertion.
      * @return: true if all islands have given/recieved individuals.
      */
-    private boolean checkMigrationStatus() {
+    public boolean checkMigrationStatus() {
         boolean checked = true;
         for (Island island: islands){
             if((!island.recieved) || (!island.gave))

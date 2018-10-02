@@ -4,7 +4,7 @@ https://www.overleaf.com/19471987rvpwvhsdtkhk
 
 # Run the Algorithm
 
-javac -cp contest.jar Group35.java Individual.java Population.java && jar cmf MainClass.txt submission.jar Group35.class Individual.class Population.class && java -jar testrun.jar -submission=Group35 -evaluation=SphereEvaluation -seed=1
+javac -cp contest.jar Group35.java Individual.java Population.java Island.java Archipelago.java && jar cmf MainClass.txt submission.jar Group35.class Individual.class Population.class Island.class Archipelago.class && java -jar testrun.jar -submission=Group35 -evaluation=SphereEvaluation -seed=1
 
 
 # Assignment Description

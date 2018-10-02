@@ -2,11 +2,6 @@ import java.util.*;
 import java.lang.Math;
 
 public class Population{
-    Integer populationSize;
-
-    Integer matingPoolSize;
-
-    Integer offspringsSize;
 
     Integer age = 0;
 
@@ -21,6 +16,12 @@ public class Population{
     Random rand = new Random();
 
     /* ---- PARAMETERS ---- */
+
+    Integer populationSize;
+
+    Integer matingPoolSize;
+
+    Integer offspringsSize;
 
     String recombinationStrat;
 
@@ -568,13 +569,19 @@ public class Population{
 
     }
 
+    /**
+     * Evolves the population by one generation.
+     */
     public void evolve() {
         // Select parents
         this.selectParents();
         assert (!this.matingPool.isEmpty());
 
+
         // Apply crossover / mutation operators
-        //this.makeBabies(this.recombinationStrat);
+        this.makeBabies();
+
+
 
     }
 
