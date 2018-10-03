@@ -44,10 +44,15 @@ public class Island {
             case "best":
                 for(int i = 0; i < num ; i++)
                     island.newIndividuals.add(population.population.remove(i));
+                break;
             case "second_best":
-                for(int i = 1; i < num ; i++)
-                    island.newIndividuals.add(population.population.remove(i + 1));
+                for(int i = 0; i < num ; i++)
+                    island.newIndividuals.add(population.population.remove(2*i + 1));
+                break;
+            default:
+                throw new IllegalArgumentException();
         }
+
         this.gave = true;
         island.recieved = true;
     }
@@ -57,6 +62,7 @@ public class Island {
      */
     public void integrateMigrants(){
         population.population.addAll(newIndividuals);
+        newIndividuals.clear();
         assert (population.population.size() == population.populationSize);
 
     }

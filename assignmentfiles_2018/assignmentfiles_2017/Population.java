@@ -43,6 +43,10 @@ public class Population{
 
     Double s;
 
+    Integer k;
+
+    Integer q;
+
     public Population(Integer size, Integer matingPoolSize, Integer offspringsSize){
         population = new ArrayList<>();
         matingPool = new ArrayList<>();
@@ -79,9 +83,15 @@ public class Population{
      * @param strat: selected strategy. Possible strategies are:
      *             - Roulette wheel - "RW"
      *             - Stochastic universal sampling - "SUS"
+     *             - Tournament selection - "tournament"
      */
     public void setParentSelectionStrategy(String strat){
         this.parentSelectionStrat = strat;
+    }
+
+    public void setParentSelectionStrategy(String strat, Integer k){
+        this.parentSelectionStrat = strat;
+        this.k = k;
     }
 
 
@@ -122,7 +132,7 @@ public class Population{
     /**
      * Sets the survivor selection strategy for this population,
      * @param strat: selected strategy. Possible strategies are:
-     *             - "tournament" - round-robin tournament
+     *             - "tournament" - round-robin tournament (needs parameter q)
      *             - "mu,lambda" - (mu,lambda)
      *             - "mu+lambda" - (mu+lambda)
      *             - "replaceWorst" - replace worst strategy
@@ -130,6 +140,11 @@ public class Population{
      */
     public void setSurvivorSelectionStrategy(String strat){
         this.survivorSelectionStrat = strat;
+    }
+
+    public void setSurvivorSelectionStrategy(String strat, Integer q){
+        this.survivorSelectionStrat = strat;
+        this.q = q;
     }
 
     /**
@@ -288,7 +303,7 @@ public class Population{
 
         ArrayList<Double> cumulativeProbability = calculateCumulativeReproductionProbability();
 
-        double r = rand.nextDouble() * 1./matingPoolSize;
+        double r = rand.nextDouble() /matingPoolSize;
 
         while (currentMember < matingPoolSize) {
             while ( r < cumulativeProbability.get(i)){
@@ -303,23 +318,24 @@ public class Population{
     }
 
     public void tournamentSelection() {
-        int k = 5;
         int currentMember = 0;
 
-        ArrayList<Individual> randSelection = new ArrayList<>();
-        while (currentMember <= offspringsSize){
+        while (currentMember < matingPoolSize){
+            ArrayList<Individual> randSelection = new ArrayList<>();
             for(int i = 0 ; i < k ; i++){
                 randSelection.add(population.get(rand.nextInt(population.size() - 1)));
             }
-            // THIS PART NEEDS FITNESS EVALUATION
+
             Collections.sort(randSelection, (i1, i2) -> Double.compare(i1.fitness, i2.fitness));
 
             Individual i = randSelection.get(randSelection.size() - 1);
+
 
             matingPool.add(i);
             currentMember += 1;
         }
     }
+
     /**
      * Sorts the population by fitness.
      */
@@ -437,17 +453,16 @@ public class Population{
         ArrayList<Individual> tournamentPool = new ArrayList<Individual>();
         tournamentPool.addAll(offsprings);
         tournamentPool.addAll(matingPool);
-        int q = 10; // recommended
 
         HashMap<Integer, ArrayList<Individual>> winCounts = new HashMap<>();
-        for(int i = 0; i <= q; i++){
+        for(int i = 0; i < q; i++){
             winCounts.put(i, new ArrayList<Individual>());
         }
 
-        for(Individual individual: tournamentPool){
-            tournamentPool.remove(individual);
+        for(int j = 0; j < tournamentPool.size() ; j++){
+            Individual individual = tournamentPool.get(j);
             int wins = 0;
-            for(int i = 0; i <= q; i++){
+            for(int i = 0; i < q; i++){
                 Individual opponent = tournamentPool.get(rand.nextInt(tournamentPool.size()));
                 if (individual.fitness > opponent.fitness)
                     wins++;
@@ -456,13 +471,15 @@ public class Population{
         }
 
         population.clear();
-        int counter = q;
+        int counter = q - 1;
         while(population.size() < populationSize){
             ArrayList<Individual> currentWinners = winCounts.get(counter);
             if(currentWinners.size() <= populationSize)
                 population.addAll(currentWinners);
             else
                 population.addAll(currentWinners.subList(0,populationSize));
+
+            counter--;
         }
 
         assert (population.size() == populationSize);
@@ -555,6 +572,9 @@ public class Population{
             case "SUS":
                 stochasticUniversalSampling();
                 break;
+            case "tournament":
+                tournamentSelection();
+                break;
             default:
                 throw new IllegalArgumentException();
         }
@@ -584,6 +604,7 @@ public class Population{
             default:
                 throw new IllegalArgumentException();
         }
+        matingPool.clear();
 
     }
 
@@ -598,9 +619,6 @@ public class Population{
 
         // Apply crossover / mutation operators
         this.makeBabies();
-
-
-
     }
 
 }

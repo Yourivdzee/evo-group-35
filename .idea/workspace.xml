@@ -3,13 +3,13 @@
   <component name="ChangeListManager">
     <list default="true" id="124c8272-ad3f-421f-a5a6-6dabf747012a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Archipelago.java" beforeDir="false" afterPath="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Archipelago.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/ArchipelagoTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/ArchipelagoTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Group35.class" beforeDir="false" afterPath="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Group35.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Group35.java" beforeDir="false" afterPath="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Group35.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Island.java" beforeDir="false" afterPath="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Island.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/IslandTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/IslandTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Population.class" beforeDir="false" afterPath="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Population.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Population.java" beforeDir="false" afterPath="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Population.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/PopulationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/PopulationTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/submission.jar" beforeDir="false" afterPath="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/submission.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/tmp/data_f12/bbobexp_f12_DIM10.dat" beforeDir="false" afterPath="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/tmp/data_f12/bbobexp_f12_DIM10.dat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/tmp/data_f12/bbobexp_f12_DIM10.tdat" beforeDir="false" afterPath="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/tmp/data_f12/bbobexp_f12_DIM10.tdat" afterDir="false" />
@@ -44,7 +44,7 @@
         <counts>
           <entry key="MF" value="1" />
           <entry key="class" value="1" />
-          <entry key="java" value="27" />
+          <entry key="java" value="29" />
           <entry key="md" value="1" />
           <entry key="txt" value="1" />
         </counts>
@@ -52,7 +52,7 @@
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="CLASS" value="1" />
-          <entry key="JAVA" value="27" />
+          <entry key="JAVA" value="29" />
           <entry key="Manifest" value="1" />
           <entry key="Markdown" value="1" />
           <entry key="PLAIN_TEXT" value="1" />
@@ -60,35 +60,34 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="28624" />
+          <entry key="java" value="29778" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="28624" />
+          <entry key="JAVA" value="29778" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.44201458">
+    <splitter split-orientation="horizontal" split-proportion="0.5082836">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Population.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="135">
-                  <caret line="15" column="31" lean-forward="true" selection-start-line="15" selection-start-column="31" selection-end-line="15" selection-end-column="31" />
+                <state relative-caret-position="247">
+                  <caret line="470" column="21" lean-forward="true" selection-start-line="470" selection-start-column="21" selection-end-line="470" selection-end-column="21" />
                   <folding>
                     <element signature="imports" expanded="true" />
-                    <element signature="e#8676#9467#0" />
+                    <element signature="e#2069#2623#0" />
                     <element signature="e#9898#10201#0" />
                     <element signature="e#10207#10706#0" />
                     <element signature="e#10712#11817#0" />
                     <element signature="e#11823#12208#0" />
                     <element signature="e#12214#12857#0" />
                     <element signature="e#12863#13433#0" />
-                    <element signature="e#13439#15130#0" />
                     <element signature="e#15136#16028#0" />
                     <element signature="e#16034#16390#0" />
                   </folding>
@@ -99,7 +98,7 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Individual.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="15">
+                <state relative-caret-position="555">
                   <caret line="71" column="7" selection-start-line="71" selection-start-column="7" selection-end-line="71" selection-end-column="7" />
                   <folding>
                     <element signature="imports" expanded="true" />
@@ -118,11 +117,11 @@
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/ArchipelagoTest.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="210">
-                  <caret line="14" column="16" selection-start-line="14" selection-start-column="16" selection-end-line="14" selection-end-column="16" />
+                <state relative-caret-position="180">
+                  <caret line="72" column="9" lean-forward="true" selection-start-line="72" selection-start-column="9" selection-end-line="72" selection-end-column="9" />
                   <folding>
                     <element signature="imports" expanded="true" />
                     <element signature="e#729#730#0" expanded="true" />
@@ -138,11 +137,11 @@
       </split-first>
       <split-second>
         <leaf>
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Group35.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="968">
-                  <caret line="255" column="41" selection-start-line="255" selection-start-column="41" selection-end-line="255" selection-end-column="41" />
+                <state relative-caret-position="540">
+                  <caret line="233" selection-start-line="233" selection-end-line="233" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -150,37 +149,11 @@
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Island.java">
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/PopulationTest.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="60">
-                  <caret line="4" column="13" lean-forward="true" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/IslandTest.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="375">
-                  <caret line="25" column="21" selection-start-line="25" selection-start-column="21" selection-end-line="25" selection-end-column="21" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                    <element signature="e#493#494#0" expanded="true" />
-                    <element signature="e#515#516#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Archipelago.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-95">
-                  <caret line="54" column="78" lean-forward="true" selection-start-line="54" selection-start-column="78" selection-end-line="54" selection-end-column="78" />
+                <state relative-caret-position="233">
+                  <caret line="274" column="57" selection-start-line="274" selection-start-column="57" selection-end-line="274" selection-end-column="57" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -220,6 +193,7 @@
       <find>randIsland</find>
       <find>matingPool</find>
       <find>hashMap</find>
+      <find>tournament</find>
     </findStrings>
     <replaceStrings>
       <replace>nextFloat()</replace>
@@ -235,15 +209,15 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/TestJunitTest.java" />
-        <option value="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/PopulationTest.java" />
         <option value="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Individual.java" />
         <option value="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/IndividualTest.java" />
-        <option value="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Population.java" />
         <option value="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Archipelago.java" />
-        <option value="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Group35.java" />
         <option value="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/ArchipelagoTest.java" />
         <option value="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Island.java" />
         <option value="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/IslandTest.java" />
+        <option value="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Group35.java" />
+        <option value="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Population.java" />
+        <option value="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/PopulationTest.java" />
       </list>
     </option>
   </component>
@@ -292,7 +266,7 @@
     <property name="Repository.Attach.Sources" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1538566783364" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1538574824254" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
     <property name="create.test.in.the.same.root" value="true" />
@@ -321,50 +295,50 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.ArchipelagoTest.testMigrateStar">
-    <configuration name="ArchipelagoTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.PopulationTest.testRoundRobin">
+    <configuration name="PopulationTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="assignmentfiles_2018" />
       <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="ArchipelagoTest" />
+      <option name="MAIN_CLASS_NAME" value="PopulationTest" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ArchipelagoTest.testCheckConvergence" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="PopulationTest.testRouletteWheel" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="assignmentfiles_2018" />
       <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="ArchipelagoTest" />
-      <option name="METHOD_NAME" value="testCheckConvergence" />
+      <option name="MAIN_CLASS_NAME" value="PopulationTest" />
+      <option name="METHOD_NAME" value="testRouletteWheel" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ArchipelagoTest.testCheckMigrationStatus" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="PopulationTest.testRoundRobin" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="assignmentfiles_2018" />
       <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="ArchipelagoTest" />
-      <option name="METHOD_NAME" value="testCheckMigrationStatus" />
+      <option name="MAIN_CLASS_NAME" value="PopulationTest" />
+      <option name="METHOD_NAME" value="testRoundRobin" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ArchipelagoTest.testMigrate" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="PopulationTest.testStochasticUniversalSampling" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="assignmentfiles_2018" />
       <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="ArchipelagoTest" />
-      <option name="METHOD_NAME" value="testMigrate" />
+      <option name="MAIN_CLASS_NAME" value="PopulationTest" />
+      <option name="METHOD_NAME" value="testStochasticUniversalSampling" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ArchipelagoTest.testMigrateStar" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="PopulationTest.testTournamentSelection" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="assignmentfiles_2018" />
       <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="ArchipelagoTest" />
-      <option name="METHOD_NAME" value="testMigrateStar" />
+      <option name="MAIN_CLASS_NAME" value="PopulationTest" />
+      <option name="METHOD_NAME" value="testTournamentSelection" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -379,19 +353,19 @@
     </configuration>
     <list>
       <item itemvalue="JAR Application.std" />
-      <item itemvalue="JUnit.ArchipelagoTest" />
-      <item itemvalue="JUnit.ArchipelagoTest.testMigrate" />
-      <item itemvalue="JUnit.ArchipelagoTest.testCheckMigrationStatus" />
-      <item itemvalue="JUnit.ArchipelagoTest.testCheckConvergence" />
-      <item itemvalue="JUnit.ArchipelagoTest.testMigrateStar" />
+      <item itemvalue="JUnit.PopulationTest.testTournamentSelection" />
+      <item itemvalue="JUnit.PopulationTest.testRouletteWheel" />
+      <item itemvalue="JUnit.PopulationTest" />
+      <item itemvalue="JUnit.PopulationTest.testRoundRobin" />
+      <item itemvalue="JUnit.PopulationTest.testStochasticUniversalSampling" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.ArchipelagoTest.testMigrateStar" />
-        <item itemvalue="JUnit.ArchipelagoTest.testCheckConvergence" />
-        <item itemvalue="JUnit.ArchipelagoTest.testCheckMigrationStatus" />
-        <item itemvalue="JUnit.ArchipelagoTest" />
-        <item itemvalue="JUnit.ArchipelagoTest.testMigrate" />
+        <item itemvalue="JUnit.PopulationTest.testRoundRobin" />
+        <item itemvalue="JUnit.PopulationTest.testStochasticUniversalSampling" />
+        <item itemvalue="JUnit.PopulationTest" />
+        <item itemvalue="JUnit.PopulationTest.testTournamentSelection" />
+        <item itemvalue="JUnit.PopulationTest.testRouletteWheel" />
       </list>
     </recent_temporary>
   </component>
@@ -420,44 +394,44 @@
       <workItem from="1538145596387" duration="667000" />
       <workItem from="1538405248258" duration="7845000" />
       <workItem from="1538494973479" duration="7331000" />
-      <workItem from="1538554338528" duration="10741000" />
+      <workItem from="1538554338528" duration="18244000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="ArchipelagoTest_testMigrate - 2018.10.02 at 19h 37m 17s.xml">
-      <configuration name="ArchipelagoTest.testMigrate" configurationId="JUnit" />
+    <history-entry file="PopulationTest_testRoundRobin - 2018.10.03 at 15h 47m 38s.xml">
+      <configuration name="PopulationTest.testRoundRobin" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ArchipelagoTest_testMigrate - 2018.10.03 at 10h 19m 43s.xml">
-      <configuration name="ArchipelagoTest.testMigrate" configurationId="JUnit" />
+    <history-entry file="PopulationTest_testRoundRobin - 2018.10.03 at 15h 47m 49s.xml">
+      <configuration name="PopulationTest.testRoundRobin" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ArchipelagoTest_testMigrate - 2018.10.03 at 10h 19m 59s.xml">
-      <configuration name="ArchipelagoTest.testMigrate" configurationId="JUnit" />
+    <history-entry file="PopulationTest_testRoundRobin - 2018.10.03 at 15h 47m 56s.xml">
+      <configuration name="PopulationTest.testRoundRobin" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ArchipelagoTest_testMigrate - 2018.10.03 at 10h 20m 39s.xml">
-      <configuration name="ArchipelagoTest.testMigrate" configurationId="JUnit" />
+    <history-entry file="PopulationTest_testRoundRobin - 2018.10.03 at 15h 48m 03s.xml">
+      <configuration name="PopulationTest.testRoundRobin" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ArchipelagoTest - 2018.10.03 at 10h 28m 50s.xml">
-      <configuration name="ArchipelagoTest" configurationId="JUnit" />
+    <history-entry file="PopulationTest_testRoundRobin - 2018.10.03 at 15h 48m 15s.xml">
+      <configuration name="PopulationTest.testRoundRobin" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ArchipelagoTest - 2018.10.03 at 10h 35m 42s.xml">
-      <configuration name="ArchipelagoTest" configurationId="JUnit" />
+    <history-entry file="PopulationTest_testRoundRobin - 2018.10.03 at 15h 48m 57s.xml">
+      <configuration name="PopulationTest.testRoundRobin" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ArchipelagoTest_testCheckMigrationStatus - 2018.10.03 at 13h 23m 37s.xml">
-      <configuration name="ArchipelagoTest.testCheckMigrationStatus" configurationId="JUnit" />
+    <history-entry file="PopulationTest_testRoundRobin - 2018.10.03 at 15h 49m 10s.xml">
+      <configuration name="PopulationTest.testRoundRobin" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ArchipelagoTest_testCheckConvergence - 2018.10.03 at 13h 28m 17s.xml">
-      <configuration name="ArchipelagoTest.testCheckConvergence" configurationId="JUnit" />
+    <history-entry file="PopulationTest_testRoundRobin - 2018.10.03 at 15h 49m 19s.xml">
+      <configuration name="PopulationTest.testRoundRobin" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ArchipelagoTest_testMigrateStar - 2018.10.03 at 13h 34m 13s.xml">
-      <configuration name="ArchipelagoTest.testMigrateStar" configurationId="JUnit" />
+    <history-entry file="PopulationTest_testRoundRobin - 2018.10.03 at 15h 49m 27s.xml">
+      <configuration name="PopulationTest.testRoundRobin" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ArchipelagoTest_testMigrateStar - 2018.10.03 at 13h 34m 18s.xml">
-      <configuration name="ArchipelagoTest.testMigrateStar" configurationId="JUnit" />
+    <history-entry file="PopulationTest_testRoundRobin - 2018.10.03 at 15h 49m 54s.xml">
+      <configuration name="PopulationTest.testRoundRobin" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="87351000" />
+    <option name="totallyTimeSpent" value="94854000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="67" y="25" width="1853" height="1055" extended-state="6" />
@@ -472,7 +446,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.23783784" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.40216216" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -571,9 +545,41 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Archipelago.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="92" column="19" selection-start-line="92" selection-start-column="19" selection-end-line="92" selection-end-column="19" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/IslandTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="519">
+          <caret line="94" column="46" lean-forward="true" selection-start-line="94" selection-start-column="46" selection-end-line="94" selection-end-column="46" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#315#316#0" expanded="true" />
+            <element signature="e#364#365#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Island.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="217">
+          <caret line="64" column="31" selection-start-line="64" selection-start-column="31" selection-end-line="64" selection-end-column="31" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Individual.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
+        <state relative-caret-position="555">
           <caret line="71" column="7" selection-start-line="71" selection-start-column="7" selection-end-line="71" selection-end-column="7" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -591,60 +597,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/PopulationTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="15" column="16" lean-forward="true" selection-start-line="15" selection-start-column="16" selection-end-line="15" selection-end-column="16" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Island.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="13" lean-forward="true" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Population.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="15" column="31" lean-forward="true" selection-start-line="15" selection-start-column="31" selection-end-line="15" selection-end-column="31" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#8676#9467#0" />
-            <element signature="e#9898#10201#0" />
-            <element signature="e#10207#10706#0" />
-            <element signature="e#10712#11817#0" />
-            <element signature="e#11823#12208#0" />
-            <element signature="e#12214#12857#0" />
-            <element signature="e#12863#13433#0" />
-            <element signature="e#13439#15130#0" />
-            <element signature="e#15136#16028#0" />
-            <element signature="e#16034#16390#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Archipelago.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-95">
-          <caret line="54" column="78" lean-forward="true" selection-start-line="54" selection-start-column="78" selection-end-line="54" selection-end-column="78" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/ArchipelagoTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="16" selection-start-line="14" selection-start-column="16" selection-end-line="14" selection-end-column="16" />
+        <state relative-caret-position="180">
+          <caret line="72" column="9" lean-forward="true" selection-start-line="72" selection-start-column="9" selection-end-line="72" selection-end-column="9" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#729#730#0" expanded="true" />
@@ -655,22 +611,39 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/IslandTest.java">
+    <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Group35.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="25" column="21" selection-start-line="25" selection-start-column="21" selection-end-line="25" selection-end-column="21" />
+        <state relative-caret-position="540">
+          <caret line="233" selection-start-line="233" selection-end-line="233" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#493#494#0" expanded="true" />
-            <element signature="e#515#516#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Group35.java">
+    <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Population.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="968">
-          <caret line="255" column="41" selection-start-line="255" selection-start-column="41" selection-end-line="255" selection-end-column="41" />
+        <state relative-caret-position="247">
+          <caret line="470" column="21" lean-forward="true" selection-start-line="470" selection-start-column="21" selection-end-line="470" selection-end-column="21" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2069#2623#0" />
+            <element signature="e#9898#10201#0" />
+            <element signature="e#10207#10706#0" />
+            <element signature="e#10712#11817#0" />
+            <element signature="e#11823#12208#0" />
+            <element signature="e#12214#12857#0" />
+            <element signature="e#12863#13433#0" />
+            <element signature="e#15136#16028#0" />
+            <element signature="e#16034#16390#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/PopulationTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="233">
+          <caret line="274" column="57" selection-start-line="274" selection-start-column="57" selection-end-line="274" selection-end-column="57" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

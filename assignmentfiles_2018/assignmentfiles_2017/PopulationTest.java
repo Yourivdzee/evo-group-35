@@ -1,10 +1,8 @@
-import org.junit.Assert;
+
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeAll;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import java.util.Random;
 
@@ -156,7 +154,7 @@ public class PopulationTest {
             System.out.print("Assigning fitness " + Double.toString(pop.population.get(i).fitness) + "\n");
         }
 
-        pop.calculateLinearReproductionProbability(1.2);
+        pop.calculateLinearReproductionProbability(1.5);
 
         pop.rouletteWheel();
 
@@ -259,7 +257,35 @@ public class PopulationTest {
     }
 
     @Test
-    public void tournamentSelection () {
-        System.out.print("MISSING TEST");
+    public void testTournamentSelection () {
+        pop.setParentSelectionStrategy("tournament",2);
+        for (int i = 0; i < pop.populationSize ; i++){
+            pop.population.get(i).fitness = rand.nextDouble()*pop.populationSize;
+            System.out.print("Assigning fitness " + Double.toString(pop.population.get(i).fitness) + "\n");
+        }
+        pop.tournamentSelection();
+        assertEquals(pop.matingPool.size(), (int) pop.matingPoolSize);
+        for (Individual individual: pop.matingPool){
+            System.out.println("Selected individual with fitness: " + Double.toString(individual.fitness));
+        }
+    }
+
+    @Test
+    public void testRoundRobin() {
+        pop.setSurvivorSelectionStrategy("tournament", 3);
+        for (int i = 0; i < pop.populationSize ; i++){
+            pop.matingPool.add(pop.population.get(rand.nextInt(pop.population.size() -1)));
+        }
+
+        for (int i = 0; i < pop.populationSize ; i++){
+            pop.population.get(i).fitness = rand.nextDouble()*pop.populationSize;
+            System.out.print("Assigning fitness " + Double.toString(pop.population.get(i).fitness) + "\n");
+        }
+        pop.roundRobinTournamentSelection();
+
+        for (Individual individual: pop.population){
+            System.out.println("Selected individual with fitness: " + Double.toString(individual.fitness));
+        }
+
     }
 }
