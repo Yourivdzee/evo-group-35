@@ -63,6 +63,9 @@ public class Archipelago {
 
     }
 
+
+
+
     /**
      * Checks that all islands have given and recieved individuals
      * Used as an assertion.
@@ -75,6 +78,16 @@ public class Archipelago {
                 checked = false;
         }
         return checked;
+    }
+
+    /**
+     * Sets the migration status for all islands to false.
+     */
+    public void resetMigrationStatus() {
+        for (Island island: islands){
+            island.gave = false;
+            island.recieved = false;
+        }
     }
 
     /**
