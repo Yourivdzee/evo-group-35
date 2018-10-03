@@ -10,12 +10,15 @@ public class Island {
 
     boolean gave;
 
+    double maxFitness;
+
     ArrayList<Individual> newIndividuals;
 
     public Island(int id) {
         newIndividuals = new ArrayList<>();
         recieved = false;
         gave = false;
+        maxFitness = 0;
         this.id = id;
     }
 
@@ -54,5 +57,13 @@ public class Island {
     public void integrateMigrants(){
         population.population.addAll(newIndividuals);
         assert (population.population.size() == population.populationSize);
+    }
+
+    /**
+     * Updates the islands current maximum fitness
+     */
+    public void updateMaxFitness() {
+        population.sortPopulationByFitness();
+        maxFitness = population.population.get(population.population.size()-1).fitness;
     }
 }

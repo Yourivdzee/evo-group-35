@@ -14,8 +14,9 @@ public class Archipelago {
 
     ArrayList<Island> migrationPool;
 
-    public Archipelago(Integer size) {
+    public Archipelago(Integer size, Integer numExchangeIndividuals) {
         this.size = size;
+        this.numExchangeIndividuals = numExchangeIndividuals;
         this.islands = new ArrayList<>();
         this.rand = new Random();
         this.migrationPool = new ArrayList<>();
