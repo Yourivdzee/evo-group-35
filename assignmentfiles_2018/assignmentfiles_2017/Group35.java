@@ -228,10 +228,10 @@ public class Group35 implements ContestSubmission
         }
 
         while(evals<evaluations_limit_){
+            archipelago.resetMigrationStatus();
             for (Island island: archipelago.islands) {
                 System.out.println("------- Generation " + Integer.toString(evals/(numIslands*populationSize)) + " -------");
                 Population population = island.population;
-
 
                 // Select parents
                 population.selectParents();

@@ -272,7 +272,7 @@ public class PopulationTest {
 
     @Test
     public void testRoundRobin() {
-        pop.setSurvivorSelectionStrategy("tournament", 3);
+        pop.setSurvivorSelectionStrategy("tournament", 10);
         for (int i = 0; i < pop.populationSize ; i++){
             pop.matingPool.add(pop.population.get(rand.nextInt(pop.population.size() -1)));
         }

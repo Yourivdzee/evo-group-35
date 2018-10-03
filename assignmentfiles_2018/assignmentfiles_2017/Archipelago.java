@@ -61,6 +61,7 @@ public class Archipelago {
 
         assert checkMigrationStatus();
 
+
     }
 
     /**
@@ -75,6 +76,16 @@ public class Archipelago {
                 checked = false;
         }
         return checked;
+    }
+
+    /**
+     * Sets the migration status for all islands to false.
+     */
+    public void resetMigrationStatus() {
+        for (Island island: islands){
+            island.gave = false;
+            island.recieved = false;
+        }
     }
 
     /**
