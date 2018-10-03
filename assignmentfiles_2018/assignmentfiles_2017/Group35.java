@@ -265,7 +265,6 @@ public class Group35 implements ContestSubmission
                 // System.out.println("------- Generation " + Integer.toString(evals/(numIslands*populationSize)) + " -------");
                 Population population = island.population;
 
-
                 // Select parents
                 population.selectParents();
                 assert (!population.matingPool.isEmpty());
