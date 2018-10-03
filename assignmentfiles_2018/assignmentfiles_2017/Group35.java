@@ -157,8 +157,10 @@ public class Group35 implements ContestSubmission
     public void run()
     {
         // Run your algorithm here
-        System.out.println("Initializing algorithm...");
+        // System.out.println("Initializing algorithm...");
 
+    	// Initialize printer class
+    	Printing printing = new Printing();
 
         // ------- PARAMETERS ------- //
         //      ** GENERAL **         //
@@ -198,13 +200,18 @@ public class Group35 implements ContestSubmission
 
         int evals = 0;
 
+        // Column names for output file
+        System.out.println("Generation IslandId Exchange Maximum Average StandardDev");
+
         int numIslands = 2;
         int numExchangeIndividuals = 2;
-        int epoch = 5;
+        int epoch = 10;
+        int archipelagoSize = numIslands * populationSize;
+
         Archipelago archipelago = new Archipelago(numIslands,numExchangeIndividuals, epoch);
 
         // init population
-        System.out.println("Initializing population - μ: " + Integer.toString(populationSize) + "  λ:" + Integer.toString(offspringsSize));
+        // System.out.println("Initializing population - μ: " + Integer.toString(populationSize) + "  λ:" + Integer.toString(offspringsSize));
 
         for(int i = 0; i < archipelago.size; i++){
             Population population = new Population(populationSize, matingPoolSize, offspringsSize);
@@ -216,42 +223,75 @@ public class Group35 implements ContestSubmission
             archipelago.islands.get(i).populate(population);
         }
 
-
         // calculate fitness
-        System.out.println("Calculating fitness of initial population");
+        // System.out.println("Calculating fitness of initial population");
+
+        ArrayList<Double> archipelagoFitnessValues = new ArrayList<>();
+        int island_id = 0;
+
         for(Island island: archipelago.islands) {
+            island_id++;
             Population population = island.population;
             for (Individual individual : population.population) {
                 individual.fitness = (double) evaluation_.evaluate(individual.genotype);
                 evals++;
+
+                archipelagoFitnessValues.add(individual.fitness);
             }
+
+            // calculate and print initial fintess statistics for this island
+            ArrayList<Double> generationalStatistics = population.calculateFitnessStatistics();
+            printing.printIslandStats(archipelago.age, island_id, generationalStatistics.get(2),
+             generationalStatistics.get(3), population.calculateStandardDeviation());
+
         }
 
+        // calculate and print initial statistics for the archipelago
+        printing.printArchipelagoStats(archipelago.age, archipelago.checkMigrationStatus(), archipelagoSize, archipelagoFitnessValues);
+
         while(evals<evaluations_limit_){
+
+            archipelago.resetMigrationStatus();
+
+            island_id = 0;
+
+            // Initialize list to store all the fitness values for this generation
+            archipelagoFitnessValues = new ArrayList<>();
+
             for (Island island: archipelago.islands) {
-                System.out.println("------- Generation " + Integer.toString(evals/(numIslands*populationSize)) + " -------");
+
+                island_id++;
+
+                // System.out.println("------- Generation " + Integer.toString(evals/(numIslands*populationSize)) + " -------");
                 Population population = island.population;
 
 
                 // Select parents
                 population.selectParents();
                 assert (!population.matingPool.isEmpty());
-                System.out.println("Finished parent selection with " + Integer.toString(population.matingPool.size()) + " candidates.");
+                // System.out.println("Finished parent selection with " + Integer.toString(population.matingPool.size()) + " candidates.");
 
                 // Apply crossover / mutation operators
-                System.out.println("Making babies with recombination " + recombinationStrategy);
+                // System.out.println("Making babies with recombination " + recombinationStrategy);
                 population.makeBabies();
-                System.out.println("Made " + Integer.toString(population.offsprings.size()) + " babies");
+                // System.out.println("Made " + Integer.toString(population.offsprings.size()) + " babies");
 
-                System.out.println("Evaluating newborns");
+                // System.out.println("Evaluating newborns");
                 for (Individual child : population.offsprings) {
                     // Check fitness of unknown fuction
                     child.fitness = (double) evaluation_.evaluate(child.genotype);
                     evals++;
+
+                    archipelagoFitnessValues.add(child.fitness);
                 }
 
                 // Select survivors
                 population.selectSurvivors();
+
+                // Calculate and print fitness statistics for this island for this generation
+                ArrayList<Double> generationalStatistics = population.calculateFitnessStatistics();
+                printing.printIslandStats(archipelago.age, island_id, generationalStatistics.get(2),
+			         generationalStatistics.get(3), population.calculateStandardDeviation());
 
             }
 
@@ -263,6 +303,9 @@ public class Group35 implements ContestSubmission
             archipelago.updateHistory();
 
             archipelago.age++;
+
+            printing.printArchipelagoStats(archipelago.age, archipelago.checkMigrationStatus(), archipelagoSize, archipelagoFitnessValues);
+
         }
 
     }
