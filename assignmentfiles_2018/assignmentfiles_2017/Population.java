@@ -302,6 +302,24 @@ public class Population{
         Collections.addAll(matingPool, result);
     }
 
+    public void tournamentSelection() {
+        int k = 5;
+        int currentMember = 0;
+
+        ArrayList<Individual> randSelection = new ArrayList<>();
+        while (currentMember <= offspringsSize){
+            for(int i = 0 ; i < k ; i++){
+                randSelection.add(population.get(rand.nextInt(population.size() - 1)));
+            }
+            // THIS PART NEEDS FITNESS EVALUATION
+            Collections.sort(randSelection, (i1, i2) -> Double.compare(i1.fitness, i2.fitness));
+
+            Individual i = randSelection.get(randSelection.size() - 1);
+
+            matingPool.add(i);
+            currentMember += 1;
+        }
+    }
     /**
      * Sorts the population by fitness.
      */

@@ -8,14 +8,17 @@ public class Archipelago {
 
     int numExchangeIndividuals; // 2-5 recommended
 
+    int age;
+
     Random rand;
 
     ArrayList<Island> islands;
 
     ArrayList<Island> migrationPool;
 
-    public Archipelago(Integer size, Integer numExchangeIndividuals) {
+    public Archipelago(Integer size, Integer numExchangeIndividuals, Integer epoch) {
         this.size = size;
+        this.epoch = epoch;
         this.numExchangeIndividuals = numExchangeIndividuals;
         this.islands = new ArrayList<>();
         this.rand = new Random();
@@ -83,5 +86,24 @@ public class Archipelago {
             island.integrateMigrants();
     }
 
+    /**
+     * Checks if all islands in the archipelago have converged
+     * @return: true if all islands have converged.
+     */
+    public boolean checkConvergence() {
+        for (Island island: islands) {
+            if (!island.checkConvergence(epoch))
+                return false;
+        }
+        return true;
+    }
+
+    /**
+     * Updates the history of max fitness of all islands.
+     */
+    public void updateHistory() {
+        for(Island island: islands)
+            island.addMaxFitness();
+    }
 
 }

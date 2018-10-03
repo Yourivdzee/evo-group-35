@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.NoSuchElementException;
 
 public class Island {
     int id;
@@ -10,15 +11,15 @@ public class Island {
 
     boolean gave;
 
-    double maxFitness;
+    ArrayList<Double> maxFitnessHistory;
 
     ArrayList<Individual> newIndividuals;
 
     public Island(int id) {
         newIndividuals = new ArrayList<>();
+        maxFitnessHistory = new ArrayList<>();
         recieved = false;
         gave = false;
-        maxFitness = 0;
         this.id = id;
     }
 
@@ -57,13 +58,27 @@ public class Island {
     public void integrateMigrants(){
         population.population.addAll(newIndividuals);
         assert (population.population.size() == population.populationSize);
+
     }
 
     /**
      * Updates the islands current maximum fitness
      */
-    public void updateMaxFitness() {
+    public void addMaxFitness() {
         population.sortPopulationByFitness();
-        maxFitness = population.population.get(population.population.size()-1).fitness;
+        maxFitnessHistory.add(population.population.get(population.population.size()-1).fitness);
+    }
+
+    /**
+     * Checks if the maximum fitness has converged for a number of generations.
+     */
+    public boolean checkConvergence(Integer num) {
+        try {
+            double maxFitness = Collections.max(maxFitnessHistory);
+            int maxFitGeneration = maxFitnessHistory.indexOf(maxFitness);
+            return maxFitnessHistory.size() - maxFitGeneration >= num;
+        }catch (NoSuchElementException e){
+            return false;
+        }
     }
 }
