@@ -2,6 +2,19 @@
 
 https://www.overleaf.com/19471987rvpwvhsdtkhk
 
+# Specifying the parameters before run
+
+Example Command:
+
+java–Dpopulation=100.0 -jartestrun.jar-submission=player1  - evaluation=BentCigarFunction-seed=1 
+
+Example In Java:
+
+Double.parseDouble(System.getProperty(“var1”)); 
+
+Source: tutorial pdf on Canvas
+
+
 # Run the Algorithm
 
 javac -cp contest.jar Group35.java Individual.java Population.java Island.java Archipelago.java Printing.java && jar cmf MainClass.txt submission.jar Group35.class Individual.class Population.class Island.class Archipelago.class Printing.class && java -jar testrun.jar -submission=Group35 -evaluation=SphereEvaluation -seed=1
