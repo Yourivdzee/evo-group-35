@@ -64,6 +64,53 @@ public class Archipelago {
 
     }
 
+    public ArrayList<Double> calculateFitnessStatistics(){
+
+        ArrayList<Double> stats = new ArrayList<>();
+
+        double sum = 0;
+        double min = 10;
+        double max = 0;
+        double stdv = 0;
+
+        double globalPopulationSize = size * islands.get(0).population.populationSize;
+
+        for(Island island: islands){
+            for(Individual individual: island.population.population){
+
+                sum += individual.fitness;
+
+                if(individual.fitness < min){
+                    min = individual.fitness;
+                }
+
+                if(individual.fitness > max){
+                    max = individual.fitness;
+                }
+
+            }
+        }
+
+        double mean = sum / (globalPopulationSize);
+
+        for(Island island: islands){
+            for(Individual individual: island.population.population){
+
+                stdv += Math.pow(individual.fitness - mean, 2);                
+            }
+        }
+
+        stdv = Math.sqrt(stdv / globalPopulationSize);
+
+        stats.add(min);
+        stats.add(max);
+        stats.add(mean);
+        stats.add(stdv);
+
+        return stats;
+
+    }
+
 
 
 
