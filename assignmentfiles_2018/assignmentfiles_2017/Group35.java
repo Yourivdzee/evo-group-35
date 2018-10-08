@@ -27,7 +27,12 @@ public class Group35 implements ContestSubmission
 		rnd_.setSeed(seed);
 	}
 
-	public void setEvaluation(ContestEvaluation evaluation)
+    @Override
+    public void run() {
+        run_island();
+    }
+
+    public void setEvaluation(ContestEvaluation evaluation)
 	{
 		// Set evaluation problem used in the run
 		evaluation_ = evaluation;
@@ -61,7 +66,7 @@ public class Group35 implements ContestSubmission
     }
 
 
-    public void run()
+    public void run_island()
     {
         // Run your algorithm here
         // System.out.println("Initializing algorithm...");
@@ -106,6 +111,7 @@ public class Group35 implements ContestSubmission
                 "exponential"   // no parameter needed
         );
         double s = 1.5; // should be between 1 and 2
+        String mutStrategy = "Non-uniform-ctrl-adap";
 
 
         int evals = 0;
@@ -115,7 +121,7 @@ public class Group35 implements ContestSubmission
 	        System.out.println("Generation IslandId Exchange Maximum Average StandardDev");
 		}
 
-        int numIslands = 5;
+        int numIslands = 1;
         int numExchangeIndividuals = 2;
         int epoch = 10;
         int archipelagoSize = numIslands * populationSize;
@@ -131,7 +137,7 @@ public class Group35 implements ContestSubmission
             population.setParentSelectionStrategy("SUS");
             population.setRecombinationStrategy("simple-arith");
             //population.setMutationStrategy("uniform", 0.05);
-            population.setMutationStrategy("non-uniform", 0.05  , 0.0);
+            population.setMutationStrategy(mutStrategy, 0.05  , 0.0);
             population.setSurvivorSelectionStrategy("replaceWorst");
             archipelago.islands.get(i).populate(population);
         }
@@ -148,7 +154,7 @@ public class Group35 implements ContestSubmission
             //evals += population.evaluate();
             for (Individual individual : population.population) {
                 individual.fitness = (double) evaluation_.evaluate(individual.genotype);
-                evals++;
+                EvaluationCounter.increaseEvaluation();
 
             }
 
@@ -163,8 +169,8 @@ public class Group35 implements ContestSubmission
         }
 
         }
-
-        while(evals<evaluations_limit_){
+        //evaluations_limit_
+        while(EvaluationCounter.getN_evaluations()<evaluations_limit_){
 
             archipelago.resetMigrationStatus();
 
@@ -191,12 +197,17 @@ public class Group35 implements ContestSubmission
                 // System.out.println("Made " + Integer.toString(population.offsprings.size()) + " babies");
 
                 // System.out.println("Evaluating newborns");
-//                evals+=population.evaluate();
-                for (Individual child : population.offsprings) {
-                    // Check fitness of unknown fuction
-                    child.fitness = (double) evaluation_.evaluate(child.genotype);
-                    evals++;
+                if (mutationStrategy.equals("Non-uniform-ctrl-adap")) {
+                    System.out.println("TESST");
 
+                }
+                else{
+                    for (Individual child : population.offsprings) {
+                        // Check fitness of unknown fuction
+                        child.fitness = (double) evaluation_.evaluate(child.genotype);
+                        EvaluationCounter.increaseEvaluation();
+
+                    }
                 }
 
                 // Select survivors
@@ -204,20 +215,26 @@ public class Group35 implements ContestSubmission
 
                 // Calculate and print fitness statistics for this island for this generation
 	            if (gather){
+	                for (int i = 0; i < population.population.size(); i++){
+                        System.out.println((Double.toString(population.population.get(i).fitness)));
+                    }
 		            printing.printStats(archipelago.age, island_id, false, population.calculateFitnessStatistics());
 	            }
 
             }
-
-            if (archipelago.checkConvergence())
-                archipelago.migrate("circle");
-
-
-            archipelago.integrateAllMigrants();
-            archipelago.updateHistory();
+//
+//            if (archipelago.checkConvergence())
+//                archipelago.migrate("circle");
+//
+//
+//            archipelago.integrateAllMigrants();
+//            archipelago.updateHistory();
 
 
 	        if(gather){
+	            for (int i = 0; i<archipelago.islands.get(0).population.population.size(); i++){
+                    System.out.println(archipelago.islands.get(0).population.population.get(i).fitness);
+                }
 	        	printing.printStats(archipelago.age, 0, archipelago.checkMigrationStatus(), archipelago.calculateFitnessStatistics());
 	        }
 

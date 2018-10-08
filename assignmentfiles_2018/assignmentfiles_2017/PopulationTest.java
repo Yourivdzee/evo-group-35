@@ -1,6 +1,7 @@
 
 import org.junit.Before;
 import org.junit.Test;
+import org.vu.contest.ContestEvaluation;
 
 import java.util.ArrayList;
 
@@ -19,7 +20,8 @@ public class PopulationTest {
 
     @Before
     public void init() {
-        pop = new Population(popSize, matingPoolSize, offspringSize);
+        ContestEvaluation evaluation_ = null;
+        pop = new Population(evaluation_, popSize, matingPoolSize, offspringSize);
         rand = new Random();
         rand.setSeed(1);
     }
@@ -67,6 +69,14 @@ public class PopulationTest {
         }
 
         assertTrue(pop.population.get(popSize - 1).selection_prob > pop.population.get(popSize - 2).selection_prob);
+    }
+
+    @Test
+    public void testEvaluationCounter(){
+        int increases = 5;
+        for (int i = 0; i < increases ; i++)
+            EvaluationCounter.increaseEvaluation();
+        assertEquals(EvaluationCounter.getN_evaluations(), increases);
     }
 
     @Test

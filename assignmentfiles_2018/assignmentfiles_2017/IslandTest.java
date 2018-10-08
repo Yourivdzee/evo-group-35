@@ -1,5 +1,6 @@
 import org.junit.Before;
 import org.junit.Test;
+import org.vu.contest.ContestEvaluation;
 
 import java.util.ArrayList;
 
@@ -13,11 +14,13 @@ public class IslandTest {
 
     @Before
     public void init(){
+        ContestEvaluation evaluation_ = null;
+
         island1 = new Island(1);
         island2 = new Island(2);
-        Population population1 = new Population(3,3,3);
+        Population population1 = new Population(evaluation_, 3,3,3);
         island1.populate(population1);
-        Population population2 = new Population(3,3,3);
+        Population population2 = new Population(evaluation_, 3,3,3);
         island2.populate(population2);
     }
 

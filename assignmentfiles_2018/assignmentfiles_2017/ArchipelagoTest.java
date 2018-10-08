@@ -1,5 +1,6 @@
 import org.junit.Before;
 import org.junit.Test;
+import org.vu.contest.ContestEvaluation;
 
 import java.util.ArrayList;
 
@@ -13,12 +14,14 @@ public class ArchipelagoTest {
 
     @Before
     public void init() {
+        ContestEvaluation evaluation_ = null;
+
         this.size = 3;
         archipelago = new Archipelago(size,1, 4);
         // Initialize archipelago with islands with 2 individuals each
         for(int i = 0; i < size ; i++){
             Island island = archipelago.islands.get(i);
-            island.populate(new Population(2,2,2));
+            island.populate(new Population(evaluation_, 2,2,2));
             for(int j = 0; j < island.population.population.size() ; j++){
                 island.population.population.get(j).fitness = j + 1;
             }
