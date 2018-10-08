@@ -82,7 +82,7 @@ public class Group35 implements ContestSubmission
         List<String> recombinationStrategies = Arrays.asList(
                 "simple-arith",  // no parameter needed
                 "single-arith",  // no parameter needed
-                "whole-arith",   // no parameter needed
+                "whole-arith",   // needs parameter alfa
                 "BLX"            // needs parameter alfa
         );
         double alfa = 0.5;

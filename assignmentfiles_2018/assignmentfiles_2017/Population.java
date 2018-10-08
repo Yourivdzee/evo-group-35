@@ -149,10 +149,10 @@ public class Population{
 
     /**
      * Calculates all relevant fitness statistics of a population, including:
-     *  - Total fitness
      *  - Min fitness
      *  - Max fitness
      *  - Mean fitness
+     *  - Std fitness
      *  (the reason why all of these are cramped up together in one function is
      *  to avoid unecessary performance issues when using more than one of the stats,
      *  since that would require performing several loops over the whole population)
@@ -164,6 +164,7 @@ public class Population{
         double total_fitness = 0;
         double min_fitness = Double.MAX_VALUE;
         double max_fitness = 0;
+        double std_fitness = 0;
 
 
         for(Individual individual: population){
@@ -178,30 +179,18 @@ public class Population{
 
         double mean_fitness = total_fitness/population.size();
 
-        stats.add(total_fitness);
+        for(Individual individual: population){
+            std_fitness += Math.pow(individual.fitness - mean_fitness, 2);
+        }
+
+        std_fitness = Math.sqrt(std_fitness / population.size());
+
         stats.add(min_fitness);
         stats.add(max_fitness);
         stats.add(mean_fitness);
+        stats.add(std_fitness);
 
         return stats;
-    }
-
-    /**
-     * Calculates the standard deviation of the population's fitness.
-     * @return
-     */
-    public double calculateStandardDeviation() {
-        ArrayList<Double> stats = calculateFitnessStatistics();
-        double mean = stats.get(3);
-
-        double sum = 0;
-        for (Individual individual: population){
-            sum = sum + Math.pow(individual.fitness - mean, 2);
-        }
-
-        double std_deviation = Math.sqrt(sum/population.size());
-
-        return std_deviation;
     }
 
     /**
@@ -215,7 +204,6 @@ public class Population{
             population.get(i).selection_prob = (2 - s) / populationSize + 2 * i * (s - 1) / (populationSize * (populationSize - 1));
         }
     }
-
 
     /**
      * Calculates and assigns the reproduction probability of each individual based
