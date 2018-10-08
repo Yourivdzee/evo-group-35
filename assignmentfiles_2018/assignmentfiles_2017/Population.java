@@ -17,7 +17,7 @@ public class Population{
 
     Random rand = new Random();
 
-    Integer MAX_AGE = 200;
+    Integer MAX_AGE = 1000;
 
     /* ---- PARAMETERS ---- */
 
@@ -516,7 +516,7 @@ public class Population{
      * ATTENTION: same individual mating is made possible
      */
     public void makeBabies () {
-        if (mutationStrat.equals("Non-uniform-ctrl-adap")) {
+        if (mutationStrat.equals("non-uniform-ctrl-adap")) {
             List<Double> evaluation_before = new ArrayList<Double>();
             while (matingPool.size()>0) {
                 ArrayList<Individual> parents = randomSelectMates(2);
@@ -570,17 +570,19 @@ public class Population{
                 ArrayList<Individual> babies = parent.mate(mate, recombinationStrat);
 
                 switch (mutationStrat) {
-                    case "Uniform":
+                    case "uniform":
                         mutate(babies, this.mutationRate);
                         break;
-                    case "Non-uniform-ctrl-det":
+                    case "non-uniform-ctrl-det":
                         double progress = (double) age / (double) MAX_AGE;
                         double paramCtrlStdDev = 1 - 0.9 * progress;
                         mutate(babies, paramCtrlStdDev, this.mean);
                         break;
-                    default:
+                    case "non-uniform":
                         mutate(babies, this.stdDeviation, this.mean);
                         break;
+                    default:
+                    	throw new IllegalArgumentException("Typo in mutatation strat"); 
                 }
 
                 offsprings.addAll(babies);

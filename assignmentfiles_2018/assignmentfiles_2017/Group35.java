@@ -79,8 +79,8 @@ public class Group35 implements ContestSubmission
 
         // ------- PARAMETERS ------- //
         //      ** GENERAL **         //
-        int populationSize = 10;
-        int offspringsSize = 10;
+        int populationSize = 100;
+        int offspringsSize = 100;
         int matingPoolSize = offspringsSize;
 
         //    ** RECOMBINATION **     //
@@ -98,12 +98,14 @@ public class Group35 implements ContestSubmission
         //    ** MUTATION **     //
         List<String> mutationStrategies = Arrays.asList(
                 "uniform",      // needs parameter mutationRate
-                "non-uniform"   // needs parameter stdDeviation and Mean
+                "non-uniform",   // needs parameter stdDeviation and Mean
+                "non-uniform-ctrl-det",
+                "non-uniform-ctrl-adap"
         );
         double mutationRate = 0.05; // default
         double stdDeviation = 0.2; // ???
         double mean = 0;            // ???
-        String mutationStrategy = mutationStrategies.get(1);
+        String mutationStrategy = mutationStrategies.get(3);
 
         //    ** REPRODUCTION PROBABILITY **     //
         List<String> reproductionProbabilityStrategies = Arrays.asList(
@@ -111,7 +113,6 @@ public class Group35 implements ContestSubmission
                 "exponential"   // no parameter needed
         );
         double s = 1.5; // should be between 1 and 2
-        String mutStrategy = "Non-uniform-ctrl-adap";
 
 
         int evals = 0;
@@ -134,10 +135,10 @@ public class Group35 implements ContestSubmission
         for(int i = 0; i < archipelago.size; i++){
             Population population = new Population(evaluation_, populationSize, matingPoolSize, offspringsSize);
             population.setReproductionProbabilityStrategy("linear", s);
-            population.setParentSelectionStrategy("SUS");
+            population.setParentSelectionStrategy("tournament", populationSize / 10);
             population.setRecombinationStrategy("simple-arith");
-            //population.setMutationStrategy("uniform", 0.05);
-            population.setMutationStrategy(mutStrategy, 0.05  , 0.0);
+//            population.setMutationStrategy("Uniform", 0.05);
+            population.setMutationStrategy(mutationStrategy, 0.05  , 0.0);
             population.setSurvivorSelectionStrategy("replaceWorst");
             archipelago.islands.get(i).populate(population);
         }
@@ -160,7 +161,7 @@ public class Group35 implements ContestSubmission
 
             // calculate and print initial fintess statistics for this island
             if (gather){
-	            printing.printStats(archipelago.age, island_id, false, population.calculateFitnessStatistics());
+//	            printing.printStats(archipelago.age, island_id, false, population.calculateFitnessStatistics());
             }
 
         // calculate and print initial statistics for the archipelago
@@ -197,7 +198,7 @@ public class Group35 implements ContestSubmission
                 // System.out.println("Made " + Integer.toString(population.offsprings.size()) + " babies");
 
                 // System.out.println("Evaluating newborns");
-                if (mutationStrategy.equals("Non-uniform-ctrl-adap")) {
+                if (mutationStrategy.equals("non-uniform-ctrl-adap")) {
                     System.out.println("TESST");
 
                 }
