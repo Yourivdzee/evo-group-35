@@ -528,6 +528,7 @@ public class Population{
 
 
                 for (Individual baby : babies) {
+
                     evaluation_before.add((double) evaluation_.evaluate(baby.genotype));
                     EvaluationCounter.increaseEvaluation();
                 }
@@ -540,6 +541,7 @@ public class Population{
 
                 for (int i = 0 ; i < evaluation_after.length; i++) {
                     evaluation_after[i] = (double) evaluation_.evaluate(offsprings.get(i).genotype);
+                    offsprings.get(i).fitness=evaluation_after[i];
                     EvaluationCounter.increaseEvaluation();
                 }
                 double better = 0; double worse = 0;

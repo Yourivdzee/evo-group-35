@@ -155,6 +155,7 @@ public class Group35 implements ContestSubmission
             //evals += population.evaluate();
             for (Individual individual : population.population) {
                 individual.fitness = (double) evaluation_.evaluate(individual.genotype);
+                System.out.println(individual.fitness);
                 EvaluationCounter.increaseEvaluation();
 
             }
@@ -198,11 +199,7 @@ public class Group35 implements ContestSubmission
                 // System.out.println("Made " + Integer.toString(population.offsprings.size()) + " babies");
 
                 // System.out.println("Evaluating newborns");
-                if (mutationStrategy.equals("non-uniform-ctrl-adap")) {
-                    System.out.println("TESST");
-
-                }
-                else{
+                if (!mutationStrategy.equals("non-uniform-ctrl-adap")) {
                     for (Individual child : population.offsprings) {
                         // Check fitness of unknown fuction
                         child.fitness = (double) evaluation_.evaluate(child.genotype);
@@ -240,6 +237,7 @@ public class Group35 implements ContestSubmission
 	        }
 
             archipelago.age++;
+            //System.out.println(archipelago.age);
         }
 
     }
