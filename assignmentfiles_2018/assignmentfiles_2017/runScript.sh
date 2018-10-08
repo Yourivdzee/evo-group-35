@@ -18,9 +18,9 @@ run="javac -cp contest.jar Group35.java Individual.java Population.java Island.j
      java -DpopulationSize=$3 -DoffspringSize=$4 -DreprodStrat=$5 -DparentSelectStrat=$6 -DrecombStrat=$7 -DmutateStrat=$8 -DsurvivorSelectionStrat=$9 -Dalfa=${10} -Dk=${11} -DmutationRate=${12} -Dmean=${13} -DstdDeviation=${14} -Ds=${15} -jar testrun.jar -submission=Group35 -evaluation=$2 -seed=1"
 
 
-
+TIMEDATE=$(date --rfc-3339=seconds)
 END=$1
 for i in $(seq 1 $END);
-    do echo "Run $i..." && eval $run > "data/$2$(date -u)run$i.txt";
+    do mkdir -p "data/$2/$TIMEDATE" && echo "Run $i..." && eval $run > "data/$2/$TIMEDATE/run$i.txt";
 done
 

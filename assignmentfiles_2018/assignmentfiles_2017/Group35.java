@@ -416,7 +416,9 @@ public class Group35 implements ContestSubmission {
         if (reprodStrat.equals("linear")) {
             s = Double.parseDouble(System.getProperty("s"));
             pop.setReproductionProbabilityStrategy(reprodStrat, s);
+            System.out.println("Reproduction probability strategy: " + reprodStrat + " with s=" + Double.toString(s));
         } else {
+            System.out.println("Reproduction probability strategy: " + reprodStrat);
             pop.setReproductionProbabilityStrategy(reprodStrat);
         }
 
@@ -426,8 +428,10 @@ public class Group35 implements ContestSubmission {
         if (parentSelectStrat.equals("tournament")) {
             k = Integer.parseInt(System.getProperty("k"));
             pop.setParentSelectionStrategy(parentSelectStrat, k);
+            System.out.println("Parent selection strategy: " + parentSelectStrat + " with k=" + Double.toString(k));
         } else {
             pop.setParentSelectionStrategy(parentSelectStrat);
+            System.out.println("Parent selection strategy: " + parentSelectStrat);
         }
 
         // RECOMBINATION STRATEGY
@@ -436,8 +440,10 @@ public class Group35 implements ContestSubmission {
         if (recombStrat.equals("BLX")) {
             alfa = Double.parseDouble(System.getProperty("alfa"));
             pop.setRecombinationStrategy(recombStrat, alfa);
+            System.out.println("Recombination strategy: " + recombStrat + " with alfa=" + Double.toString(alfa));
         } else {
-            pop.setRecombinationStrategy(recombStrat);
+             pop.setRecombinationStrategy(recombStrat);
+             System.out.println("Recombination strategy: " + recombStrat);
         }
 
         // MUTATION STRATEGY
@@ -448,10 +454,12 @@ public class Group35 implements ContestSubmission {
         if (mutateStrat.equals("uniform")) {
             mutationRate = Double.parseDouble(System.getProperty("mutationRate"));
             pop.setMutationStrategy(mutateStrat, mutationRate);
+            System.out.println("Mutation strategy: " + mutateStrat+ " with mutationRate=" + Double.toString(mutationRate));
         } else if (mutateStrat.equals("non-uniform")) {
             mean = Double.parseDouble(System.getProperty("mean"));
             stdDeviaton = Double.parseDouble(System.getProperty("stdDeviation"));
             pop.setMutationStrategy(mutateStrat, stdDeviaton, mean);
+            System.out.println("Mutation strategy: " + mutateStrat + " with stdDeviation= " + Double.toString(stdDeviaton) + " and mean: " + Double.toString(mean));
         }
 
         // SURVIVOR SELECTION STRATEGY
@@ -460,13 +468,17 @@ public class Group35 implements ContestSubmission {
         if (survivorSelectionStrat.equals("tournament")) {
             q = Integer.parseInt(System.getProperty("q"));
             pop.setSurvivorSelectionStrategy(survivorSelectionStrat, q);
+            System.out.println("Survivor selection strategy: " + survivorSelectionStrat+ " with q=" + Double.toString(q));
         } else {
             pop.setSurvivorSelectionStrategy(survivorSelectionStrat, q);
+            System.out.println("Survivor selection strategy: " + survivorSelectionStrat);
         }
 
         for(int i = 0; i < archipelago.size; i++) {
             archipelago.islands.get(i).populate(pop);
         }
+
+        System.out.println("Generation IslandId Exchange Maximum Average StandardDev");
 
         int evals = 0;
         for(Island island: archipelago.islands) {
@@ -478,15 +490,14 @@ public class Group35 implements ContestSubmission {
             }
 
             // calculate and print initial fintess statistics for this island
-            printing.printStats(archipelago.age, 1, false, islandPopulation.calculateFitnessStatistics());
+            //printing.printStats(archipelago.age, 1, false, islandPopulation.calculateFitnessStatistics());
 
 
             // calculate and print initial statistics for the archipelago
-            printing.printStats(archipelago.age, 0, archipelago.checkMigrationStatus(), archipelago.calculateFitnessStatistics());
+            //printing.printStats(archipelago.age, 0, archipelago.checkMigrationStatus(), archipelago.calculateFitnessStatistics());
 
 
         }
-
 
 
         while(evals<evaluations_limit_){
@@ -498,8 +509,6 @@ public class Group35 implements ContestSubmission {
             // Initialize list to store all the fitness values for this generation (useful for calculating archipelago statistics)
             ArrayList<Double> archipelagoFitnessValues = new ArrayList<>();
 
-            // init population
-            System.out.println("Initializing population - μ: " + Integer.toString(populationSize) + "  λ:" + Integer.toString(offspringsSize));
 
             for (Island island: archipelago.islands) {
 
@@ -531,7 +540,7 @@ public class Group35 implements ContestSubmission {
 
                 // Calculate and print fitness statistics for this island for this generation
 
-                printing.printStats(archipelago.age, island_id, false, population.calculateFitnessStatistics());
+//                printing.printStats(archipelago.age, island_id, false, population.calculateFitnessStatistics());
 
 
             }

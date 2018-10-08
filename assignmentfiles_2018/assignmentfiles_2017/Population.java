@@ -258,8 +258,6 @@ public class Population{
      * ALgorithm taken from the book.
      */
     public void rouletteWheel() {
-        System.out.println("Starting roulette wheel selection");
-
         int currentMember = 0;
         Individual[] result = new Individual[matingPoolSize];
 
