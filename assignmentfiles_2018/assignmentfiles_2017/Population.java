@@ -57,7 +57,7 @@ public class Population{
 
     ContestEvaluation evaluation_;
 
-    public Population(Integer size, Integer matingPoolSize, Integer offspringsSize){
+    public Population(ContestEvaluation evaluation_, Integer size, Integer matingPoolSize, Integer offspringsSize){
         population = new ArrayList<>();
         matingPool = new ArrayList<>();
         offsprings = new ArrayList<>();
@@ -74,16 +74,15 @@ public class Population{
         }
     }
 
-//    public int evaluate(){
-//        int evals = 0;
-//        for (Individual individual : population) {
-//            individual.fitness = (double) evaluation_.evaluate(individual.genotype);
-//            evals++;
-//
-//        }
-//
-//        return evals;
-//    }
+    public int evaluate(){
+        int evals = 0;
+        for (Individual individual : this.population) {
+            individual.fitness = (double) evaluation_.evaluate(individual.genotype);
+            evals++;
+
+        }
+        return evals;
+    }
 
 
     /**
@@ -147,16 +146,15 @@ public class Population{
     }
 
     /**
-     * @param param_control: selected param control. Possiblities are:
+     * @param strat: selected param control. Possiblities are:
      *             -  "Deterministic"
      *             -  "Adaptive"
-     *             -   None
+     *             -   uniform/non-uniform
      */
-    public void setMutationStrategy(String strat, double stdDeviation, double mean, String param_control){
+    public void setMutationStrategy(String strat, double stdDeviation, double mean){
         this.mutationStrat = strat;
         this.stdDeviation = stdDeviation;
         this.mean = mean;
-        this.paramControlMutation = param_control;
     }
 
     /**
@@ -522,31 +520,50 @@ public class Population{
      * ATTENTION: same individual mating is made possible
      */
     public void makeBabies () {
-        while (matingPool.size() > 0){
+        if (mutationStrat.equals("Adaptive")) {
+            while (matingPool.size()>0){
+                ArrayList<Individual> parents = randomSelectMates(2);
+                Individual parent = parents.get(0);
+                Individual mate = parents.get(1);
 
-            ArrayList<Individual> parents = randomSelectMates(2);
-            Individual parent = parents.get(0);
-            Individual mate = parents.get(1);
+                // Make babies
+                ArrayList<Individual> babies = parent.mate(mate, recombinationStrat);
+
+                mutate(babies, this.stdAdaptiveControl, this.mean);
+
+                offsprings.addAll(babies);
+            }
+
+            // Now we need to check if what the P_s value is and change the stpAdaptiveControl based on that
+
+        }
+        else {
+            while (matingPool.size() > 0) {
+
+                ArrayList<Individual> parents = randomSelectMates(2);
+                Individual parent = parents.get(0);
+                Individual mate = parents.get(1);
 
 
-            // Make babies
-            ArrayList<Individual> babies = parent.mate(mate,recombinationStrat);
+                // Make babies
+                ArrayList<Individual> babies = parent.mate(mate, recombinationStrat);
 
-            if (mutationStrat.equals("uniform"))
-                mutate(babies,this.mutationRate);
-            else
-                if (paramControlMutation.equals("Deterministic")) {
-                    double progress = (double)age/(double)MAX_AGE;
-                    double paramCtrlStdDev = 1 - 0.9 * progress;
-                    mutate(babies, paramCtrlStdDev, this.mean);
-                } else if (paramControlMutation.equals("Adaptive")){
-                    adaptive_mutate(babies, this.stdAdaptiveControl, mean);
+                switch (mutationStrat) {
+                    case "uniform":
+                        mutate(babies, this.mutationRate);
+                        break;
+                    case "Deterministic":
+                        double progress = (double) age / (double) MAX_AGE;
+                        double paramCtrlStdDev = 1 - 0.9 * progress;
+                        mutate(babies, paramCtrlStdDev, this.mean);
+                        break;
+                    default:
+                        mutate(babies, this.stdDeviation, this.mean);
+                        break;
                 }
 
-                else
-                    mutate(babies,this.stdDeviation, this.mean);
-
-            offsprings.addAll(babies);
+                offsprings.addAll(babies);
+            }
         }
     }
 
@@ -569,23 +586,6 @@ public class Population{
     public void mutate(ArrayList<Individual> babies, double stdDeviation, double mean) {
         for(Individual baby: babies)
             baby.nonUniformMutate(stdDeviation,mean);
-    }
-
-    public void adaptive_mutate(ArrayList<Individual> babies, double stdDeviation, double mean){
-        double[] oldFitnessArray = new double[3];
-
-        for(int i = 0; i < babies.size(); i++){
-            oldFitnessArray[i] = babies.get(i).fitness;
-            babies.get(i).nonUniformMutate(stdDeviation, mean);
-        }
-
-        for(int i =0; i< babies.size(); i++){
-            System.out.println("TODO");
-            // calculate fitness?
-            // see difference between before and after mutation?
-            // check ratio
-            // report back with a return
-        }
     }
 
     /**

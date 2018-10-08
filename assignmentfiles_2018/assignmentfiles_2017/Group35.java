@@ -126,12 +126,12 @@ public class Group35 implements ContestSubmission
         // System.out.println("Initializing population - μ: " + Integer.toString(populationSize) + "  λ:" + Integer.toString(offspringsSize));
 
         for(int i = 0; i < archipelago.size; i++){
-            Population population = new Population(populationSize, matingPoolSize, offspringsSize);
+            Population population = new Population(evaluation_, populationSize, matingPoolSize, offspringsSize);
             population.setReproductionProbabilityStrategy("linear", s);
             population.setParentSelectionStrategy("SUS");
             population.setRecombinationStrategy("simple-arith");
             //population.setMutationStrategy("uniform", 0.05);
-            population.setMutationStrategy("Uniform", 0.5, 0, "None");
+            population.setMutationStrategy("non-uniform", 0.05  , 0.0);
             population.setSurvivorSelectionStrategy("replaceWorst");
             archipelago.islands.get(i).populate(population);
         }
