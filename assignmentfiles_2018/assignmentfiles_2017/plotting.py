@@ -27,34 +27,44 @@ exchange_generations = df.index[(df.IslandId == 0) & (df.Exchange == True)].toli
 
 # color dictionary for different islands
 # max 8 for now
-color_dict = ["r", "b", "g", "c", "m", "y", "k", "w"]
+color_dict = ["k", "r", "b", "g", "c", "m", "y", "w"]
 
 # plotting 
 # blah blah blah
-f, ax = plt.subplots(nrows = 1, ncols = 3, sharex = False, sharey=True, figsize = [20, 5])
+f, ax = plt.subplots(nrows = 3, ncols = 1, sharex = True, sharey = False, figsize = [25, 8])
 
 for i in range(island_num + 1):
     
     if i == 0:
         l = "Archipelago"
+        lw = 1.5
+        ls = "-"
+        a = 0.9
     else:
         l = "Island " + str(i)
+        lw = 1
+        ls = "-"
+        a = 0.5
         
-    ax[0].plot(df.Maximum[df.IslandId == i], color = color_dict[i], label = l, linewidth = 1, linestyle = '-')
-    ax[1].plot(df.Average[df.IslandId == i], color = color_dict[i], label = l, linewidth = 1, linestyle = '-')
-    ax[2].plot(df.StandardDev[df.IslandId == i], color = color_dict[i], label = l, linewidth = 1, linestyle = '-')
+    ax[0].plot(df.Maximum[df.IslandId == i], color = color_dict[i], label = l, linewidth = lw, linestyle = ls, alpha = a)
+    ax[1].plot(df.Average[df.IslandId == i], color = color_dict[i], label = l, linewidth = lw, linestyle = ls, alpha = a)
+    ax[2].plot(df.StandardDev[df.IslandId == i], color = color_dict[i], label = l, linewidth = lw, linestyle = ls, alpha = a)
 
 ax[0].set_title('Maximum')
-ax[0].set_xticks(np.append(np.arange(0, gen_num, gen_num//5 + 1), gen_num))
-ax[0].axvline(int(df.index[df.Maximum == df.Maximum.max()][0]), color = "k", linestyle = '--', linewidth = 1)
-
 ax[1].set_title('Average')
-ax[0].set_xticks(np.append(np.arange(0, gen_num, gen_num//5 + 1), gen_num))
-
 ax[2].set_title('StandardDev')
-ax[0].set_xticks(np.append(np.arange(0, gen_num, gen_num//5 + 1), gen_num))
 
-plt.legend()
+ax[2].set_xticks(np.arange(0, gen_num + 2, (gen_num + 2) // 5))
+
+for i in range(len(ax)):
+    ax[i].axvline(int(df.index[df.Maximum == df.Maximum.max()][0]), ymin = -1, ymax =1, color = "k", linestyle = '-.', linewidth = 1, clip_on = False, label = "Max")
+    for gen in exchange_generations:
+        if gen == exchange_generations[0]:
+            ax[i].axvline(gen, ymin = -1, ymax =1, color = "r", linestyle = '-.', linewidth = 0.5, clip_on = False, label = "Exchange")
+        else:
+            ax[i].axvline(gen, ymin = -1, ymax =1, color = "r", linestyle = '-.', linewidth = 0.5, clip_on = False)
+
+plt.legend(bbox_to_anchor = [1.1, 1.1])
 
 # save figure in directory
 plt.savefig(dir_loc + "plots.png", dpi = 300)

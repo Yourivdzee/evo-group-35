@@ -98,8 +98,7 @@ public class Individual{
                 wholeArithmeticRecombination(mate, offspringGenotype1, offspringGenotype2, alfa);
                 break;
             case "BLX":
-                System.out.println("Please provide the alfa value for the BLX recombination strategy");
-                throw new IllegalArgumentException();
+                blendCrossover(mate, offspringGenotype1, offspringGenotype2, alfa);
         }
 
 
@@ -203,10 +202,22 @@ public class Individual{
      */
     public void blendCrossover(Individual mate, double[] genotype1, double[] genotype2, double alfa) {
         for (int i = 0; i < genotype.length ; i++){
-            double dist = Math.abs(genotype[i] - mate.genotype[i]); // not needed??
-            double gama = (1 - 2*alfa)*rand.nextDouble() - alfa;
-            genotype1[i] = (1 - gama)*genotype[i] + gama*mate.genotype[i];
-            genotype2[i] = (1 - gama)*mate.genotype[i] + gama*genotype[i];
+
+            // init genotypes outside of bounds [-5, 5]
+            genotype1[i] = 100;
+            genotype2[i] = 100;
+
+            // repeat process until the genotypes are within bounds
+            while(Math.abs(genotype1[i]) > 5 || Math.abs(genotype2[i]) > 5){
+
+                double gen_min = Math.min(genotype[i], mate.genotype[i]);
+                double gen_max = Math.max(genotype[i], mate.genotype[i]);
+
+                double d = gen_max - gen_min;
+
+                genotype1[i] = gen_min - alfa*d + (gen_max - gen_min + 2*alfa*d)*rand.nextDouble();
+                genotype2[i] = gen_min - alfa*d + (gen_max - gen_min + 2*alfa*d)*rand.nextDouble();
+            }
         }
     }
 
@@ -232,7 +243,15 @@ public class Individual{
      */
     public void nonUniformMutate(double stdDeviation, double mean) {
         for (int i = 0; i < genotype.length; i++) {
-            genotype[i] = genotype[i] + (rand.nextDouble()*stdDeviation + mean);
+
+            double new_genome = 100;
+
+            while(Math.abs(genotype[i] + new_genome) > 5){
+
+                new_genome = rand.nextGaussian()*stdDeviation + mean;
+            }
+
+            genotype[i] += new_genome;
 
         }
     }
