@@ -130,7 +130,8 @@ public class Group35 implements ContestSubmission
             population.setReproductionProbabilityStrategy("linear", s);
             population.setParentSelectionStrategy("SUS");
             population.setRecombinationStrategy("simple-arith");
-            population.setMutationStrategy("uniform", 0.05);
+            //population.setMutationStrategy("uniform", 0.05);
+            population.setMutationStrategy("Uniform", 0.5, 0, "None");
             population.setSurvivorSelectionStrategy("replaceWorst");
             archipelago.islands.get(i).populate(population);
         }
@@ -144,6 +145,7 @@ public class Group35 implements ContestSubmission
         for(Island island: archipelago.islands) {
             island_id++;
             Population population = island.population;
+            //evals += population.evaluate();
             for (Individual individual : population.population) {
                 individual.fitness = (double) evaluation_.evaluate(individual.genotype);
                 evals++;
@@ -189,6 +191,7 @@ public class Group35 implements ContestSubmission
                 // System.out.println("Made " + Integer.toString(population.offsprings.size()) + " babies");
 
                 // System.out.println("Evaluating newborns");
+//                evals+=population.evaluate();
                 for (Individual child : population.offsprings) {
                     // Check fitness of unknown fuction
                     child.fitness = (double) evaluation_.evaluate(child.genotype);

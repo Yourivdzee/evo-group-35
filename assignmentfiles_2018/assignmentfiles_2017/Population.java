@@ -1,3 +1,5 @@
+import org.vu.contest.ContestEvaluation;
+
 import java.util.*;
 import java.lang.Math;
 
@@ -14,6 +16,8 @@ public class Population{
     ArrayList<Individual> bestIndividuals;
 
     Random rand = new Random();
+
+    Integer MAX_AGE = 200;
 
     /* ---- PARAMETERS ---- */
 
@@ -47,12 +51,19 @@ public class Population{
 
     Integer q;
 
+    String paramControlMutation;
+
+    double stdAdaptiveControl = 0.5;
+
+    ContestEvaluation evaluation_;
+
     public Population(Integer size, Integer matingPoolSize, Integer offspringsSize){
         population = new ArrayList<>();
         matingPool = new ArrayList<>();
         offsprings = new ArrayList<>();
         bestIndividuals = new ArrayList<>();
 
+        this.evaluation_ = evaluation_;
         this.populationSize = size;
         this.matingPoolSize = matingPoolSize;
         this.offspringsSize = offspringsSize;
@@ -62,6 +73,18 @@ public class Population{
             population.add(indiv);
         }
     }
+
+//    public int evaluate(){
+//        int evals = 0;
+//        for (Individual individual : population) {
+//            individual.fitness = (double) evaluation_.evaluate(individual.genotype);
+//            evals++;
+//
+//        }
+//
+//        return evals;
+//    }
+
 
     /**
      * Sets the reproduction probability calculation strategy.
@@ -123,10 +146,17 @@ public class Population{
         this.mutationRate = mutationRate;
     }
 
-    public void setMutationStrategy(String strat, double stdDeviation, double mean){
+    /**
+     * @param param_control: selected param control. Possiblities are:
+     *             -  "Deterministic"
+     *             -  "Adaptive"
+     *             -   None
+     */
+    public void setMutationStrategy(String strat, double stdDeviation, double mean, String param_control){
         this.mutationStrat = strat;
         this.stdDeviation = stdDeviation;
         this.mean = mean;
+        this.paramControlMutation = param_control;
     }
 
     /**
@@ -505,7 +535,16 @@ public class Population{
             if (mutationStrat.equals("uniform"))
                 mutate(babies,this.mutationRate);
             else
-                mutate(babies,this.stdDeviation, this.mean);
+                if (paramControlMutation.equals("Deterministic")) {
+                    double progress = (double)age/(double)MAX_AGE;
+                    double paramCtrlStdDev = 1 - 0.9 * progress;
+                    mutate(babies, paramCtrlStdDev, this.mean);
+                } else if (paramControlMutation.equals("Adaptive")){
+                    adaptive_mutate(babies, this.stdAdaptiveControl, mean);
+                }
+
+                else
+                    mutate(babies,this.stdDeviation, this.mean);
 
             offsprings.addAll(babies);
         }
@@ -530,6 +569,23 @@ public class Population{
     public void mutate(ArrayList<Individual> babies, double stdDeviation, double mean) {
         for(Individual baby: babies)
             baby.nonUniformMutate(stdDeviation,mean);
+    }
+
+    public void adaptive_mutate(ArrayList<Individual> babies, double stdDeviation, double mean){
+        double[] oldFitnessArray = new double[3];
+
+        for(int i = 0; i < babies.size(); i++){
+            oldFitnessArray[i] = babies.get(i).fitness;
+            babies.get(i).nonUniformMutate(stdDeviation, mean);
+        }
+
+        for(int i =0; i< babies.size(); i++){
+            System.out.println("TODO");
+            // calculate fitness?
+            // see difference between before and after mutation?
+            // check ratio
+            // report back with a return
+        }
     }
 
     /**
