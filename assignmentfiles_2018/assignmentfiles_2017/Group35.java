@@ -9,35 +9,31 @@ import java.io.FileWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Group35 implements ContestSubmission
-{
-	Random rnd_;
-	String function_name;
-	ContestEvaluation evaluation_;
+public class Group35 implements ContestSubmission {
+    Random rnd_;
+    String function_name;
+    ContestEvaluation evaluation_;
     private int evaluations_limit_;
 
-	public Group35()
-	{
-		rnd_ = new Random();
-	}
-	
-	public void setSeed(long seed)
-	{
-		// Set seed of algortihms random process
-		rnd_.setSeed(seed);
-	}
+    public Group35() {
+        rnd_ = new Random();
+    }
 
-	public void setEvaluation(ContestEvaluation evaluation)
-	{
-		// Set evaluation problem used in the run
-		evaluation_ = evaluation;
-		
-		// Get evaluation properties
-		Properties props = evaluation.getProperties();
+    public void setSeed(long seed) {
+        // Set seed of algortihms random process
+        rnd_.setSeed(seed);
+    }
+
+    public void setEvaluation(ContestEvaluation evaluation) {
+        // Set evaluation problem used in the run
+        evaluation_ = evaluation;
+
+        // Get evaluation properties
+        Properties props = evaluation.getProperties();
         // Get evaluation limit
         evaluations_limit_ = Integer.parseInt(props.getProperty("Evaluations"));
-		// Property keys depend on specific evaluation
-		// E.g. double param = Double.parseDouble(props.getProperty("property_name"));
+        // Property keys depend on specific evaluation
+        // E.g. double param = Double.parseDouble(props.getProperty("property_name"));
         boolean isMultimodal = Boolean.parseBoolean(props.getProperty("Multimodal"));
         boolean hasStructure = Boolean.parseBoolean(props.getProperty("Regular"));
         boolean isSeparable = Boolean.parseBoolean(props.getProperty("Separable"));
@@ -48,7 +44,7 @@ public class Group35 implements ContestSubmission
 
         // Do sth with property values, e.g. specify relevant settings of your algorithm
         if (!isMultimodal && !hasStructure) {
-           function_name = "BentCigar";
+            function_name = "BentCigar";
         } else if (isMultimodal && !hasStructure) {
             function_name = "Katsuura";
         } else if (isMultimodal && hasStructure) {
@@ -60,7 +56,6 @@ public class Group35 implements ContestSubmission
 
     }
 
-
     public void run()
     {
         // Run your algorithm here
@@ -69,20 +64,28 @@ public class Group35 implements ContestSubmission
         // gather stats for population and archipelago (stats collection may slow down the process)
         boolean gather = true;
 
-    	// Initialize printer class
-    	Printing printing = new Printing();
+        int numIslands = 20;
+
+        int populationSize = evaluations_limit_ / (numIslands * 100);
+
+        int numExchangeIndividuals = 2;
+        int epoch = 10;
+
+        int archipelagoSize = numIslands * populationSize;
+        int matingPoolSize = populationSize;
+        int offspringsSize = populationSize;
+
+        // Initialize printer class
+        Printing printing = new Printing();
 
         // ------- PARAMETERS ------- //
-        //      ** GENERAL **         //
-        int populationSize = 10;
-        int offspringsSize = 10;
-        int matingPoolSize = offspringsSize;
+        //      * GENERAL *         //
 
-        //    ** RECOMBINATION **     //
+        //    * RECOMBINATION *     //
         List<String> recombinationStrategies = Arrays.asList(
                 "simple-arith",  // no parameter needed
                 "single-arith",  // no parameter needed
-                "whole-arith",   // no parameter needed
+                "whole-arith",   // needs parameter alfa
                 "BLX"            // needs parameter alfa
         );
         double alfa = 0.5;
@@ -90,17 +93,17 @@ public class Group35 implements ContestSubmission
         String recombinationStrategy = recombinationStrategies.get(0);
 
 
-        //    ** MUTATION **     //
+        //    * MUTATION *     //
         List<String> mutationStrategies = Arrays.asList(
                 "uniform",      // needs parameter mutationRate
                 "non-uniform"   // needs parameter stdDeviation and Mean
         );
         double mutationRate = 0.05; // default
-        double stdDeviation = 0.2; // ???
+        double stdDeviation = 0.1; // ???
         double mean = 0;            // ???
         String mutationStrategy = mutationStrategies.get(1);
 
-        //    ** REPRODUCTION PROBABILITY **     //
+        //    * REPRODUCTION PROBABILITY *     //
         List<String> reproductionProbabilityStrategies = Arrays.asList(
                 "linear",       // needs parameter s
                 "exponential"   // no parameter needed
@@ -112,13 +115,9 @@ public class Group35 implements ContestSubmission
 
         // Column names for output file
         if (gather){
-	        System.out.println("Generation IslandId Exchange Maximum Average StandardDev");
-		}
+            System.out.println("Generation IslandId Exchange Maximum Average StandardDev");
+        }
 
-        int numIslands = 5;
-        int numExchangeIndividuals = 2;
-        int epoch = 10;
-        int archipelagoSize = numIslands * populationSize;
 
         Archipelago archipelago = new Archipelago(numIslands,numExchangeIndividuals, epoch);
 
@@ -128,9 +127,10 @@ public class Group35 implements ContestSubmission
         for(int i = 0; i < archipelago.size; i++){
             Population population = new Population(populationSize, matingPoolSize, offspringsSize);
             population.setReproductionProbabilityStrategy("linear", s);
-            population.setParentSelectionStrategy("SUS");
-            population.setRecombinationStrategy("simple-arith");
-            population.setMutationStrategy("uniform", 0.05);
+            population.setParentSelectionStrategy("tournament", populationSize / 10);
+            population.setRecombinationStrategy("whole-arith", alfa);
+            population.setMutationStrategy("non-uniform", stdDeviation, mean);
+            // population.setMutationStrategy("uniform", mutationRate);
             population.setSurvivorSelectionStrategy("replaceWorst");
             archipelago.islands.get(i).populate(population);
         }
@@ -152,13 +152,13 @@ public class Group35 implements ContestSubmission
 
             // calculate and print initial fintess statistics for this island
             if (gather){
-	            printing.printStats(archipelago.age, island_id, false, population.calculateFitnessStatistics());
+                printing.printStats(archipelago.age, island_id, false, population.calculateFitnessStatistics());
             }
 
-        // calculate and print initial statistics for the archipelago
-        if(gather){
-        	printing.printStats(archipelago.age, 0, archipelago.checkMigrationStatus(), archipelago.calculateFitnessStatistics());
-        }
+            // calculate and print initial statistics for the archipelago
+            if(gather){
+                printing.printStats(archipelago.age, 0, archipelago.checkMigrationStatus(), archipelago.calculateFitnessStatistics());
+            }
 
         }
 
@@ -200,36 +200,41 @@ public class Group35 implements ContestSubmission
                 population.selectSurvivors();
 
                 // Calculate and print fitness statistics for this island for this generation
-	            if (gather){
-		            printing.printStats(archipelago.age, island_id, false, population.calculateFitnessStatistics());
-	            }
+                if (gather){
+                    printing.printStats(archipelago.age, island_id, false, population.calculateFitnessStatistics());
+                }
 
             }
 
-            if (archipelago.checkConvergence())
-                archipelago.migrate("circle");
+            // if (archipelago.checkConvergence())
+            if (archipelago.age % epoch == 0 && archipelago.age > 0)
+                archipelago.migrate("star");
 
 
             archipelago.integrateAllMigrants();
             archipelago.updateHistory();
 
 
-	        if(gather){
-	        	printing.printStats(archipelago.age, 0, archipelago.checkMigrationStatus(), archipelago.calculateFitnessStatistics());
-	        }
+            if(gather){
+                printing.printStats(archipelago.age, 0, archipelago.checkMigrationStatus(), archipelago.calculateFitnessStatistics());
+            }
 
             archipelago.age++;
         }
 
     }
-}
 
 
-//	public void run()
-//	{
-//		// Run your algorithm here
-//        System.out.println("Initializing algorithm...");
+//    public void run()
+//    {
+//        // Run your algorithm here
+//        // System.out.println("Initializing algorithm...");
 //
+//        // gather stats for population and archipelago (stats collection may slow down the process)
+//        boolean gather = true;
+//
+//    	// Initialize printer class
+//    	Printing printing = new Printing();
 //
 //        // ------- PARAMETERS ------- //
 //        //      ** GENERAL **         //
@@ -269,48 +274,261 @@ public class Group35 implements ContestSubmission
 //
 //        int evals = 0;
 //
-//        // init population
-//        System.out.println("Initializing population - μ: " + Integer.toString(populationSize) + "  λ:" + Integer.toString(offspringsSize));
+//        // Column names for output file
+//        if (gather){
+//	        System.out.println("Generation IslandId Exchange Maximum Average StandardDev");
+//		}
 //
-//        Population population = new Population(populationSize, matingPoolSize, offspringsSize);
-//        population.setReproductionProbabilityStrategy("linear", s);
-//        population.setParentSelectionStrategy("SUS");
-//        population.setRecombinationStrategy("simple-arith");
-//        population.setMutationStrategy("uniform", 0.05);
-//        population.setSurvivorSelectionStrategy("replaceWorst");
+//        int numIslands = 5;
+//        int numExchangeIndividuals = 2;
+//        int epoch = 10;
+//        int archipelagoSize = numIslands * populationSize;
+//
+//        Archipelago archipelago = new Archipelago(numIslands,numExchangeIndividuals, epoch);
+//
+//        // init population
+//        // System.out.println("Initializing population - μ: " + Integer.toString(populationSize) + "  λ:" + Integer.toString(offspringsSize));
+//
+//        for(int i = 0; i < archipelago.size; i++){
+//            Population population = new Population(populationSize, matingPoolSize, offspringsSize);
+//            population.setReproductionProbabilityStrategy("linear", s);
+//            population.setParentSelectionStrategy("SUS");
+//            population.setRecombinationStrategy("simple-arith");
+//            population.setMutationStrategy("uniform", 0.05);
+//            population.setSurvivorSelectionStrategy("replaceWorst");
+//            archipelago.islands.get(i).populate(population);
+//        }
 //
 //        // calculate fitness
-//        System.out.println("Calculating fitness of initial population");
-//        for(Individual individual: population.population) {
-//            individual.fitness = (double) evaluation_.evaluate(individual.genotype);
-//            evals++;
+//        // System.out.println("Calculating fitness of initial population");
+//
+//        ArrayList<Double> archipelagoFitnessValues = new ArrayList<>();
+//        int island_id = 0;
+//
+//        for(Island island: archipelago.islands) {
+//            island_id++;
+//            Population population = island.population;
+//            for (Individual individual : population.population) {
+//                individual.fitness = (double) evaluation_.evaluate(individual.genotype);
+//                evals++;
+//
+//            }
+//
+//            // calculate and print initial fintess statistics for this island
+//            if (gather){
+//	            printing.printStats(archipelago.age, island_id, false, population.calculateFitnessStatistics());
+//            }
+//
+//        // calculate and print initial statistics for the archipelago
+//        if(gather){
+//        	printing.printStats(archipelago.age, 0, archipelago.checkMigrationStatus(), archipelago.calculateFitnessStatistics());
+//        }
+//
 //        }
 //
 //        while(evals<evaluations_limit_){
-//            System.out.println("------- Generation " + Integer.toString(evals) + " -------");
 //
-//            // Select parents
-//            population.selectParents();
-//            assert (!population.matingPool.isEmpty());
-//            System.out.println("Finished parent selection with " + Integer.toString(population.matingPool.size()) + " candidates.");
+//            archipelago.resetMigrationStatus();
 //
-//            // Apply crossover / mutation operators
-//            System.out.println("Making babies with recombination " + recombinationStrategy);
-//            population.makeBabies();
-//            System.out.println("Made " + Integer.toString(population.offsprings.size()) + " babies");
+//            island_id = 0;
 //
+//            // Initialize list to store all the fitness values for this generation (useful for calculating archipelago statistics)
+//            archipelagoFitnessValues = new ArrayList<>();
 //
-//            System.out.println("Evaluating newborns");
-//            for(Individual child: population.offsprings) {
-//                // Check fitness of unknown fuction
-//                child.fitness = (double) evaluation_.evaluate(child.genotype);
-//                evals++;
+//            for (Island island: archipelago.islands) {
+//
+//                island_id++;
+//
+//                // System.out.println("------- Generation " + Integer.toString(evals/(numIslands*populationSize)) + " -------");
+//                Population population = island.population;
+//
+//                // Select parents
+//                population.selectParents();
+//                assert (!population.matingPool.isEmpty());
+//                // System.out.println("Finished parent selection with " + Integer.toString(population.matingPool.size()) + " candidates.");
+//
+//                // Apply crossover / mutation operators
+//                // System.out.println("Making babies with recombination " + recombinationStrategy);
+//                population.makeBabies();
+//                // System.out.println("Made " + Integer.toString(population.offsprings.size()) + " babies");
+//
+//                // System.out.println("Evaluating newborns");
+//                for (Individual child : population.offsprings) {
+//                    // Check fitness of unknown fuction
+//                    child.fitness = (double) evaluation_.evaluate(child.genotype);
+//                    evals++;
+//
+//                }
+//
+//                // Select survivors
+//                population.selectSurvivors();
+//
+//                // Calculate and print fitness statistics for this island for this generation
+//	            if (gather){
+//		            printing.printStats(archipelago.age, island_id, false, population.calculateFitnessStatistics());
+//	            }
+//
 //            }
 //
+//            if (archipelago.checkConvergence())
+//                archipelago.migrate("circle");
 //
 //
-//            // Select survivors
-//            population.selectSurvivors();
+//            archipelago.integrateAllMigrants();
+//            archipelago.updateHistory();
+//
+//
+//	        if(gather){
+//	        	printing.printStats(archipelago.age, 0, archipelago.checkMigrationStatus(), archipelago.calculateFitnessStatistics());
+//	        }
+//
+//            archipelago.age++;
 //        }
 //
-//	}
+//    }
+//}
+
+
+    public void runFILIP() {
+        // Run your algorithm here
+        System.out.println("Initializing algorithm...");
+
+
+        // ------- PARAMETERS ------- //
+
+        // POPULATION SIZE
+        int populationSize = Integer.parseInt(System.getProperty("populationSize"));
+
+        // OFFSPRINGS SIZE
+        int offspringsSize = Integer.parseInt(System.getProperty("offspringSize"));
+
+        // MATING POOL SIZE
+        int matingPoolSize = offspringsSize;
+
+        Population population = new Population(populationSize, matingPoolSize, offspringsSize);
+
+        // REPRODUCTION PROBABILITY STRATEGY
+        String reprodStrat = System.getProperty("reprodStrat");
+        double s = 0;
+        if (reprodStrat.equals("linear")) {
+            s = Double.parseDouble(System.getProperty("s"));
+            population.setReproductionProbabilityStrategy(reprodStrat, s);
+        } else {
+            population.setReproductionProbabilityStrategy(reprodStrat);
+        }
+
+        // PARENT SELECTION STRATEGY
+        String parentSelectStrat = System.getProperty("parentSelectStrat");
+        int k;
+        if (parentSelectStrat.equals("tournament")) {
+            k = Integer.parseInt(System.getProperty("k"));
+            population.setParentSelectionStrategy(parentSelectStrat, k);
+        } else {
+            population.setParentSelectionStrategy(parentSelectStrat);
+        }
+
+        // RECOMBINATION STRATEGY
+        String recombStrat = System.getProperty("recombStrat");
+        double alfa;
+        if (recombStrat.equals("BLX")) {
+            alfa = Double.parseDouble(System.getProperty("alfa"));
+            population.setRecombinationStrategy(recombStrat, alfa);
+        } else {
+            population.setRecombinationStrategy(recombStrat);
+        }
+
+        // MUTATION STRATEGY
+        String mutateStrat = System.getProperty("mutateStrat");
+        double mutationRate = 0;
+        double stdDeviaton = 0;
+        double mean = 0;
+        if (mutateStrat.equals("uniform")) {
+            mutationRate = Double.parseDouble(System.getProperty("mutationRate"));
+            population.setMutationStrategy(mutateStrat, mutationRate);
+        } else if (mutateStrat.equals("non-uniform")) {
+            mean = Double.parseDouble(System.getProperty("mean"));
+            stdDeviaton = Double.parseDouble(System.getProperty("stdDeviation"));
+            population.setMutationStrategy(mutateStrat, stdDeviaton, mean);
+        }
+
+        // SURVIVOR SELECTION STRATEGY
+        String survivorSelectionStrat = System.getProperty("survivorSelectionStrat");
+        int q = 0;
+        if (survivorSelectionStrat.equals("tournament")) {
+            q = Integer.parseInt(System.getProperty("q"));
+            population.setSurvivorSelectionStrategy(survivorSelectionStrat, q);
+        } else {
+            population.setSurvivorSelectionStrategy(survivorSelectionStrat, q);
+        }
+
+
+        //    ** RECOMBINATION **     //
+        List<String> recombinationStrategies = Arrays.asList(
+                "simple-arith",  // no parameter needed
+                "single-arith",  // no parameter needed
+                "whole-arith",   // no parameter needed
+                "BLX"            // needs parameter alfa
+        );
+
+        String recombinationStrategy = recombinationStrategies.get(0);
+
+
+        //    ** MUTATION **     //
+        List<String> mutationStrategies = Arrays.asList(
+                "uniform",      // needs parameter mutationRate
+                "non-uniform"   // needs parameter stdDeviation and Mean
+        );
+
+
+        String mutationStrategy = mutationStrategies.get(1);
+
+        //    ** REPRODUCTION PROBABILITY **     //
+        List<String> reproductionProbabilityStrategies = Arrays.asList(
+                "linear",       // needs parameter s
+                "exponential"   // no parameter needed
+        );
+
+
+        int evals = 0;
+
+        // init population
+        System.out.println("Initializing population - μ: " + Integer.toString(populationSize) + "  λ:" + Integer.toString(offspringsSize));
+//
+//        population.setMutationStrategy(mutateStrat, mutationRate);
+//        population.setReproductionProbabilityStrategy(reprodStrat, s);
+//        population.setParentSelectionStrategy(parentSelectStrat);
+//        population.setRecombinationStrategy(recombStrat);
+//        population.setSurvivorSelectionStrategy("replaceWorst");
+
+        // calculate fitness
+        for (Individual individual : population.population) {
+            individual.fitness = (double) evaluation_.evaluate(individual.genotype);
+            evals++;
+        }
+
+        while (evals < evaluations_limit_) {
+            System.out.println("------- Generation " + Integer.toString(evals) + " -------");
+
+            // Select parents
+            population.selectParents();
+            assert (population.matingPool.size() == population.matingPoolSize);
+            System.out.println("#Mating pool: " + Integer.toString(population.matingPool.size()));
+
+            // Apply crossover / mutation operators
+            population.makeBabies();
+            System.out.println("#Offsprings" + Integer.toString(population.offsprings.size()));
+
+            for (Individual child : population.offsprings) {
+                // Check fitness of unknown fuction
+                child.fitness = (double) evaluation_.evaluate(child.genotype);
+                evals++;
+            }
+
+
+            // Select survivors
+            population.selectSurvivors();
+
+        }
+
+    }
+}

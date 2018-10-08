@@ -439,7 +439,12 @@ public class Population{
         Collections.sort(result, (i1, i2) -> Double.compare(i1.fitness, i2.fitness));
         while (result.size() > populationSize)
             result.remove(0);
+        
+        population.clear();
+        population.addAll(result);
+        offsprings.clear();
 
+        assert (population.size() == populationSize);
     }
 
     /**
