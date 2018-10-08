@@ -69,14 +69,22 @@ public class Group35 implements ContestSubmission
         // gather stats for population and archipelago (stats collection may slow down the process)
         boolean gather = true;
 
+        int numIslands = 20;
+
+        int populationSize = evaluations_limit_ / (numIslands * 100);
+        
+        int numExchangeIndividuals = 2;
+        int epoch = 10;
+
+        int archipelagoSize = numIslands * populationSize;
+        int matingPoolSize = populationSize;
+        int offspringsSize = populationSize;
+
     	// Initialize printer class
     	Printing printing = new Printing();
 
         // ------- PARAMETERS ------- //
         //      ** GENERAL **         //
-        int populationSize = 10;
-        int offspringsSize = 10;
-        int matingPoolSize = offspringsSize;
 
         //    ** RECOMBINATION **     //
         List<String> recombinationStrategies = Arrays.asList(
@@ -96,7 +104,7 @@ public class Group35 implements ContestSubmission
                 "non-uniform"   // needs parameter stdDeviation and Mean
         );
         double mutationRate = 0.05; // default
-        double stdDeviation = 0.2; // ???
+        double stdDeviation = 0.1; // ???
         double mean = 0;            // ???
         String mutationStrategy = mutationStrategies.get(1);
 
@@ -115,10 +123,6 @@ public class Group35 implements ContestSubmission
 	        System.out.println("Generation IslandId Exchange Maximum Average StandardDev");
 		}
 
-        int numIslands = 5;
-        int numExchangeIndividuals = 2;
-        int epoch = 10;
-        int archipelagoSize = numIslands * populationSize;
 
         Archipelago archipelago = new Archipelago(numIslands,numExchangeIndividuals, epoch);
 
@@ -128,9 +132,10 @@ public class Group35 implements ContestSubmission
         for(int i = 0; i < archipelago.size; i++){
             Population population = new Population(populationSize, matingPoolSize, offspringsSize);
             population.setReproductionProbabilityStrategy("linear", s);
-            population.setParentSelectionStrategy("SUS");
-            population.setRecombinationStrategy("simple-arith");
-            population.setMutationStrategy("uniform", 0.05);
+            population.setParentSelectionStrategy("tournament", populationSize / 10);
+            population.setRecombinationStrategy("whole-arith", alfa);
+            population.setMutationStrategy("non-uniform", stdDeviation, mean);
+            // population.setMutationStrategy("uniform", mutationRate);
             population.setSurvivorSelectionStrategy("replaceWorst");
             archipelago.islands.get(i).populate(population);
         }
@@ -206,8 +211,9 @@ public class Group35 implements ContestSubmission
 
             }
 
-            if (archipelago.checkConvergence())
-                archipelago.migrate("circle");
+            // if (archipelago.checkConvergence())
+            if (archipelago.age % epoch == 0 && archipelago.age > 0)
+                archipelago.migrate("star");
 
 
             archipelago.integrateAllMigrants();

@@ -57,7 +57,12 @@ ax[2].set_title('StandardDev')
 ax[2].set_xticks(np.arange(0, gen_num + 2, (gen_num + 2) // 5))
 
 for i in range(len(ax)):
-	ax[i].axvline(int(df.index[df.Maximum == df.Maximum.max()][0]), ymin = -1, ymax =1, color = "k", linestyle = '-.', linewidth = 1, clip_on = False, label = "Max")
+    ax[i].axvline(int(df.index[df.Maximum == df.Maximum.max()][0]), ymin = -1, ymax =1, color = "k", linestyle = '-.', linewidth = 1, clip_on = False, label = "Max")
+    for gen in exchange_generations:
+        if gen == exchange_generations[0]:
+            ax[i].axvline(gen, ymin = -1, ymax =1, color = "r", linestyle = '-.', linewidth = 0.5, clip_on = False, label = "Exchange")
+        else:
+            ax[i].axvline(gen, ymin = -1, ymax =1, color = "r", linestyle = '-.', linewidth = 0.5, clip_on = False)
 
 plt.legend(bbox_to_anchor = [1.1, 1.1])
 
