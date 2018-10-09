@@ -20,7 +20,10 @@ run="javac -cp contest.jar Group35.java Individual.java Population.java Island.j
 
 TIMEDATE=$(date --rfc-3339=seconds)
 END=$1
+##done
+#for databaseName in a b c d e f; do
+#    echo $databaseName
+#done
 for i in $(seq 1 $END);
     do mkdir -p "data/$2/$TIMEDATE" && echo "Run $i..." && eval $run > "data/$2/$TIMEDATE/run$i.txt";
 done
-
