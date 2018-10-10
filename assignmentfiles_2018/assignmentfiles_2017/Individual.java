@@ -242,17 +242,14 @@ public class Individual{
      *  Non-uniform mutation adds a small value to each gene drawn randomly from a gaussian/cauchy distribution.
      */
     public void nonUniformMutate(double stdDeviation, double mean) {
+        double rangeMin = -5;
+        double rangeMax = 5;
+
         for (int i = 0; i < genotype.length; i++) {
-
-            double new_genome = 100;
-
-            while(Math.abs(genotype[i] + new_genome) > 5){
-
-                new_genome = rand.nextGaussian()*stdDeviation + mean;
+            genotype[i] = genotype[i] + (rand.nextGaussian() * stdDeviation + mean);
+            while (genotype[i] > rangeMax || genotype[i] < rangeMin){
+                genotype[i] = genotype[i] + (rand.nextGaussian() * stdDeviation + mean);
             }
-
-            genotype[i] += new_genome;
-
         }
     }
 

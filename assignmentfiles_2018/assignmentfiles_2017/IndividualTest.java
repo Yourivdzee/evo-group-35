@@ -1,7 +1,6 @@
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeAll;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -57,7 +56,9 @@ public class IndividualTest {
 
         System.out.println("Before: " + Arrays.toString(before));
 
-        individual1.nonUniformMutate(0.5,0);
+        for (int i = 0; i < 100; i++)
+            individual1.nonUniformMutate(0.2,0);
+            System.out.println(Arrays.toString(individual1.genotype.clone()));
 
 
         double[] after = individual1.genotype.clone();

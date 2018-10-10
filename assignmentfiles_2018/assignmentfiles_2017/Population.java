@@ -1,3 +1,5 @@
+import org.vu.contest.ContestEvaluation;
+
 import java.util.*;
 import java.lang.Math;
 
@@ -14,6 +16,8 @@ public class Population{
     ArrayList<Individual> bestIndividuals;
 
     Random rand = new Random();
+
+    Integer MAX_AGE = 1000;
 
     /* ---- PARAMETERS ---- */
 
@@ -47,12 +51,19 @@ public class Population{
 
     Integer q;
 
-    public Population(Integer size, Integer matingPoolSize, Integer offspringsSize){
+    String paramControlMutation;
+
+    double stdAdaptiveControl = 0.5;
+
+    ContestEvaluation evaluation_;
+
+    public Population(ContestEvaluation evaluation_, Integer size, Integer matingPoolSize, Integer offspringsSize){
         population = new ArrayList<>();
         matingPool = new ArrayList<>();
         offsprings = new ArrayList<>();
         bestIndividuals = new ArrayList<>();
 
+        this.evaluation_ = evaluation_;
         this.populationSize = size;
         this.matingPoolSize = matingPoolSize;
         this.offspringsSize = offspringsSize;
@@ -62,6 +73,17 @@ public class Population{
             population.add(indiv);
         }
     }
+
+    public int evaluate(){
+        int evals = 0;
+        for (Individual individual : this.population) {
+            individual.fitness = (double) evaluation_.evaluate(individual.genotype);
+            EvaluationCounter.increaseEvaluation();
+
+        }
+        return evals;
+    }
+
 
     /**
      * Sets the reproduction probability calculation strategy.
@@ -117,6 +139,8 @@ public class Population{
      * @param strat: selected strategy. Possible strategies are:
      *             - "Uniform" (needs mutation rate paramater)
      *             - "Non-uniform" (needs stdDeviation and mean parameter)
+     *             - "Non-uniform-ctrl-det" (Deterministic)(needs stdDeviation and mean parameter)
+     *             - "Non-uniform-ctrl-adap" (Adaptive Control(needs stdDeviation and mean parameter)
      */
     public void setMutationStrategy(String strat, double mutationRate){
         this.mutationStrat = strat;
@@ -483,22 +507,79 @@ public class Population{
      * ATTENTION: same individual mating is made possible
      */
     public void makeBabies () {
-        while (matingPool.size() > 0){
+        if (mutationStrat.equals("non-uniform-ctrl-adap")) {
+            List<Double> evaluation_before = new ArrayList<Double>();
+            while (matingPool.size()>0) {
+                ArrayList<Individual> parents = randomSelectMates(2);
+                Individual parent = parents.get(0);
+                Individual mate = parents.get(1);
 
-            ArrayList<Individual> parents = randomSelectMates(2);
-            Individual parent = parents.get(0);
-            Individual mate = parents.get(1);
+                // Make babies
+                ArrayList<Individual> babies = parent.mate(mate, recombinationStrat);
 
 
-            // Make babies
-            ArrayList<Individual> babies = parent.mate(mate,recombinationStrat);
+                for (Individual baby : babies) {
 
-            if (mutationStrat.equals("uniform"))
-                mutate(babies,this.mutationRate);
-            else
-                mutate(babies,this.stdDeviation, this.mean);
+                    evaluation_before.add((double) evaluation_.evaluate(baby.genotype));
+                    EvaluationCounter.increaseEvaluation();
+                }
+                mutate(babies, this.stdAdaptiveControl, this.mean);
+                offsprings.addAll(babies);
 
-            offsprings.addAll(babies);
+            }
+
+                double[] evaluation_after = new double[offsprings.size()];
+
+                for (int i = 0 ; i < evaluation_after.length; i++) {
+                    evaluation_after[i] = (double) evaluation_.evaluate(offsprings.get(i).genotype);
+                    offsprings.get(i).fitness=evaluation_after[i];
+                    EvaluationCounter.increaseEvaluation();
+                }
+                double better = 0; double worse = 0;
+
+                for (int i = 0; i < evaluation_after.length; i++){
+                    if (evaluation_after[i] > evaluation_before.get(i)) {
+                        better += 1;
+                    }
+                }
+                double ratio = better / evaluation_after.length;
+
+                //System.out.println(ratio);
+
+                if (ratio > 0.2) this.stdAdaptiveControl = this.stdAdaptiveControl / 0.9;
+                else if (ratio < 0.2) this.stdAdaptiveControl = this.stdAdaptiveControl * 0.9;
+                //System.out.println(this.stdAdaptiveControl);
+
+        }
+        else {
+            while (matingPool.size() > 0) {
+
+                ArrayList<Individual> parents = randomSelectMates(2);
+                Individual parent = parents.get(0);
+                Individual mate = parents.get(1);
+
+
+                // Make babies
+                ArrayList<Individual> babies = parent.mate(mate, recombinationStrat);
+
+                switch (mutationStrat) {
+                    case "uniform":
+                        mutate(babies, this.mutationRate);
+                        break;
+                    case "non-uniform-ctrl-det":
+                        double progress = (double) age / (double) MAX_AGE;
+                        double paramCtrlStdDev = 1 - 0.9 * progress;
+                        mutate(babies, paramCtrlStdDev, this.mean);
+                        break;
+                    case "non-uniform":
+                        mutate(babies, this.stdDeviation, this.mean);
+                        break;
+                    default:
+                    	throw new IllegalArgumentException("Typo in mutatation strat"); 
+                }
+
+                offsprings.addAll(babies);
+            }
         }
     }
 
