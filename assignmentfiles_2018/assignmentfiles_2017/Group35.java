@@ -55,12 +55,15 @@ public class Group35 implements ContestSubmission {
     }
 
 
-    public void run_script() {
+    public void run_archipeligo() {
         // Run your algorithm here
         System.out.println("Initializing algorithm...");
+        int n_islands = Integer.parseInt(System.getProperty("nIslands"));
+        int n_exch_ind = Integer.parseInt(System.getProperty("nExchangeInd"));
+        int n_epochs = Integer.parseInt(System.getProperty("nEpochs"));
 
-        Archipelago archipelago = new Archipelago(1, 1, 1);
-        assert archipelago.size == 1;
+
+        Archipelago archipelago = new Archipelago(n_islands, n_exch_ind, n_epochs);
 
         Printing printing = new Printing();
         // ------- PARAMETERS ------- //
@@ -137,15 +140,6 @@ public class Group35 implements ContestSubmission {
 
         // Column names for output file
         System.out.println("Generation IslandId Exchange Maximum Average StandardDev");
-
-        int numIslands = 1;
-        int numExchangeIndividuals = 2;
-        int epoch = 10;
-        int archipelagoSize = numIslands * populationSize;
-
-
-        // init population
-        // System.out.println("Initializing population - μ: " + Integer.toString(populationSize) + "  λ:" + Integer.toString(offspringsSize));
 
 
         // SURVIVOR SELECTION STRATEGY
