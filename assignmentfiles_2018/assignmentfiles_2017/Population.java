@@ -242,6 +242,9 @@ public class Population{
         }
 
         double c = sum;
+//
+//        System.out.println("RIGHT HERE ");
+//        System.out.println(populationSize);
 
         for (int i = 0; i < populationSize; i++) {
             population.get(i).selection_prob = exponentialFactiors.get(i)/c;
@@ -611,6 +614,8 @@ public class Population{
      */
     private ArrayList<Individual> randomSelectMates(int num) {
         ArrayList<Individual> mates = new ArrayList<>();
+        System.out.println("MATING POOL SIZE");
+        System.out.println(matingPool.size());
 
         for(int i = 0; i < num ; i++){
             mates.add(matingPool.remove(rand.nextInt(matingPool.size())));

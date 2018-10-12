@@ -21,7 +21,7 @@ public class Group35 implements ContestSubmission {
 
     @Override
     public void run() {
-        run_script();
+        run_archipeligo();
     }
 
     public void setEvaluation(ContestEvaluation evaluation) {
@@ -216,103 +216,110 @@ public class Group35 implements ContestSubmission {
         // Run your algorithm here
         System.out.println("Initializing algorithm...");
         int n_islands = Integer.parseInt(System.getProperty("nIslands"));
+        System.out.println("Number of islands: " + Integer.toString(n_islands));
         int n_exch_ind = Integer.parseInt(System.getProperty("nExchangeInd"));
-        int n_epochs = Integer.parseInt(System.getProperty("nEpochs"));
+        System.out.println("Number of individuals to exchange: " + Integer.toString(n_exch_ind));
 
+        int n_epochs = Integer.parseInt(System.getProperty("nEpochs"));
+        System.out.println("Epoch: " + Integer.toString(n_epochs));
+
+        String migrationStrat = System.getProperty("nEpochStrat");
+        System.out.println("Migration strategy: " + migrationStrat);
 
         Archipelago archipelago = new Archipelago(n_islands, n_exch_ind, n_epochs);
 
         Printing printing = new Printing();
         // ------- PARAMETERS ------- //
 
-        // POPULATION SIZE
-        int populationSize = Integer.parseInt(System.getProperty("populationSize"));
-        System.out.println("Population size: "+ Integer.toString(populationSize));
-        // OFFSPRINGS SIZE
-        int offspringsSize = Integer.parseInt(System.getProperty("offspringSize"));
-        System.out.println("Offspring size: "+ Integer.toString(offspringsSize));
+        for (int i =0; i < n_islands ; i++) {
+            // POPULATION SIZE
+            int populationSize = Integer.parseInt(System.getProperty("populationSize"));
+            System.out.println("Population size: " + Integer.toString(populationSize));
+            // OFFSPRINGS SIZE
+            int offspringsSize = Integer.parseInt(System.getProperty("offspringSize"));
+            System.out.println("Offspring size: " + Integer.toString(offspringsSize));
 
-        // MATING POOL SIZE
-        int matingPoolSize = offspringsSize;
+            // MATING POOL SIZE
+            int matingPoolSize = offspringsSize;
 
-        Population pop = new Population(evaluation_, populationSize, matingPoolSize, offspringsSize);
-        //    ** MUTATION **     //
-        List<String> mutationStrategies = Arrays.asList(
-                "uniform",      // needs parameter mutationRate
-                "non-uniform",   // needs parameter stdDeviation and Mean
-                "non-uniform-ctrl-det",
-                "non-uniform-ctrl-adap"
-        );
+            Population pop = new Population(evaluation_, populationSize, matingPoolSize, offspringsSize);
 
-        // REPRODUCTION PROBABILITY STRATEGY
-        String reprodStrat = System.getProperty("reprodStrat");
-        double s = 0;
-        if (reprodStrat.equals("linear")) {
-            s = Double.parseDouble(System.getProperty("s"));
-            pop.setReproductionProbabilityStrategy(reprodStrat, s);
-            System.out.println("Reproduction probability strategy: " + reprodStrat + " with s=" + Double.toString(s));
-        } else {
-            System.out.println("Reproduction probability strategy: " + reprodStrat);
-            pop.setReproductionProbabilityStrategy(reprodStrat);
-        }
+            //    ** MUTATION **     //
+            List<String> mutationStrategies = Arrays.asList(
+                    "uniform",      // needs parameter mutationRate
+                    "non-uniform",   // needs parameter stdDeviation and Mean
+                    "non-uniform-ctrl-det",
+                    "non-uniform-ctrl-adap"
+            );
 
-        // PARENT SELECTION STRATEGY
-        String parentSelectStrat = System.getProperty("parentSelectStrat");
-        int k;
-        if (parentSelectStrat.equals("tournament")) {
-            k = Integer.parseInt(System.getProperty("k"));
-            pop.setParentSelectionStrategy(parentSelectStrat, k);
-            System.out.println("Parent selection strategy: " + parentSelectStrat + " with k=" + Double.toString(k));
-        } else {
-            pop.setParentSelectionStrategy(parentSelectStrat);
-            System.out.println("Parent selection strategy: " + parentSelectStrat);
-        }
+            // REPRODUCTION PROBABILITY STRATEGY
+            String reprodStrat = System.getProperty("reprodStrat");
+            double s = 0;
+            if (reprodStrat.equals("linear")) {
+                s = Double.parseDouble(System.getProperty("s"));
+                pop.setReproductionProbabilityStrategy(reprodStrat, s);
+                System.out.println("Reproduction probability strategy: " + reprodStrat + " with s=" + Double.toString(s));
+            } else {
+                System.out.println("Reproduction probability strategy: " + reprodStrat);
+                pop.setReproductionProbabilityStrategy(reprodStrat);
+            }
 
-        // RECOMBINATION STRATEGY
-        String recombStrat = System.getProperty("recombStrat");
-        double alfa;
-        if (recombStrat.equals("BLX")) {
-            alfa = Double.parseDouble(System.getProperty("alfa"));
-            pop.setRecombinationStrategy(recombStrat, alfa);
-            System.out.println("Recombination strategy: " + recombStrat + " with alfa=" + Double.toString(alfa));
-        } else {
-            pop.setRecombinationStrategy(recombStrat);
-            System.out.println("Recombination strategy: " + recombStrat);
-        }
+            // PARENT SELECTION STRATEGY
+            String parentSelectStrat = System.getProperty("parentSelectStrat");
+            int k;
+            if (parentSelectStrat.equals("tournament")) {
+                k = Integer.parseInt(System.getProperty("k"));
+                pop.setParentSelectionStrategy(parentSelectStrat, k);
+                System.out.println("Parent selection strategy: " + parentSelectStrat + " with k=" + Double.toString(k));
+            } else {
+                pop.setParentSelectionStrategy(parentSelectStrat);
+                System.out.println("Parent selection strategy: " + parentSelectStrat);
+            }
 
-        // MUTATION STRATEGY
-        String mutateStrat = System.getProperty("mutateStrat");
-        double mutationRate = 0;
-        double stdDeviaton = 0;
-        double mean = 0;
-        if (mutateStrat.equals("uniform")) {
-            mutationRate = Double.parseDouble(System.getProperty("mutationRate"));
-            pop.setMutationStrategy(mutateStrat, mutationRate);
-            System.out.println("Mutation strategy: " + mutateStrat + " with mutationRate=" + Double.toString(mutationRate));
-        } else {
-            mean = Double.parseDouble(System.getProperty("mean"));
-            stdDeviaton = Double.parseDouble(System.getProperty("stdDeviation"));
-            pop.setMutationStrategy(mutateStrat, stdDeviaton, mean);
-            System.out.println("Mutation strategy: " + mutateStrat + " with stdDeviation= " + Double.toString(stdDeviaton) + " and mean: " + Double.toString(mean));
-        }
+            // RECOMBINATION STRATEGY
+            String recombStrat = System.getProperty("recombStrat");
+            double alfa;
+            if (recombStrat.equals("BLX")) {
+                alfa = Double.parseDouble(System.getProperty("alfa"));
+                pop.setRecombinationStrategy(recombStrat, alfa);
+                System.out.println("Recombination strategy: " + recombStrat + " with alfa=" + Double.toString(alfa));
+            } else {
+                pop.setRecombinationStrategy(recombStrat);
+                System.out.println("Recombination strategy: " + recombStrat);
+            }
+
+            // MUTATION STRATEGY
+            String mutateStrat = System.getProperty("mutateStrat");
+            double mutationRate = 0;
+            double stdDeviaton = 0;
+            double mean = 0;
+            if (mutateStrat.equals("uniform")) {
+                mutationRate = Double.parseDouble(System.getProperty("mutationRate"));
+                pop.setMutationStrategy(mutateStrat, mutationRate);
+                System.out.println("Mutation strategy: " + mutateStrat + " with mutationRate=" + Double.toString(mutationRate));
+            } else {
+                mean = Double.parseDouble(System.getProperty("mean"));
+                stdDeviaton = Double.parseDouble(System.getProperty("stdDeviation"));
+                pop.setMutationStrategy(mutateStrat, stdDeviaton, mean);
+                System.out.println("Mutation strategy: " + mutateStrat + " with stdDeviation= " + Double.toString(stdDeviaton) + " and mean: " + Double.toString(mean));
+            }
 
 
+            // SURVIVOR SELECTION STRATEGY
+            String survivorSelectionStrat = System.getProperty("survivorSelectionStrat");
+            int q = 0;
+            if (survivorSelectionStrat.equals("tournament")) {
+                q = Integer.parseInt(System.getProperty("q"));
+                pop.setSurvivorSelectionStrategy(survivorSelectionStrat, q);
+                System.out.println("Survivor selection strategy: " + survivorSelectionStrat + " with q=" + Double.toString(q));
+            } else {
+                pop.setSurvivorSelectionStrategy(survivorSelectionStrat, q);
+                System.out.println("Survivor selection strategy: " + survivorSelectionStrat);
+            }
 
-        // SURVIVOR SELECTION STRATEGY
-        String survivorSelectionStrat = System.getProperty("survivorSelectionStrat");
-        int q = 0;
-        if (survivorSelectionStrat.equals("tournament")) {
-            q = Integer.parseInt(System.getProperty("q"));
-            pop.setSurvivorSelectionStrategy(survivorSelectionStrat, q);
-            System.out.println("Survivor selection strategy: " + survivorSelectionStrat + " with q=" + Double.toString(q));
-        } else {
-            pop.setSurvivorSelectionStrategy(survivorSelectionStrat, q);
-            System.out.println("Survivor selection strategy: " + survivorSelectionStrat);
-        }
-
-        for (int i = 0; i < archipelago.size; i++) {
             archipelago.islands.get(i).populate(pop);
         }
+
 
         // Column names for output file
         System.out.println("Generation IslandId Exchange Maximum Average StandardDev Evals");
@@ -345,12 +352,12 @@ public class Group35 implements ContestSubmission {
 
                 // Select parents
                 population.selectParents();
-                assert (!population.matingPool.isEmpty());
+                assert (population.matingPoolSize == population.matingPool.size());
 
                 // Apply crossover / mutation operators
                 population.makeBabies();
 
-                if (!mutateStrat.equals("non-uniform-ctrl-adap") ) {
+                if (!population.mutationStrat.equals("non-uniform-ctrl-adap") ) {
                     for (Individual child : population.offsprings) {
                         // Check fitness of unknown fuction
                         child.fitness = (double) evaluation_.evaluate(child.genotype);
@@ -361,9 +368,15 @@ public class Group35 implements ContestSubmission {
                 // Select survivors
                 population.selectSurvivors();
 
-                printing.printStats(archipelago.age, 0, archipelago.checkMigrationStatus(), archipelago.calculateFitnessStatistics(),EvaluationCounter.getN_evaluations());
 
             }
+
+            if (archipelago.age % archipelago.epoch == 0) {
+                archipelago.migrate(migrationStrat);
+                archipelago.integrateAllMigrants();
+            }
+            printing.printStats(archipelago.age, island_id, archipelago.checkMigrationStatus(), archipelago.calculateFitnessStatistics(),EvaluationCounter.getN_evaluations());
+
             archipelago.age++;
         }
     }
