@@ -59,9 +59,168 @@ public class Group35 implements ContestSubmission {
         String func = System.getProperty("evaluation");
         // Run your algorithm here
         System.out.println("Initializing algorithm on function: " + func);
+        int n_islands = 1;
+        int n_exch_ind = 1;
+        int n_epochs = 1;
 
-        Archipelago archipelago = new Archipelago(1, 1, 1);
-        assert archipelago.size == 1;
+        Archipelago archipelago = new Archipelago(n_islands, n_exch_ind, n_epochs);
+
+        Printing printing = new Printing();
+        // ------- PARAMETERS ------- //
+
+        // POPULATION SIZE
+        int populationSize = Integer.parseInt(System.getProperty("populationSize"));
+        System.out.println("Population size: "+ Integer.toString(populationSize));
+
+        // OFFSPRINGS SIZE
+        int offspringsSize = Integer.parseInt(System.getProperty("offspringSize"));
+        System.out.println("Offspring size: "+ Integer.toString(offspringsSize));
+
+        // MATING POOL SIZE
+        int matingPoolSize = offspringsSize;
+
+        Population pop = new Population(evaluation_, populationSize, matingPoolSize, offspringsSize);
+        //    ** MUTATION **     //
+        List<String> mutationStrategies = Arrays.asList(
+                "uniform",      // needs parameter mutationRate
+                "non-uniform",   // needs parameter stdDeviation and Mean
+                "non-uniform-ctrl-det",
+                "non-uniform-ctrl-adap"
+        );
+
+        // REPRODUCTION PROBABILITY STRATEGY
+        String reprodStrat = System.getProperty("reprodStrat");
+        double s = 0;
+        if (reprodStrat.equals("linear")) {
+            s = Double.parseDouble(System.getProperty("s"));
+            pop.setReproductionProbabilityStrategy(reprodStrat, s);
+            System.out.println("Reproduction probability strategy: " + reprodStrat + " with s=" + Double.toString(s));
+        } else {
+            System.out.println("Reproduction probability strategy: " + reprodStrat);
+            pop.setReproductionProbabilityStrategy(reprodStrat);
+        }
+
+        // PARENT SELECTION STRATEGY
+        String parentSelectStrat = System.getProperty("parentSelectStrat");
+        int k;
+        if (parentSelectStrat.equals("tournament")) {
+            k = Integer.parseInt(System.getProperty("k"));
+            pop.setParentSelectionStrategy(parentSelectStrat, k);
+            System.out.println("Parent selection strategy: " + parentSelectStrat + " with k=" + Double.toString(k));
+        } else {
+            pop.setParentSelectionStrategy(parentSelectStrat);
+            System.out.println("Parent selection strategy: " + parentSelectStrat);
+        }
+
+        // RECOMBINATION STRATEGY
+        String recombStrat = System.getProperty("recombStrat");
+        double alfa;
+        if (recombStrat.equals("BLX")) {
+            alfa = Double.parseDouble(System.getProperty("alfa"));
+            pop.setRecombinationStrategy(recombStrat, alfa);
+            System.out.println("Recombination strategy: " + recombStrat + " with alfa=" + Double.toString(alfa));
+        } else {
+            pop.setRecombinationStrategy(recombStrat);
+            System.out.println("Recombination strategy: " + recombStrat);
+        }
+
+        // MUTATION STRATEGY
+        String mutateStrat = System.getProperty("mutateStrat");
+        double mutationRate = 0;
+        double stdDeviaton = 0;
+        double mean = 0;
+        if (mutateStrat.equals("uniform")) {
+            mutationRate = Double.parseDouble(System.getProperty("mutationRate"));
+            pop.setMutationStrategy(mutateStrat, mutationRate);
+            System.out.println("Mutation strategy: " + mutateStrat + " with mutationRate=" + Double.toString(mutationRate));
+        } else {
+            mean = Double.parseDouble(System.getProperty("mean"));
+            stdDeviaton = Double.parseDouble(System.getProperty("stdDeviation"));
+            pop.setMutationStrategy(mutateStrat, stdDeviaton, mean);
+            System.out.println("Mutation strategy: " + mutateStrat + " with stdDeviation= " + Double.toString(stdDeviaton) + " and mean: " + Double.toString(mean));
+        }
+
+
+
+        // SURVIVOR SELECTION STRATEGY
+        String survivorSelectionStrat = System.getProperty("survivorSelectionStrat");
+        int q = 0;
+        if (survivorSelectionStrat.equals("tournament")) {
+            q = Integer.parseInt(System.getProperty("q"));
+            pop.setSurvivorSelectionStrategy(survivorSelectionStrat, q);
+            System.out.println("Survivor selection strategy: " + survivorSelectionStrat + " with q=" + Double.toString(q));
+        } else {
+            pop.setSurvivorSelectionStrategy(survivorSelectionStrat, q);
+            System.out.println("Survivor selection strategy: " + survivorSelectionStrat);
+        }
+
+        for (int i = 0; i < archipelago.size; i++) {
+            archipelago.islands.get(i).populate(pop);
+        }
+
+        // Column names for output file
+        System.out.println("Generation IslandId Exchange Maximum Average StandardDev Evals");
+
+        for (Island island : archipelago.islands) {
+            Population islandPopulation = island.population;
+            for (Individual child : islandPopulation.offsprings) {
+                // Check fitness of unknown fuction
+                child.fitness = (double) evaluation_.evaluate(child.genotype);
+                EvaluationCounter.increaseEvaluation();
+            }
+        }
+
+
+        while (EvaluationCounter.getN_evaluations() < evaluations_limit_) {
+
+            archipelago.resetMigrationStatus();
+
+            int island_id = 0;
+
+            // Initialize list to store all the fitness values for this generation (useful for calculating archipelago statistics)
+            ArrayList<Double> archipelagoFitnessValues = new ArrayList<>();
+
+
+            for (Island island : archipelago.islands) {
+
+                island_id++;
+
+                Population population = island.population;
+
+                // Select parents
+                population.selectParents();
+                assert (!population.matingPool.isEmpty());
+
+                // Apply crossover / mutation operators
+                population.makeBabies();
+
+                if (!mutateStrat.equals("non-uniform-ctrl-adap") ) {
+                    for (Individual child : population.offsprings) {
+                        // Check fitness of unknown fuction
+                        child.fitness = (double) evaluation_.evaluate(child.genotype);
+                        EvaluationCounter.increaseEvaluation();
+                    }
+                }
+
+                // Select survivors
+                population.selectSurvivors();
+
+                printing.printStats(archipelago.age, 0, archipelago.checkMigrationStatus(), archipelago.calculateFitnessStatistics(),EvaluationCounter.getN_evaluations());
+
+            }
+            archipelago.age++;
+        }
+    }
+
+    public void run_archipeligo() {
+        // Run your algorithm here
+        System.out.println("Initializing algorithm...");
+        int n_islands = Integer.parseInt(System.getProperty("nIslands"));
+        int n_exch_ind = Integer.parseInt(System.getProperty("nExchangeInd"));
+        int n_epochs = Integer.parseInt(System.getProperty("nEpochs"));
+
+
+        Archipelago archipelago = new Archipelago(n_islands, n_exch_ind, n_epochs);
 
         Printing printing = new Printing();
         // ------- PARAMETERS ------- //
@@ -137,15 +296,6 @@ public class Group35 implements ContestSubmission {
             System.out.println("Mutation strategy: " + mutateStrat + " with stdDeviation= " + Double.toString(stdDeviaton) + " and mean: " + Double.toString(mean));
         }
 
-
-        int numIslands = 1;
-        int numExchangeIndividuals = 2;
-        int epoch = 10;
-        int archipelagoSize = numIslands * populationSize;
-
-
-        // init population
-        // System.out.println("Initializing population - μ: " + Integer.toString(populationSize) + "  λ:" + Integer.toString(offspringsSize));
 
 
         // SURVIVOR SELECTION STRATEGY
