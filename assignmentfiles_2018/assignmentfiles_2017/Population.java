@@ -51,6 +51,16 @@ public class Population{
 
     Integer q;
 
+    Double t;
+
+    Double t_prime;
+
+    Double e;
+
+    Double pi_angles = 180.0;
+
+    Double b;
+
     String paramControlMutation;
 
     double stdAdaptiveControl = 0.5;
@@ -138,6 +148,7 @@ public class Population{
      *             - "Non-uniform" (needs stdDeviation and mean parameter)
      *             - "Non-uniform-ctrl-det" (Deterministic)(needs stdDeviation and mean parameter)
      *             - "Non-uniform-ctrl-adap" (Adaptive Control(needs stdDeviation and mean parameter)
+     *
      */
     public void setMutationStrategy(String strat, double mutationRate){
         this.mutationStrat = strat;
@@ -148,6 +159,22 @@ public class Population{
         this.mutationStrat = strat;
         this.stdDeviation = stdDeviation;
         this.mean = mean;
+    }
+
+    public void setMutationStrategy(String strat, double c, double c_prime, double e){
+        this.mutationStrat = strat;
+        this.t = c / Math.sqrt(2 * Math.sqrt(populationSize)); //proportional to this
+        this.t_prime = c_prime / Math.sqrt(2 * populationSize); //proportional to this
+        this.e = e; //lower limit for sigmas
+    }
+
+    public void setMutationStrategy(String strat, double c, double c_prime, double e, double b){
+        this.mutationStrat = strat;
+        this.t = c / Math.sqrt(2 * Math.sqrt(populationSize)); //proportional to this 0.05
+        this.t_prime = c_prime / Math.sqrt(2 * populationSize); //proportional to this 0.05
+        this.e = e; //lower limit for sigmas 0.0005
+        this.pi_angles = 180.0;
+        this.b = b; // 5.0
     }
 
     /**
@@ -577,6 +604,12 @@ public class Population{
                     case "non-uniform":
                         mutate(babies, this.stdDeviation, this.mean);
                         break;
+                    case "uncorrelated-with-n-steps":
+                        mutate(babies, this.t, this.t_prime, this.e);
+                        break;
+                    case "correlated":
+                        mutate(babies, this.t, this.t_prime, this.e, this.pi_angles, this.b);
+                        break;
                     default:
                     	throw new IllegalArgumentException("Typo in mutatation strat"); 
                 }
@@ -605,6 +638,23 @@ public class Population{
     public void mutate(ArrayList<Individual> babies, double stdDeviation, double mean) {
         for(Individual baby: babies)
             baby.nonUniformMutate(stdDeviation,mean);
+    }
+
+    /**
+     * Mutates the list of babies with the adequate mutation strategy
+     * @param babies List of individuals to mutate
+     * @param t
+     * @param t_prime
+     * @param e
+     */
+    public void mutate(ArrayList<Individual> babies, double t, double t_prime, double e) {
+        for(Individual baby: babies)
+            baby.uncorrelatedMutationNSteps(t, t_prime, e);
+    }
+
+    public void mutate(ArrayList<Individual> babies, double t, double t_prime, double e, double pi_angles, double b) {
+        for(Individual baby: babies)
+            baby.correlatedMutation(t, t_prime, e, pi_angles, b);
     }
 
     /**

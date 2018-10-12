@@ -2,7 +2,6 @@ import org.vu.contest.ContestSubmission;
 import org.vu.contest.ContestEvaluation;
 import java.util.*;
 
-
 public class Group35 implements ContestSubmission {
     Random rnd_;
     String function_name;
@@ -85,7 +84,8 @@ public class Group35 implements ContestSubmission {
                 "uniform",      // needs parameter mutationRate
                 "non-uniform",   // needs parameter stdDeviation and Mean
                 "non-uniform-ctrl-det",
-                "non-uniform-ctrl-adap"
+                "non-uniform-ctrl-adap",
+                "correlated-with-n-steps"
         );
 
         // REPRODUCTION PROBABILITY STRATEGY
@@ -126,21 +126,38 @@ public class Group35 implements ContestSubmission {
 
         // MUTATION STRATEGY
         String mutateStrat = System.getProperty("mutateStrat");
+
         double mutationRate = 0;
         double stdDeviaton = 0;
         double mean = 0;
+        double c = 0;
+        double c_prime = 0;
+        double e = 0;
+        double b = 0;
+
         if (mutateStrat.equals("uniform")) {
             mutationRate = Double.parseDouble(System.getProperty("mutationRate"));
             pop.setMutationStrategy(mutateStrat, mutationRate);
             System.out.println("Mutation strategy: " + mutateStrat + " with mutationRate=" + Double.toString(mutationRate));
-        } else {
+        } else if (mutateStrat.equals("non-uniform")){
             mean = Double.parseDouble(System.getProperty("mean"));
             stdDeviaton = Double.parseDouble(System.getProperty("stdDeviation"));
             pop.setMutationStrategy(mutateStrat, stdDeviaton, mean);
             System.out.println("Mutation strategy: " + mutateStrat + " with stdDeviation= " + Double.toString(stdDeviaton) + " and mean: " + Double.toString(mean));
+        } else if (mutateStrat.equals("uncorrelated-with-n-steps")){
+            c = Double.parseDouble(System.getProperty("c"));
+            c_prime = Double.parseDouble(System.getProperty("c_prime"));
+            e = Double.parseDouble(System.getProperty("e"));
+            pop.setMutationStrategy(mutateStrat, c, c_prime, e);
+            System.out.println("Mutation strategy: " + mutateStrat + " with c= " + Double.toString(c) + " c_prime= " + Double.toString(c_prime) + " and e= " + Double.toString(e));
+        } else if (mutateStrat.equals("correlated")){
+            c = Double.parseDouble(System.getProperty("c"));
+            c_prime = Double.parseDouble(System.getProperty("c_prime"));
+            e = Double.parseDouble(System.getProperty("e"));
+            b = Double.parseDouble(System.getProperty("b"));
+            pop.setMutationStrategy(mutateStrat, c, c_prime, e, b);
+            System.out.println("Mutation strategy: " + mutateStrat + " with c= " + Double.toString(c) + " c_prime= " + Double.toString(c_prime) + " e= " + Double.toString(e) + " and b= " + Double.toString(b)); 
         }
-
-
 
         // SURVIVOR SELECTION STRATEGY
         String survivorSelectionStrat = System.getProperty("survivorSelectionStrat");
@@ -288,23 +305,6 @@ public class Group35 implements ContestSubmission {
                 System.out.println("Recombination strategy: " + recombStrat);
             }
 
-            // MUTATION STRATEGY
-            String mutateStrat = System.getProperty("mutateStrat");
-            double mutationRate = 0;
-            double stdDeviaton = 0;
-            double mean = 0;
-            if (mutateStrat.equals("uniform")) {
-                mutationRate = Double.parseDouble(System.getProperty("mutationRate"));
-                pop.setMutationStrategy(mutateStrat, mutationRate);
-                System.out.println("Mutation strategy: " + mutateStrat + " with mutationRate=" + Double.toString(mutationRate));
-            } else {
-                mean = Double.parseDouble(System.getProperty("mean"));
-                stdDeviaton = Double.parseDouble(System.getProperty("stdDeviation"));
-                pop.setMutationStrategy(mutateStrat, stdDeviaton, mean);
-                System.out.println("Mutation strategy: " + mutateStrat + " with stdDeviation= " + Double.toString(stdDeviaton) + " and mean: " + Double.toString(mean));
-            }
-
-
             // SURVIVOR SELECTION STRATEGY
             String survivorSelectionStrat = System.getProperty("survivorSelectionStrat");
             int q = 0;
@@ -317,6 +317,41 @@ public class Group35 implements ContestSubmission {
                 System.out.println("Survivor selection strategy: " + survivorSelectionStrat);
             }
 
+            // MUTATION STRATEGY
+            String mutateStrat = System.getProperty("mutateStrat");
+
+            double mutationRate = 0;
+            double stdDeviaton = 0;
+            double mean = 0;
+            double c = 0;
+            double c_prime = 0;
+            double e = 0;
+            double b = 0;
+
+            if (mutateStrat.equals("uniform")) {
+                mutationRate = Double.parseDouble(System.getProperty("mutationRate"));
+                pop.setMutationStrategy(mutateStrat, mutationRate);
+                System.out.println("Mutation strategy: " + mutateStrat + " with mutationRate=" + Double.toString(mutationRate));
+            } else if (mutateStrat.equals("non-uniform")){
+                mean = Double.parseDouble(System.getProperty("mean"));
+                stdDeviaton = Double.parseDouble(System.getProperty("stdDeviation"));
+                pop.setMutationStrategy(mutateStrat, stdDeviaton, mean);
+                System.out.println("Mutation strategy: " + mutateStrat + " with stdDeviation= " + Double.toString(stdDeviaton) + " and mean: " + Double.toString(mean));
+            } else if (mutateStrat.equals("uncorrelated-with-n-steps")){
+                c = Double.parseDouble(System.getProperty("c"));
+                c_prime = Double.parseDouble(System.getProperty("c_prime"));
+                e = Double.parseDouble(System.getProperty("e"));
+                pop.setMutationStrategy(mutateStrat, c, c_prime, e);
+                System.out.println("Mutation strategy: " + mutateStrat + " with c= " + Double.toString(c) + " c_prime= " + Double.toString(c_prime) + " and e= " + Double.toString(e));
+            } else if (mutateStrat.equals("correlated")){
+                c = Double.parseDouble(System.getProperty("c"));
+                c_prime = Double.parseDouble(System.getProperty("c_prime"));
+                e = Double.parseDouble(System.getProperty("e"));
+                b = Double.parseDouble(System.getProperty("b"));
+                pop.setMutationStrategy(mutateStrat, c, c_prime, e, b);
+                System.out.println("Mutation strategy: " + mutateStrat + " with c= " + Double.toString(c) + " c_prime= " + Double.toString(c_prime) + " e= " + Double.toString(e) + " and b= " + Double.toString(b));
+            }
+            
             archipelago.islands.get(i).populate(pop);
         }
 
@@ -368,6 +403,8 @@ public class Group35 implements ContestSubmission {
                 // Select survivors
                 population.selectSurvivors();
 
+
+                archipelago.age++;
 
             }
 

@@ -1,12 +1,15 @@
 import java.util.ArrayList;
 import java.lang.Math;
 import java.util.Random;
+import java.util.Arrays;
 
 public class Individual{
 
     double[] fenotype;
 
     double[] genotype;
+
+    double[] sigmas = {0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1}; // small inital values for stability
 
     double fitness = 0.0;
 
@@ -15,6 +18,14 @@ public class Individual{
     Random rand = new Random();
 
     int genosize = 10;
+
+    double[][] alfas = new double[genosize][genosize]; //initial alfas to zeros
+    double[] sigmasSqrd = new double[genosize];
+    double[][] new_alfas = new double[genosize][genosize];
+    double[] new_sigmas = new double[genosize];
+    double[][] covariance = new double[genosize][genosize];
+
+    // Cholesky cholesky = new Cholesky();
 
     /**
      * Initializes the individual with a random array of 10 doubles within 
@@ -26,8 +37,11 @@ public class Individual{
         double rangeMin = -5;
         double rangeMax = 5;
 
+        double rand_sigmas[] = new double[genosize];
+
         for(int i = 0; i < rand_genotype.length; i++){
             rand_genotype[i] = rangeMin + (rangeMax - rangeMin) * rand.nextDouble();
+
         }
 
         genotype = rand_genotype;
@@ -45,7 +59,6 @@ public class Individual{
 
         // Advanced representation of solution
         this.genotype = fenotype;
-
 
     }
 
@@ -255,6 +268,120 @@ public class Individual{
 
 
     /**
+     *  Mutates the current individual's genome with an uncorrelated n-steps mutation
+     */
+    public void uncorrelatedMutationNSteps(double t, double t_prime, double e) {
+
+        double general_draw = rand.nextGaussian();
+
+        for (int i = 0; i < genotype.length; i++) {
+
+            double mutation = 100.0;
+
+            while (Math.abs(genotype[i] + mutation) > 5){
+
+                double specific_draw = rand.nextGaussian();
+
+                sigmas[i] = Math.max(sigmas[i] * Math.exp(t_prime * general_draw + t * specific_draw), e);
+
+                mutation = sigmas[i] * specific_draw;
+
+            }
+            genotype[i] = genotype[i] + mutation;
+        }
+
+    }
+
+
+    /**
+     *  Mutates the current individual's genome with a correlated muation
+     */
+    public void correlatedMutation(double t, double t_prime, double e, double pi_angles, double b){
+
+        double general_draw = rand.nextGaussian();
+        double[] drawVector = new double[genosize];
+        double[] mutationVector = new double[genosize];
+
+        boolean cont = true;
+
+        // do until x + mutation is within [-5,5]
+        while(cont){
+
+            // candidate values for sigmas and alfas, will merge with regular ones if the mutation results in a individual within bounds
+            double[][] new_alfas = new double[genosize][genosize];
+            double[] new_sigmas = new double[genosize];
+
+            // update sigmas
+            for(int i=0; i < genosize; i++){
+
+                double specific_draw = rand.nextGaussian();
+                drawVector[i] = rand.nextGaussian();
+
+                new_sigmas[i] = Math.max(sigmas[i] * Math.exp(t_prime * general_draw + t * specific_draw), e);
+
+            }
+
+            //update alfas
+            for(int i=0; i < genosize; i++){
+                for(int j=0; j < i; j++){
+
+                    new_alfas[i][j] = alfas[i][j] + b * rand.nextGaussian();
+
+                    if(Math.abs(new_alfas[i][j]) > pi_angles){
+                        new_alfas[i][j] = new_alfas[i][j] - 2*pi_angles*Math.signum(new_alfas[i][j]);
+                    }
+                }
+            }
+
+            // calculate covariance matrix
+            for(int i=0; i < genosize; i++){
+                sigmasSqrd[i] = Math.pow(new_sigmas[i], 2);
+                covariance[i][i] = sigmasSqrd[i];
+
+                for(int j=0; j < i; j++){
+                    covariance[i][j] = (sigmasSqrd[i] - sigmasSqrd[j])*Math.tan(Math.toRadians(2*new_alfas[i][j]))/2;
+                    covariance[j][i] = covariance[i][j];
+                }
+            }
+
+            // calculate mutation vectror L x N(0,1), where L is the left matrix from cholesky decomposition of the covariance matrix
+            // double[][] leftChol = cholesky.cholesky(covariance);
+            mutationVector = matrixMult(covariance, drawVector);
+
+            // check if every gene is within bounds. if there is at least one outside of [-5,5] repeat the process
+            for(int i=0; i < genosize; i++){
+                if(Math.abs(genotype[i] + mutationVector[i]) > 5){
+                    break;
+                }
+                cont = false;
+            }
+        }
+
+        // update genotype, sigmas and alfas
+        for(int i=0; i < genosize; i++){
+            genotype[i] = genotype[i] + mutationVector[i];
+        }
+        alfas = new_alfas;
+        sigmas = new_sigmas;
+
+    }
+
+
+    // Matrix mul between 2-dimensional a and 1-dimensional b
+    public double[] matrixMult(double[][] a, double[] b){
+        double [] c = new double[genosize];
+
+        for(int i=0; i < genosize; i++){
+            for(int j=0; j < genosize; j++){
+                c[i] += a[i][j]*b[j];
+            }
+        }
+
+        return c;
+    }
+
+
+    /**
      * Determines the genotype, based on the fenotype which was given as input (an array of doubles).
      * This function will be used in case many different representations of genotype are used, besides the array of doubles.
      * @return
@@ -262,6 +389,8 @@ public class Individual{
     public double[] determineGenotype(){
         return genotype;
     }
+
+
 
     
 }
