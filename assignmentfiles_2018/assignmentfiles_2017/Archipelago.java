@@ -8,7 +8,7 @@ public class Archipelago {
 
     int numExchangeIndividuals; // 2-5 recommended
 
-    int age;
+    int age = 0;
 
     Random rand;
 

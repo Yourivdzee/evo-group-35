@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="124c8272-ad3f-421f-a5a6-6dabf747012a" name="Default Changelist" comment="" />
+    <list default="true" id="124c8272-ad3f-421f-a5a6-6dabf747012a" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Group35.java" beforeDir="false" afterPath="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Group35.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/runScript.sh" beforeDir="false" afterPath="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/runSingleIsland.sh" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -13,20 +16,21 @@
     <session id="773983913">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="12" />
+          <entry key="project.closed" value="14" />
           <entry key="project.open.time.11" value="1" />
           <entry key="project.open.time.3" value="1" />
           <entry key="project.open.time.32" value="2" />
           <entry key="project.open.time.35" value="1" />
           <entry key="project.open.time.36" value="1" />
-          <entry key="project.open.time.37" value="1" />
+          <entry key="project.open.time.37" value="2" />
           <entry key="project.open.time.38" value="3" />
           <entry key="project.open.time.39" value="2" />
           <entry key="project.open.time.41" value="1" />
+          <entry key="project.open.time.42" value="1" />
           <entry key="project.open.time.47" value="1" />
-          <entry key="project.open.time.8" value="2" />
+          <entry key="project.open.time.8" value="3" />
           <entry key="project.open.time.9" value="1" />
-          <entry key="project.opened" value="17" />
+          <entry key="project.opened" value="20" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -36,54 +40,44 @@
           <entry key="java" value="31" />
           <entry key="log" value="1" />
           <entry key="md" value="1" />
+          <entry key="sh" value="2" />
           <entry key="testScript" value="1" />
-          <entry key="txt" value="16" />
+          <entry key="txt" value="17" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Bash" value="1" />
+          <entry key="Bash" value="3" />
           <entry key="CLASS" value="2" />
           <entry key="JAVA" value="31" />
           <entry key="Manifest" value="1" />
           <entry key="Markdown" value="1" />
-          <entry key="PLAIN_TEXT" value="17" />
+          <entry key="PLAIN_TEXT" value="18" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="30455" />
-          <entry key="sh" value="168" />
+          <entry key="java" value="30983" />
+          <entry key="sh" value="775" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Bash" value="168" />
-          <entry key="JAVA" value="30455" />
+          <entry key="Bash" value="775" />
+          <entry key="JAVA" value="30983" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.4943423">
+    <splitter split-orientation="horizontal" split-proportion="0.44561186">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Population.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-2409">
-                  <caret line="259" column="33" selection-start-line="259" selection-start-column="33" selection-end-line="259" selection-end-column="33" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                    <element signature="e#1548#1549#0" expanded="true" />
-                    <element signature="e#1605#1606#0" expanded="true" />
-                    <element signature="e#2101#2102#0" expanded="true" />
-                    <element signature="e#2150#2151#0" expanded="true" />
-                    <element signature="e#2907#2908#0" expanded="true" />
-                    <element signature="e#2954#2955#0" expanded="true" />
-                    <element signature="e#4080#4081#0" expanded="true" />
-                    <element signature="e#4131#4132#0" expanded="true" />
-                  </folding>
+                <state relative-caret-position="4725">
+                  <caret line="326" column="16" selection-start-line="326" selection-start-column="16" selection-end-line="326" selection-end-column="16" />
                 </state>
               </provider>
             </entry>
@@ -91,8 +85,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Archipelago.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1185">
-                  <caret line="82" column="2" selection-start-line="82" selection-start-column="2" selection-end-line="82" selection-end-column="2" />
+                <state relative-caret-position="-270">
+                  <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -100,29 +94,52 @@
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/runScript.sh">
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/runSingleIsland.sh">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="240">
-                  <caret line="19" selection-start-line="19" selection-end-line="19" />
+                <state relative-caret-position="180">
+                  <caret line="12" column="128" selection-start-line="12" selection-start-column="128" selection-end-line="12" selection-end-column="128" />
                 </state>
               </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/runManyIslands.sh">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="180">
+                  <caret line="12" column="128" selection-start-line="12" selection-start-column="128" selection-end-line="12" selection-end-column="128" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/runBigScript.sh">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="210">
+                  <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/data/KatsuuraEvaluation/bigRun/2018-10-11 00:43:39+02:00/run1.txt">
+              <provider selected="true" editor-type-id="text-editor" />
             </entry>
           </file>
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Printing.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="30">
-                  <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+                <state relative-caret-position="225">
+                  <caret line="15" column="16" selection-start-line="15" selection-start-column="16" selection-end-line="15" selection-end-column="16" />
                 </state>
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Individual.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-60">
-                  <caret line="119" lean-forward="true" selection-start-line="119" selection-end-line="119" />
+                <state relative-caret-position="210">
+                  <caret line="16" column="22" selection-start-line="16" selection-start-column="22" selection-end-line="16" selection-end-column="22" />
                   <folding>
                     <element signature="imports" expanded="true" />
                     <element signature="method#Individual#0;class#Individual#0" />
@@ -138,11 +155,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/ArchipelagoTest.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="225">
-                  <caret line="20" column="43" selection-start-line="20" selection-start-column="43" selection-end-line="20" selection-end-column="43" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                  </folding>
+                <state relative-caret-position="255">
+                  <caret line="23" column="56" selection-start-line="23" selection-start-column="56" selection-end-line="23" selection-end-column="56" />
                 </state>
               </provider>
             </entry>
@@ -154,10 +168,14 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Group35.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="183">
-                  <caret line="496" column="14" selection-start-line="496" selection-start-column="14" selection-end-line="496" selection-end-column="14" />
+                <state relative-caret-position="510">
+                  <caret line="56" selection-start-line="56" selection-end-line="56" />
                   <folding>
                     <element signature="imports" expanded="true" />
+                    <element signature="e#293#294#0" expanded="true" />
+                    <element signature="e#328#329#0" expanded="true" />
+                    <element signature="e#488#489#0" expanded="true" />
+                    <element signature="e#516#517#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -223,18 +241,22 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/TestJunitTest.java" />
-        <option value="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Individual.java" />
         <option value="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/IndividualTest.java" />
         <option value="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/ArchipelagoTest.java" />
         <option value="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Island.java" />
         <option value="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/IslandTest.java" />
         <option value="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/PopulationTest.java" />
-        <option value="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Archipelago.java" />
-        <option value="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Population.java" />
-        <option value="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Group35.java" />
         <option value="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/testScript" />
         <option value="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/testScript.sh" />
+        <option value="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Archipelago.java" />
+        <option value="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Printing.java" />
+        <option value="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Population.java" />
+        <option value="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Individual.java" />
         <option value="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/runScript.sh" />
+        <option value="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/runBigScript.sh" />
+        <option value="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Group35.java" />
+        <option value="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/runManyIslands.sh" />
+        <option value="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/runSingleIsland.sh" />
       </list>
     </option>
   </component>
@@ -245,9 +267,9 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="67" />
+    <option name="x" value="735" />
     <option name="y" value="25" />
-    <option name="width" value="927" />
+    <option name="width" value="1185" />
     <option name="height" value="1055" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -256,8 +278,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
@@ -275,6 +295,8 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -283,7 +305,7 @@
     <property name="Repository.Attach.Sources" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1539104407420" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1539350530229" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
     <property name="create.test.in.the.same.root" value="true" />
@@ -298,6 +320,9 @@
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -413,6 +438,9 @@
       <workItem from="1538494973479" duration="7331000" />
       <workItem from="1538554338528" duration="22706000" />
       <workItem from="1539099430925" duration="5066000" />
+      <workItem from="1539162117885" duration="17495000" />
+      <workItem from="1539202028723" duration="2884000" />
+      <workItem from="1539211338284" duration="4638000" />
     </task>
     <servers />
   </component>
@@ -449,12 +477,13 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="114889000" />
+    <option name="totallyTimeSpent" value="139906000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="67" y="25" width="1853" height="1055" extended-state="7" />
+    <frame x="67" y="25" width="1853" height="1055" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21748754" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2241284" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -470,7 +499,7 @@
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.32972974" />
       <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="9" visible="true" weight="0.2054054" />
+      <window_info anchor="bottom" id="Terminal" order="9" visible="true" weight="0.0" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="Messages" order="11" weight="0.32972974" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -559,9 +588,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="845">
           <caret line="105" selection-start-line="105" selection-end-line="105" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -611,82 +637,25 @@
     <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/data/BentCigarFunction/2018-10-08 22:29:43+02:00run5.txt" />
     <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/data/BentCigarFunction/2018-10-08 22:30:21+02:00run1.txt" />
     <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/data/BentCigarFunction/2018-10-08 22:31:08+02:00run1.txt" />
-    <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Archipelago.java">
+    <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/testScript.sh" />
+    <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Population.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1185">
-          <caret line="82" column="2" selection-start-line="82" selection-start-column="2" selection-end-line="82" selection-end-column="2" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="4725">
+          <caret line="326" column="16" selection-start-line="326" selection-start-column="16" selection-end-line="326" selection-end-column="16" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Printing.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/ArchipelagoTest.java">
-      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="225">
-          <caret line="20" column="43" selection-start-line="20" selection-start-column="43" selection-end-line="20" selection-end-column="43" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/testScript.sh">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/output.log">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="33" selection-start-line="11" selection-start-column="33" selection-end-line="11" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Group35.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="183">
-          <caret line="496" column="14" selection-start-line="496" selection-start-column="14" selection-end-line="496" selection-end-column="14" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/runScript.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="19" selection-start-line="19" selection-end-line="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Population.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2409">
-          <caret line="259" column="33" selection-start-line="259" selection-start-column="33" selection-end-line="259" selection-end-column="33" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1548#1549#0" expanded="true" />
-            <element signature="e#1605#1606#0" expanded="true" />
-            <element signature="e#2101#2102#0" expanded="true" />
-            <element signature="e#2150#2151#0" expanded="true" />
-            <element signature="e#2907#2908#0" expanded="true" />
-            <element signature="e#2954#2955#0" expanded="true" />
-            <element signature="e#4080#4081#0" expanded="true" />
-            <element signature="e#4131#4132#0" expanded="true" />
-          </folding>
+          <caret line="15" column="16" selection-start-line="15" selection-start-column="16" selection-end-line="15" selection-end-column="16" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Individual.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-60">
-          <caret line="119" lean-forward="true" selection-start-line="119" selection-end-line="119" />
+        <state relative-caret-position="210">
+          <caret line="16" column="22" selection-start-line="16" selection-start-column="22" selection-end-line="16" selection-end-column="22" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#Individual#0;class#Individual#0" />
@@ -695,6 +664,68 @@
             <element signature="method#mate#0;class#Individual#0" />
             <element signature="method#nonUniformMutate#0;class#Individual#0" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/ArchipelagoTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="23" column="56" selection-start-line="23" selection-start-column="56" selection-end-line="23" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/output.log">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" column="33" selection-start-line="11" selection-start-column="33" selection-end-line="11" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/data/KatsuuraEvaluation/bigRun/2018-10-11 00:43:39+02:00/run1.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/runBigScript.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Archipelago.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-270">
+          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/Group35.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="56" selection-start-line="56" selection-end-line="56" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#293#294#0" expanded="true" />
+            <element signature="e#328#329#0" expanded="true" />
+            <element signature="e#488#489#0" expanded="true" />
+            <element signature="e#516#517#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/runManyIslands.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" column="128" selection-start-line="12" selection-start-column="128" selection-end-line="12" selection-end-column="128" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assignmentfiles_2018/assignmentfiles_2017/runSingleIsland.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" column="128" selection-start-line="12" selection-start-column="128" selection-end-line="12" selection-end-column="128" />
         </state>
       </provider>
     </entry>
