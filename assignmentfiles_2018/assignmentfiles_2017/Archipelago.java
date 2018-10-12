@@ -45,8 +45,6 @@ public class Archipelago {
                 for(int i = 0; i < islands.size(); i++){
                     int current = i%(islands.size());
                     int next = (i+1)%(islands.size());
-                    System.out.println(current);
-                    System.out.println(next);
 
                     islands.get(current).give(islands.get(next), numExchangeIndividuals, "best");
                 }

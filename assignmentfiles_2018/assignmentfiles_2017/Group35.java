@@ -222,7 +222,7 @@ public class Group35 implements ContestSubmission {
                 // Select survivors
                 population.selectSurvivors();
 
-                printing.printStats(archipelago.age, 0, archipelago.checkMigrationStatus(), archipelago.calculateFitnessStatistics(),EvaluationCounter.getN_evaluations());
+                printing.printStats(archipelago.age, island_id, archipelago.checkMigrationStatus(), archipelago.calculateFitnessStatistics(),EvaluationCounter.getN_evaluations());
 
             }
             archipelago.age++;
@@ -351,7 +351,7 @@ public class Group35 implements ContestSubmission {
                 pop.setMutationStrategy(mutateStrat, c, c_prime, e, b);
                 System.out.println("Mutation strategy: " + mutateStrat + " with c= " + Double.toString(c) + " c_prime= " + Double.toString(c_prime) + " e= " + Double.toString(e) + " and b= " + Double.toString(b));
             }
-            
+
             archipelago.islands.get(i).populate(pop);
         }
 
@@ -381,7 +381,6 @@ public class Group35 implements ContestSubmission {
 
             for (Island island : archipelago.islands) {
 
-                island_id++;
 
                 Population population = island.population;
 
@@ -399,12 +398,11 @@ public class Group35 implements ContestSubmission {
                         EvaluationCounter.increaseEvaluation();
                     }
                 }
+                printing.printStats(archipelago.age, island_id, archipelago.checkMigrationStatus(), archipelago.calculateFitnessStatistics(),EvaluationCounter.getN_evaluations());
 
                 // Select survivors
                 population.selectSurvivors();
-
-
-                archipelago.age++;
+                island_id++;
 
             }
 
@@ -412,7 +410,6 @@ public class Group35 implements ContestSubmission {
                 archipelago.migrate(migrationStrat);
                 archipelago.integrateAllMigrants();
             }
-            printing.printStats(archipelago.age, island_id, archipelago.checkMigrationStatus(), archipelago.calculateFitnessStatistics(),EvaluationCounter.getN_evaluations());
 
             archipelago.age++;
         }
