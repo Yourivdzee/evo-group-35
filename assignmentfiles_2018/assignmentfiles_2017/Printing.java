@@ -6,13 +6,14 @@ public class Printing{
 		
 	}
 
-	public void printStats(int epoch, int islandId, boolean exchange, ArrayList<Double> stats){
+	public void printStats(int epoch, int islandId, boolean exchange, ArrayList<Double> stats, int evals){
         System.out.println(Integer.toString(epoch) + " " + 
              Integer.toString(islandId) + " " + 
              String.valueOf(exchange) + " " +
              String.format("%.5f", stats.get(1)) + " " +
              String.format("%.5f", stats.get(2)) + " " + 
-             String.format("%.5f", stats.get(3)));
+             String.format("%.5f", stats.get(3)) + " " +
+				Integer.toString(evals));
 
 	}
 

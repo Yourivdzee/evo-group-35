@@ -74,16 +74,13 @@ public class Population{
         }
     }
 
-    public int evaluate(){
-        int evals = 0;
-        for (Individual individual : this.population) {
+
+    public void evaluateIndividuals(ArrayList<Individual> individuals) {
+        for (Individual individual : individuals) {
             individual.fitness = (double) evaluation_.evaluate(individual.genotype);
             EvaluationCounter.increaseEvaluation();
-
         }
-        return evals;
     }
-
 
     /**
      * Sets the reproduction probability calculation strategy.
@@ -332,6 +329,7 @@ public class Population{
 
         while (currentMember < matingPoolSize){
             ArrayList<Individual> randSelection = new ArrayList<>();
+
             for(int i = 0 ; i < k ; i++){
                 randSelection.add(population.get(rand.nextInt(population.size() - 1)));
             }
@@ -517,12 +515,12 @@ public class Population{
                 // Make babies
                 ArrayList<Individual> babies = parent.mate(mate, recombinationStrat);
 
-
+                evaluateIndividuals(babies);
                 for (Individual baby : babies) {
-
                     evaluation_before.add((double) evaluation_.evaluate(baby.genotype));
                     EvaluationCounter.increaseEvaluation();
                 }
+
                 mutate(babies, this.stdAdaptiveControl, this.mean);
                 offsprings.addAll(babies);
 
@@ -535,6 +533,7 @@ public class Population{
                     offsprings.get(i).fitness=evaluation_after[i];
                     EvaluationCounter.increaseEvaluation();
                 }
+
                 double better = 0; double worse = 0;
 
                 for (int i = 0; i < evaluation_after.length; i++){
@@ -542,6 +541,7 @@ public class Population{
                         better += 1;
                     }
                 }
+
                 double ratio = better / evaluation_after.length;
 
                 //System.out.println(ratio);

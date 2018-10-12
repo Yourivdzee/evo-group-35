@@ -56,8 +56,9 @@ public class Group35 implements ContestSubmission {
 
 
     public void run_script() {
+        String func = System.getProperty("evaluation");
         // Run your algorithm here
-        System.out.println("Initializing algorithm...");
+        System.out.println("Initializing algorithm on function: " + func);
 
         Archipelago archipelago = new Archipelago(1, 1, 1);
         assert archipelago.size == 1;
@@ -67,9 +68,10 @@ public class Group35 implements ContestSubmission {
 
         // POPULATION SIZE
         int populationSize = Integer.parseInt(System.getProperty("populationSize"));
-
+        System.out.println("Population size: "+ Integer.toString(populationSize));
         // OFFSPRINGS SIZE
         int offspringsSize = Integer.parseInt(System.getProperty("offspringSize"));
+        System.out.println("Offspring size: "+ Integer.toString(offspringsSize));
 
         // MATING POOL SIZE
         int matingPoolSize = offspringsSize;
@@ -135,8 +137,6 @@ public class Group35 implements ContestSubmission {
             System.out.println("Mutation strategy: " + mutateStrat + " with stdDeviation= " + Double.toString(stdDeviaton) + " and mean: " + Double.toString(mean));
         }
 
-        // Column names for output file
-        System.out.println("Generation IslandId Exchange Maximum Average StandardDev");
 
         int numIslands = 1;
         int numExchangeIndividuals = 2;
@@ -164,14 +164,15 @@ public class Group35 implements ContestSubmission {
             archipelago.islands.get(i).populate(pop);
         }
 
-        int evals = 0;
+        // Column names for output file
+        System.out.println("Generation IslandId Exchange Maximum Average StandardDev Evals");
+
         for (Island island : archipelago.islands) {
             Population islandPopulation = island.population;
-            //evals += population.evaluate();
-            for (Individual individual : islandPopulation.population) {
-                individual.fitness = (double) evaluation_.evaluate(individual.genotype);
+            for (Individual child : islandPopulation.offsprings) {
+                // Check fitness of unknown fuction
+                child.fitness = (double) evaluation_.evaluate(child.genotype);
                 EvaluationCounter.increaseEvaluation();
-
             }
         }
 
@@ -190,38 +191,30 @@ public class Group35 implements ContestSubmission {
 
                 island_id++;
 
-                // System.out.println("------- Generation " + Integer.toString(evals/(numIslands*populationSize)) + " -------");
                 Population population = island.population;
 
                 // Select parents
                 population.selectParents();
                 assert (!population.matingPool.isEmpty());
-                // System.out.println("Finished parent selection with " + Integer.toString(population.matingPool.size()) + " candidates.");
 
                 // Apply crossover / mutation operators
-                // System.out.println("Making babies with recombination " + recombinationStrategy);
                 population.makeBabies();
-                // System.out.println("Made " + Integer.toString(population.offsprings.size()) + " babies");
 
-                // System.out.println("Evaluating newborns");
-                if (!mutateStrat.equals("non-uniform-ctrl-adap")) {
+                if (!mutateStrat.equals("non-uniform-ctrl-adap") ) {
                     for (Individual child : population.offsprings) {
                         // Check fitness of unknown fuction
                         child.fitness = (double) evaluation_.evaluate(child.genotype);
                         EvaluationCounter.increaseEvaluation();
-
                     }
                 }
 
                 // Select survivors
                 population.selectSurvivors();
 
-
-                printing.printStats(archipelago.age, 0, archipelago.checkMigrationStatus(), archipelago.calculateFitnessStatistics());
+                printing.printStats(archipelago.age, 0, archipelago.checkMigrationStatus(), archipelago.calculateFitnessStatistics(),EvaluationCounter.getN_evaluations());
 
             }
-
+            archipelago.age++;
         }
-        archipelago.age++;
     }
 }
