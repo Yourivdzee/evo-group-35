@@ -17,6 +17,9 @@ public class Printing{
 
 	}
 
+	public void printTime(long time){
+		System.out.print(" " + Long.toString(time));
+	}
 	// public void printArchipelagoStats(int epoch, boolean exchange, int archipelagoSize, ArrayList<Double> stats){
 
  //        Double max = 0.0;

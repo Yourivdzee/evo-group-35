@@ -38,16 +38,19 @@ public class Island {
      *             -
      */
     public void give(Island island, Integer num, String strat){
+        assert num <= population.population.size();
+        assert population.population.size() > 0;
         population.sortPopulationByFitness();
         Collections.reverse(population.population);
         switch (strat){
             case "best":
-                for(int i = 0; i < num ; i++)
-                    island.newIndividuals.add(population.population.remove(i));
+                for(int i = 0; i < num ; i++) {
+                    island.newIndividuals.add(population.population.remove(0));
+                }
                 break;
             case "second_best":
                 for(int i = 0; i < num ; i++)
-                    island.newIndividuals.add(population.population.remove(2*i + 1));
+                    island.newIndividuals.add(population.population.remove(i + 1));
                 break;
             default:
                 throw new IllegalArgumentException();
@@ -87,4 +90,6 @@ public class Island {
             return false;
         }
     }
+
+
 }

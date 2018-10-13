@@ -67,3 +67,13 @@ You can check whether the functions have the following properties to adapt your 
   * the number of available evaluations
  
 We tried to make the setup as robust as we could. Nevertheless, working with all different hardware and software platforms, we could still run into some problems. If you run into problems please ask fellow students, double check the tutorial, post questions on the discussion platform, or ask questions during the dedicated lecture on Monday the 10th of September. 
+
+# Great run settings:
+- Single island -
+SphereEvaluation: sh runSingleIsland.sh 10 SphereEvaluation 20 20 exponential tournament whole-arith non-uniform-ctrl-adap mu,lambda 0.5 5 0.02 0 0.05 1.2
+BentCigarFunction: sh runSingleIsland.sh 10 BentCigarFunction 20 20 exponential tournament whole-arith non-uniform-ctrl-adap mu,lambda 0.5 5 0.02 0 0.05 1.2
+
+- Many islands -
+BentCigarFunction: sh runManyIslands.sh 10 BentCigarFunction 20 20 exponential tournament whole-arith non-uniform-ctrl-adap replaceWorst 5 45 circle 5 epoch 0.5 5 0.02 0 0.05 1.2
+SchaffersEvaluation: sh runManyIslands.sh 10 SchaffersEvaluation 20 20 exponential tournament whole-arith non-uniform-ctrl-adap replaceWorst 5 45 circle 5 epoch 0.5 5 0.02 0 0.05 1.2
+

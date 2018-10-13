@@ -122,27 +122,6 @@ public class PopulationTest {
     }
 
     @Test
-    public void testCalculateStandardDeviation() {
-        System.out.println(" -- Testing Calculate Standard Deviation --");
-        double sums = 0;
-        for (int i = 0; i < pop.populationSize ; i++){
-            pop.population.get(i).fitness = i;
-            sums = sums + i;
-        }
-
-        double mean = sums/popSize;
-
-        double sum = 0;
-        for (int i = 0; i < pop.populationSize ; i++){
-            sum = sum + Math.pow(pop.population.get(i).fitness - mean,2);
-        }
-
-        double expectedStdDev = Math.sqrt(sum/pop.populationSize);
-        System.out.println("Expecting " + Double.toString(expectedStdDev) + " to be equal to " + Double.toString(pop.calculateStandardDeviation()));
-        assertTrue(expectedStdDev == pop.calculateStandardDeviation());
-    }
-
-    @Test
     public void testCalculateCumulativeReproductionProbability() {
         System.out.println(" -- Testing Calculate Cumulative Reproduction Probability --");
         for (int i = 0; i < pop.populationSize ; i++){

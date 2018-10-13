@@ -10,15 +10,21 @@ public class Archipelago {
 
     int age = 0;
 
+    String migrationStrat;
+
+    String migrationSeason;
+
     Random rand;
 
     ArrayList<Island> islands;
 
     ArrayList<Island> migrationPool;
 
-    public Archipelago(Integer size, Integer numExchangeIndividuals, Integer epoch) {
+    public Archipelago(Integer size, Integer numExchangeIndividuals, Integer epoch, String migrationStrat, String migrationSeason) {
         this.size = size;
         this.epoch = epoch;
+        this.migrationStrat = migrationStrat;
+        this.migrationSeason = migrationSeason;
         this.numExchangeIndividuals = numExchangeIndividuals;
         this.islands = new ArrayList<>();
         this.rand = new Random();
@@ -39,13 +45,12 @@ public class Archipelago {
      *  - Circle
      *  - Closest
      */
-    public void migrate(String strat){
-        switch (strat){
+    public void migrate(){
+        switch (migrationStrat){
             case "circle":
                 for(int i = 0; i < islands.size(); i++){
                     int current = i%(islands.size());
                     int next = (i+1)%(islands.size());
-
                     islands.get(current).give(islands.get(next), numExchangeIndividuals, "best");
                 }
                 break;
@@ -65,6 +70,24 @@ public class Archipelago {
 
     }
 
+
+    /**
+     * Checks if migration should occur and if it should, migrates.
+     */
+    public void checkMigrationSeason() {
+        switch (migrationSeason) {
+            case "epoch":
+                if (age % epoch == 0)
+                    migrate();
+            case "convegence":
+                if (checkConvergence())
+                    migrate();
+        }
+    }
+    /**
+     * Calculates the fitness statistics of this archipelago
+     * @return
+     */
     public ArrayList<Double> calculateFitnessStatistics(){
 
         ArrayList<Double> stats = new ArrayList<>();
