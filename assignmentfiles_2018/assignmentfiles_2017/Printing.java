@@ -8,18 +8,27 @@ public class Printing{
 
 	public void printStats(int epoch, int islandId, boolean exchange, ArrayList<Double> stats, int evals){
         System.out.println(Integer.toString(epoch) + " " + 
-             Integer.toString(islandId) + " " + 
-             String.valueOf(exchange) + " " +
-             String.format("%.5f", stats.get(1)) + " " +
-             String.format("%.5f", stats.get(2)) + " " + 
-             String.format("%.5f", stats.get(3)) + " " +
-				Integer.toString(evals));
+							 Integer.toString(islandId) + " " +
+							 String.valueOf(exchange) + " " +
+							 String.format("%.5f", stats.get(1)) + " " +
+							 String.format("%.5f", stats.get(2)) + " " +
+							 String.format("%.5f", stats.get(3)) + " " +
+							 Integer.toString(evals));
 
 	}
 
-	public void printTime(long time){
-		System.out.print(" " + Long.toString(time));
+	public void printStats(int epoch, int islandId, boolean exchange, ArrayList<Double> stats, int evals, long time){
+		System.out.println(Integer.toString(epoch) + " " +
+							Integer.toString(islandId) + " " +
+							String.valueOf(exchange) + " " +
+							String.format("%.5f", stats.get(1)) + " " +
+							String.format("%.5f", stats.get(2)) + " " +
+							String.format("%.5f", stats.get(3)) + " " +
+							Integer.toString(evals)             + " " +
+							Long.toString(time));
+
 	}
+
 	// public void printArchipelagoStats(int epoch, boolean exchange, int archipelagoSize, ArrayList<Double> stats){
 
  //        Double max = 0.0;

@@ -308,14 +308,13 @@ public class Group35 implements ContestSubmission {
                 population.selectSurvivors();
 
                 long end = System.currentTimeMillis();
-                printing.printStats(archipelago.age, island_id, archipelago.checkMigrationStatus(), island.population.calculateFitnessStatistics(),EvaluationCounter.getN_evaluations());
-                printing.printTime(end-start);
+                printing.printStats(archipelago.age, island_id, false, island.population.calculateFitnessStatistics(), EvaluationCounter.getN_evaluations(), end-start);
                 island_id++;
             }
 
             archipelago.checkMigrationSeason();
             archipelago.integrateAllMigrants();
-            printing.printStats(archipelago.age, 0, false,archipelago.calculateFitnessStatistics(), EvaluationCounter.getN_evaluations());
+            printing.printStats(archipelago.age, 0, archipelago.checkMigrationStatus(), archipelago.calculateFitnessStatistics(), EvaluationCounter.getN_evaluations());
             archipelago.age++;
         }
     }

@@ -29,7 +29,7 @@ echo "17- mean=${18}"
 echo "18- stdDeviation=${19}"
 echo "19- s=${20}"
 run="javac -cp contest.jar Group35.java Individual.java EvaluationCounter.java Population.java Island.java Archipelago.java Printing.java && jar cmf MainClass.txt submission.jar Group35.class EvaluationCounter.class Individual.class Population.class Island.class Archipelago.class Printing.class &&
-     java -DpopulationSize=$3 -DoffspringSize=$4 -DreprodStrat=$5 -DparentSelectStrat=$6 -DrecombStrat=$7 -DmutateStrat=$8 -DsurvivorSelectionStrat=$9 -DnIslands=${10} -DnEpochs=${11} -DnEpochStrat=${12} -DnExchangeInd=${13} -DnMigrationStrat=${14} -Dalfa=${15} -Dk=${16} -DmutationRate=${17} -Dmean=${18} -DstdDeviation=${19} -Ds=${20} -jar testrun.jar -submission=Group35 -evaluation=$2 -seed=1"
+     java -DpopulationSize=$3 -Devaluation=$2 -DoffspringSize=$4 -DreprodStrat=$5 -DparentSelectStrat=$6 -DrecombStrat=$7 -DmutateStrat=$8 -DsurvivorSelectionStrat=$9 -DnIslands=${10} -DnEpochs=${11} -DnEpochStrat=${12} -DnExchangeInd=${13} -DnMigrationStrat=${14} -Dalfa=${15} -Dk=${16} -DmutationRate=${17} -Dmean=${18} -DstdDeviation=${19} -Ds=${20} -jar testrun.jar -submission=Group35 -evaluation=$2 -seed=1"
 
 
 TIMEDATE=$(date --rfc-3339=seconds)
@@ -40,7 +40,7 @@ END=$1
 #done
 
 for i in $(seq 1 $END);
-    do mkdir -p "data/$2/$TIMEDATE" && echo "Run $i..." && eval $run > "data/$2/$TIMEDATE/run$i.txt";
+    do mkdir -p "data/$2/N_ISLANDS/$TIMEDATE" && echo "Run $i..." && eval $run > "data/$2/N_ISLANDS/$TIMEDATE/run$i.txt";
 done
 #    done
 #done

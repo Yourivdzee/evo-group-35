@@ -31,7 +31,7 @@ public class Archipelago {
         this.migrationPool = new ArrayList<>();
 
         for(int i = 0; i < size ; i++)
-            islands.add(new Island(i));
+            islands.add(new Island(i + 1));
     }
 
     public void populateIsland(int i, Population population){
@@ -79,9 +79,14 @@ public class Archipelago {
             case "epoch":
                 if (age % epoch == 0)
                     migrate();
+                    break;
             case "convegence":
                 if (checkConvergence())
                     migrate();
+                    break;
+            default:
+                System.out.print("Illegal argument migrationSeason: " + migrationSeason);
+                throw new IllegalArgumentException();
         }
     }
     /**
@@ -146,8 +151,9 @@ public class Archipelago {
     public boolean checkMigrationStatus() {
         boolean checked = true;
         for (Island island: islands){
-            if((!island.recieved) || (!island.gave))
+            if((!island.recieved) || (!island.gave)) {
                 checked = false;
+            }
         }
         return checked;
     }
