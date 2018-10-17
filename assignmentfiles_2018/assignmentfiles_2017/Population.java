@@ -582,9 +582,17 @@ public class Population{
                 Individual parent = parents.get(0);
                 Individual mate = parents.get(1);
 
-
+                ArrayList<Individual> babies;
                 // Make babies
-                ArrayList<Individual> babies = parent.mate(mate, recombinationStrat);
+                switch (recombinationStrat){
+                    case "BLX":
+                        babies = parent.mate(mate, recombinationStrat,alfa);
+                    case "whole-arith":
+                        babies = parent.mate(mate, recombinationStrat,alfa);
+                    default:
+                        babies = parent.mate(mate, recombinationStrat);
+
+                }
 
                 switch (mutationStrat) {
                     case "uniform":
@@ -720,6 +728,8 @@ public class Population{
                 replacePopulationByAge();
                 break;
             default:
+                System.out.print("Wrong argument");
+                System.out.print(survivorSelectionStrat);
                 throw new IllegalArgumentException();
         }
         matingPool.clear();

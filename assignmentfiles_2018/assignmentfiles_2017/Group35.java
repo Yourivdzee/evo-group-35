@@ -81,9 +81,13 @@ public class Group35 implements ContestSubmission {
         }
 
         // RECOMBINATION STRATEGY
-        double alfa;
+        double alfa = 0;
         switch (recombStrat){
             case "BLX":
+                alfa = Double.parseDouble(System.getProperty("alfa"));
+                pop.setRecombinationStrategy(recombStrat, alfa);
+                System.out.println("Recombination strategy: " + recombStrat + " with alfa=" + Double.toString(alfa));
+            case "whole-arith":
                 alfa = Double.parseDouble(System.getProperty("alfa"));
                 pop.setRecombinationStrategy(recombStrat, alfa);
                 System.out.println("Recombination strategy: " + recombStrat + " with alfa=" + Double.toString(alfa));
@@ -286,7 +290,7 @@ public class Group35 implements ContestSubmission {
             archipelago.resetMigrationStatus();
             int island_id = 1;
             for (Island island : archipelago.islands) {
-                long start = System.currentTimeMillis();
+                long start = System.nanoTime();
                 Population population = island.population;
 
                 // Select parents
@@ -307,7 +311,7 @@ public class Group35 implements ContestSubmission {
                 // Select survivors
                 population.selectSurvivors();
 
-                long end = System.currentTimeMillis();
+                long end = System.nanoTime();
                 printing.printStats(archipelago.age, island_id, false, island.population.calculateFitnessStatistics(), EvaluationCounter.getN_evaluations(), end-start);
                 island_id++;
             }
