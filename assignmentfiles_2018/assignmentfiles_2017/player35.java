@@ -2,14 +2,15 @@ import org.vu.contest.ContestSubmission;
 import org.vu.contest.ContestEvaluation;
 import java.util.*;
 
-public class Group35 implements ContestSubmission {
+public class player35 implements ContestSubmission {
     Random rnd_;
     String function_name;
     ContestEvaluation evaluation_;
     private int evaluations_limit_;
+    Population pop;
 
 
-    public Group35() {
+    public player35() {
         rnd_ = new Random();
     }
 
@@ -21,11 +22,11 @@ public class Group35 implements ContestSubmission {
     @Override
     public void run() {
 
-        int n_islands = Integer.parseInt(System.getProperty("nIslands"));
+        //int n_islands = Integer.parseInt(System.getProperty("nIslands"));
 
-        if(n_islands>1)
-            run_archipeligo();
-        else
+//        if(n_islands>1)
+//            run_archipeligo();
+//        else
             run_script();
     }
 
@@ -52,9 +53,9 @@ public class Group35 implements ContestSubmission {
                 "correlated-with-n-steps"
         );
 
-        System.out.println("Initializing algorithm on function: " + func);
-        System.out.println("Population size: "+ Integer.toString(populationSize));
-        System.out.println("Offspring size: "+ Integer.toString(offspringsSize));
+        //System.out.println("Initializing algorithm on function: " + func);
+        //System.out.println("Population size: "+ Integer.toString(populationSize));
+        //System.out.println("Offspring size: "+ Integer.toString(offspringsSize));
 
         // REPRODUCTION PROBABILITY STRATEGY
         double s = 0;
@@ -62,9 +63,9 @@ public class Group35 implements ContestSubmission {
             case "linear":
                 s = Double.parseDouble(System.getProperty("s"));
                 pop.setReproductionProbabilityStrategy(reprodStrat, s);
-                System.out.println("Reproduction probability strategy: " + reprodStrat + " with s=" + Double.toString(s));
+                //System.out.println("Reproduction probability strategy: " + reprodStrat + " with s=" + Double.toString(s));
             default:
-                System.out.println("Reproduction probability strategy: " + reprodStrat);
+                //System.out.println("Reproduction probability strategy: " + reprodStrat);
                 pop.setReproductionProbabilityStrategy(reprodStrat);
         }
 
@@ -74,26 +75,22 @@ public class Group35 implements ContestSubmission {
             case "tournament":
                 k = Integer.parseInt(System.getProperty("k"));
                 pop.setParentSelectionStrategy(parentSelectStrat, k);
-                System.out.println("Parent selection strategy: " + parentSelectStrat + " with k=" + Double.toString(k));
+                //System.out.println("Parent selection strategy: " + parentSelectStrat + " with k=" + Double.toString(k));
             default:
                 pop.setParentSelectionStrategy(parentSelectStrat);
-                System.out.println("Parent selection strategy: " + parentSelectStrat);
+               // System.out.println("Parent selection strategy: " + parentSelectStrat);
         }
 
         // RECOMBINATION STRATEGY
-        double alfa = 0;
+        double alfa;
         switch (recombStrat){
             case "BLX":
                 alfa = Double.parseDouble(System.getProperty("alfa"));
                 pop.setRecombinationStrategy(recombStrat, alfa);
-                System.out.println("Recombination strategy: " + recombStrat + " with alfa=" + Double.toString(alfa));
-            case "whole-arith":
-                alfa = Double.parseDouble(System.getProperty("alfa"));
-                pop.setRecombinationStrategy(recombStrat, alfa);
-                System.out.println("Recombination strategy: " + recombStrat + " with alfa=" + Double.toString(alfa));
+                //System.out.println("Recombination strategy: " + recombStrat + " with alfa=" + Double.toString(alfa));
             default:
                 pop.setRecombinationStrategy(recombStrat);
-                System.out.println("Recombination strategy: " + recombStrat);
+                //System.out.println("Recombination strategy: " + recombStrat);
         }
 
 
@@ -111,20 +108,20 @@ public class Group35 implements ContestSubmission {
             case "uniform":
                 mutationRate = Double.parseDouble(System.getProperty("mutationRate"));
                 pop.setMutationStrategy(mutateStrat, mutationRate);
-                System.out.println("Mutation strategy: " + mutateStrat + " with mutationRate=" + Double.toString(mutationRate));
+//                System.out.println("Mutation strategy: " + mutateStrat + " with mutationRate=" + Double.toString(mutationRate));
                 break;
             case "non-uniform":
                 mean = Double.parseDouble(System.getProperty("mean"));
                 stdDeviaton = Double.parseDouble(System.getProperty("stdDeviation"));
                 pop.setMutationStrategy(mutateStrat, stdDeviaton, mean);
-                System.out.println("Mutation strategy: " + mutateStrat + " with stdDeviation= " + Double.toString(stdDeviaton) + " and mean: " + Double.toString(mean));
+//                System.out.println("Mutation strategy: " + mutateStrat + " with stdDeviation= " + Double.toString(stdDeviaton) + " and mean: " + Double.toString(mean));
                 break;
             case "uncorrelated-with-n-steps":
                 c = Double.parseDouble(System.getProperty("c"));
                 c_prime = Double.parseDouble(System.getProperty("c_prime"));
                 e = Double.parseDouble(System.getProperty("e"));
                 pop.setMutationStrategy(mutateStrat, c, c_prime, e);
-                System.out.println("Mutation strategy: " + mutateStrat + " with c= " + Double.toString(c) + " c_prime= " + Double.toString(c_prime) + " and e= " + Double.toString(e));
+//                System.out.println("Mutation strategy: " + mutateStrat + " with c= " + Double.toString(c) + " c_prime= " + Double.toString(c_prime) + " and e= " + Double.toString(e));
                 break;
             case "correlated":
                 c = Double.parseDouble(System.getProperty("c"));
@@ -132,11 +129,11 @@ public class Group35 implements ContestSubmission {
                 e = Double.parseDouble(System.getProperty("e"));
                 b = Double.parseDouble(System.getProperty("b"));
                 pop.setMutationStrategy(mutateStrat, c, c_prime, e, b);
-                System.out.println("Mutation strategy: " + mutateStrat + " with c= " + Double.toString(c) + " c_prime= " + Double.toString(c_prime) + " e= " + Double.toString(e) + " and b= " + Double.toString(b));
+//                System.out.println("Mutation strategy: " + mutateStrat + " with c= " + Double.toString(c) + " c_prime= " + Double.toString(c_prime) + " e= " + Double.toString(e) + " and b= " + Double.toString(b));
                 break;
             default:
                 pop.setMutationStrategy(mutateStrat,stdDeviaton, mean);
-                System.out.println("Mutation strategy: " + mutateStrat);
+//                System.out.println("Mutation strategy: " + mutateStrat);
         }
 
         // SURVIVOR SELECTION STRATEGY
@@ -145,15 +142,14 @@ public class Group35 implements ContestSubmission {
             case "tournament":
                 q = Integer.parseInt(System.getProperty("q"));
                 pop.setSurvivorSelectionStrategy(survivorSelectionStrat, q);
-                System.out.println("Survivor selection strategy: " + survivorSelectionStrat + " with q=" + Double.toString(q));
+//                System.out.println("Survivor selection strategy: " + survivorSelectionStrat + " with q=" + Double.toString(q));
             default:
                 pop.setSurvivorSelectionStrategy(survivorSelectionStrat, q);
-                System.out.println("Survivor selection strategy: " + survivorSelectionStrat);
+//                System.out.println("Survivor selection strategy: " + survivorSelectionStrat);
         }
 
         return pop;
     }
-
     public void setEvaluation(ContestEvaluation evaluation) {
         // Set evaluation problem used in the run
         evaluation_ = evaluation;
@@ -175,71 +171,157 @@ public class Group35 implements ContestSubmission {
         // Do sth with property values, e.g. specify relevant settings of your algorithm
         if (!isMultimodal && !hasStructure) {
             function_name = "BentCigar";
+            int populationSize = 20;
+            int offspringsSize = 20;
+            int matingPoolSize = 20;
+            String parentSelectStrat = "tournament";
+            int k = 10;
+            String recombStrat = "whole-arith";
+            double alfa = 0.5;
+            String mutateStrat = "non-uniform-ctrl-adap";
+            double stdDeviation = 0.5;
+            double mean = 0;
+            String survivorSelectStrat = "";
+            Population pop = new Population(evaluation_, populationSize, matingPoolSize, offspringsSize);
+            pop.setParentSelectionStrategy(parentSelectStrat, k);
+            pop.setReproductionProbabilityStrategy("exponential");
+            pop.setRecombinationStrategy(recombStrat, alfa);
+            pop.setMutationStrategy(mutateStrat, stdDeviation , mean);
+            pop.setSurvivorSelectionStrategy("mu,lambda");
+            this.pop = pop;
         } else if (isMultimodal && !hasStructure) {
             function_name = "Katsuura";
+            int populationSize = 21000;
+            int offspringsSize = 7000;
+            int matingPoolSize = 21000;
+            String reprodStrat = "linear";
+            Double s = 1.2;
+            String parentSelectStrat = "tournament";
+            int k = 500;
+            String recombStrat = "whole-arith";
+            double alfa = 0.5;
+            String mutateStrat = "correlated";
+            double c_prime= 0.05;
+            double e = 0.00001;
+            double b = 5.0;
+            double c = 0.5;
+            Population pop = new Population(evaluation_, populationSize, matingPoolSize, offspringsSize);
+            pop.setReproductionProbabilityStrategy("linear",1.5);
+            pop.setParentSelectionStrategy(parentSelectStrat, k);
+            pop.setRecombinationStrategy(recombStrat, alfa);
+            pop.setReproductionProbabilityStrategy(reprodStrat, s);
+            pop.setMutationStrategy(mutateStrat, c, c_prime, e, b);
+            this.pop = pop;
+            pop.setSurvivorSelectionStrategy("mu,lambda");
         } else if (isMultimodal && hasStructure) {
             function_name = "Schaffers";
+            int populationSize = 20;
+            int offspringsSize = 20;
+            int matingPoolSize = 20;
+            String parentSelectStrat = "tournament";
+            int k = 5;
+            String recombStrat = "whole-arith";
+            double alfa = 0.5;
+            String mutateStrat = "non-uniform-ctrl-adap";
+            double stdDeviation = 0.5;
+            double mean = 0;
+            Population pop = new Population(evaluation_, populationSize, matingPoolSize, offspringsSize);
+            pop.setParentSelectionStrategy(parentSelectStrat, k);
+            pop.setReproductionProbabilityStrategy("exponential");
+            pop.setRecombinationStrategy(recombStrat, alfa);
+            pop.setSurvivorSelectionStrategy("replaceWorst");
+            pop.setMutationStrategy(mutateStrat, stdDeviation , mean);
+            this.pop = pop;
         } else {
             function_name = "Sphere (Test function)";
         }
+//        System.out.println("FUNC:" + function_name);
     }
 
 
     public void run_script() {
-        // Run your algorithm here
-        int n_islands = 1;
-        int n_exch_ind = 1;
-        int n_epochs = 1;
+//        System.out.println("Hello");
+//        if (function_name.equals("Katsuura")) {
+//            int n_islands = 1;
+//            int n_exch_ind = 1;
+//            int n_epochs = 1;
+//
+//            Archipelago archipelago = new Archipelago(n_islands, n_exch_ind, n_epochs, "none", "none");
+//
+//            Printing printing = new Printing();
+//
+//
+//            for (int i = 0; i < archipelago.size; i++) {
+//                archipelago.islands.get(i).populate(pop);
+//            }
+//
+//            // Column names for output file
+//            //System.out.println("Generation IslandId Exchange Maximum Average StandardDev Evals");
+//
+//            for (Island island : archipelago.islands) {
+//                Population islandPopulation = island.population;
+//                for (Individual child : islandPopulation.population) {
+//                    // Check fitness of unknown fuction
+//                    child.fitness = (double) evaluation_.evaluate(child.genotype);
+//                    EvaluationCounter.increaseEvaluation();
+//                }
+//            }
+//
+//        } else {
+            // Run your algorithm here
+            int n_islands = 1;
+            int n_exch_ind = 1;
+            int n_epochs = 1;
 
-        Archipelago archipelago = new Archipelago(n_islands, n_exch_ind, n_epochs,"none","none");
+            Archipelago archipelago = new Archipelago(n_islands, n_exch_ind, n_epochs, "none", "none");
 
-        Printing printing = new Printing();
+            Printing printing = new Printing();
 
-        Population pop = setUpPopulation();
 
-        for (int i = 0; i < archipelago.size; i++) {
-            archipelago.islands.get(i).populate(pop);
-        }
-
-        // Column names for output file
-        System.out.println("Generation IslandId Exchange Maximum Average StandardDev Evals");
-
-        for (Island island : archipelago.islands) {
-            Population islandPopulation = island.population;
-            for (Individual child : islandPopulation.population) {
-                // Check fitness of unknown fuction
-                child.fitness = (double) evaluation_.evaluate(child.genotype);
-                EvaluationCounter.increaseEvaluation();
+            for (int i = 0; i < archipelago.size; i++) {
+                archipelago.islands.get(i).populate(pop);
             }
-        }
 
+            // Column names for output file
+            //System.out.println("Generation IslandId Exchange Maximum Average StandardDev Evals");
 
-        while (EvaluationCounter.getN_evaluations() < evaluations_limit_) {
             for (Island island : archipelago.islands) {
-                Population population = island.population;
-
-                // Select parents
-                population.selectParents();
-                assert (!population.matingPool.isEmpty());
-
-                // Apply crossover / mutation operators
-                population.makeBabies();
-
-                if (!pop.mutationStrat.equals("non-uniform-ctrl-adap") ) {
-                    for (Individual child : population.offsprings) {
-                        // Check fitness of unknown fuction
-                        child.fitness = (double) evaluation_.evaluate(child.genotype);
-                        EvaluationCounter.increaseEvaluation();
-                    }
+                Population islandPopulation = island.population;
+                for (Individual child : islandPopulation.population) {
+                    // Check fitness of unknown fuction
+                    child.fitness = (double) evaluation_.evaluate(child.genotype);
+                    EvaluationCounter.increaseEvaluation();
                 }
-                // Select survivors
-                population.selectSurvivors();
-                printing.printStats(archipelago.age, 0, archipelago.checkMigrationStatus(), archipelago.calculateFitnessStatistics(),EvaluationCounter.getN_evaluations());
-
             }
-            archipelago.age++;
+
+
+            while (EvaluationCounter.getN_evaluations() < evaluations_limit_) {
+                for (Island island : archipelago.islands) {
+                    Population population = island.population;
+
+                    // Select parents
+                    population.selectParents();
+                    assert (!population.matingPool.isEmpty());
+
+                    // Apply crossover / mutation operators
+                    population.makeBabies();
+
+                    if (!pop.mutationStrat.equals("non-uniform-ctrl-adap")) {
+                        for (Individual child : population.offsprings) {
+                            // Check fitness of unknown fuction
+                            child.fitness = (double) evaluation_.evaluate(child.genotype);
+                            EvaluationCounter.increaseEvaluation();
+                        }
+                    }
+                    // Select survivors
+                    population.selectSurvivors();
+//                    printing.printStats(archipelago.age, 0, archipelago.checkMigrationStatus(), archipelago.calculateFitnessStatistics(), EvaluationCounter.getN_evaluations());
+
+                }
+                archipelago.age++;
+            }
         }
-    }
+
 
     public void run_archipeligo() {
         // Run your algorithm here
@@ -273,7 +355,7 @@ public class Group35 implements ContestSubmission {
         }
 
 
-        System.out.println("Generation IslandId Exchange Maximum Average StandardDev Evals IslandTime");
+        //System.out.println("Generation IslandId Exchange Maximum Average StandardDev Evals IslandTime");
 
         for (Island island : archipelago.islands) {
             Population islandPopulation = island.population;
@@ -290,7 +372,7 @@ public class Group35 implements ContestSubmission {
             archipelago.resetMigrationStatus();
             int island_id = 1;
             for (Island island : archipelago.islands) {
-                long start = System.nanoTime();
+                long start = System.currentTimeMillis();
                 Population population = island.population;
 
                 // Select parents
@@ -311,14 +393,14 @@ public class Group35 implements ContestSubmission {
                 // Select survivors
                 population.selectSurvivors();
 
-                long end = System.nanoTime();
-                printing.printStats(archipelago.age, island_id, false, island.population.calculateFitnessStatistics(), EvaluationCounter.getN_evaluations(), end-start);
+                long end = System.currentTimeMillis();
+                //printing.printStats(archipelago.age, island_id, false, island.population.calculateFitnessStatistics(), EvaluationCounter.getN_evaluations(), end-start);
                 island_id++;
             }
 
             archipelago.checkMigrationSeason();
             archipelago.integrateAllMigrants();
-            printing.printStats(archipelago.age, 0, archipelago.checkMigrationStatus(), archipelago.calculateFitnessStatistics(), EvaluationCounter.getN_evaluations());
+            //printing.printStats(archipelago.age, 0, archipelago.checkMigrationStatus(), archipelago.calculateFitnessStatistics(), EvaluationCounter.getN_evaluations());
             archipelago.age++;
         }
     }

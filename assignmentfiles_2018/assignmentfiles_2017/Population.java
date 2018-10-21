@@ -66,12 +66,15 @@ public class Population{
     double stdAdaptiveControl = 0.5;
 
     ContestEvaluation evaluation_;
+    boolean areWeDone;
 
     public Population(ContestEvaluation evaluation_, Integer size, Integer matingPoolSize, Integer offspringsSize){
         population = new ArrayList<>();
         matingPool = new ArrayList<>();
         offsprings = new ArrayList<>();
         bestIndividuals = new ArrayList<>();
+
+        this.areWeDone = false;
 
         this.evaluation_ = evaluation_;
         this.populationSize = size;
@@ -158,6 +161,11 @@ public class Population{
     public void setMutationStrategy(String strat, double stdDeviation, double mean){
         this.mutationStrat = strat;
         this.stdDeviation = stdDeviation;
+
+        if (strat == "non-uniform-ctrl-adap"){
+            this.stdAdaptiveControl = stdDeviation;
+        }
+
         this.mean = mean;
     }
 
@@ -426,7 +434,7 @@ public class Population{
             assert (population.size() == populationSize);
 
         } else {
-            System.out.println("Currently have " + Double.toString(offsprings.size()) + " offsprings and " + Double.toString(population.size()) + " population. Did not expect to have a higer offspring count");
+            //System.out.println("Currently have " + Double.toString(offsprings.size()) + " offsprings and " + Double.toString(population.size()) + " population. Did not expect to have a higer offspring count");
         }
     }
 
@@ -532,91 +540,92 @@ public class Population{
      * ATTENTION: same individual mating is made possible
      */
     public void makeBabies () {
-        if (mutationStrat.equals("non-uniform-ctrl-adap")) {
-            List<Double> evaluation_before = new ArrayList<Double>();
-            while (matingPool.size()>0) {
-                ArrayList<Individual> parents = randomSelectMates(2);
-                Individual parent = parents.get(0);
-                Individual mate = parents.get(1);
+        if (!areWeDone) {
 
-                // Make babies
-                ArrayList<Individual> babies = parent.mate(mate, recombinationStrat);
 
-                evaluateIndividuals(babies);
-                for (Individual baby : babies) {
-                    evaluation_before.add((double) evaluation_.evaluate(baby.genotype));
-                    EvaluationCounter.increaseEvaluation();
-                }
+            if (mutationStrat.equals("non-uniform-ctrl-adap")) {
+                List<Double> evaluation_before = new ArrayList<Double>();
+                while (matingPool.size() > 0) {
+                    ArrayList<Individual> parents = randomSelectMates(2);
+                    Individual parent = parents.get(0);
+                    Individual mate = parents.get(1);
 
-                mutate(babies, this.stdAdaptiveControl, this.mean);
-                offsprings.addAll(babies);
+                    // Make babies
+                    ArrayList<Individual> babies = parent.mate(mate, recombinationStrat);
 
-            }
+                    try {
+                        evaluateIndividuals(babies);
+                        for (Individual baby : babies) {
+                            evaluation_before.add((double) evaluation_.evaluate(baby.genotype));
+                            EvaluationCounter.increaseEvaluation();
+                        }
 
-                double[] evaluation_after = new double[offsprings.size()];
-
-                for (int i = 0 ; i < evaluation_after.length; i++) {
-                    evaluation_after[i] = (double) evaluation_.evaluate(offsprings.get(i).genotype);
-                    offsprings.get(i).fitness=evaluation_after[i];
-                    EvaluationCounter.increaseEvaluation();
-                }
-
-                double better = 0; double worse = 0;
-
-                for (int i = 0; i < evaluation_after.length; i++){
-                    if (evaluation_after[i] > evaluation_before.get(i)) {
-                        better += 1;
+                        mutate(babies, this.stdAdaptiveControl, this.mean);
+                        offsprings.addAll(babies);
+                    } catch (NullPointerException e) {
+                        areWeDone = true;
                     }
-                }
-
-                double ratio = better / evaluation_after.length;
-
-                if (ratio > 0.2) this.stdAdaptiveControl = this.stdAdaptiveControl / 0.9;
-                else if (ratio < 0.2) this.stdAdaptiveControl = this.stdAdaptiveControl * 0.9;
-
-        }
-        else {
-            while (matingPool.size() > 0) {
-
-                ArrayList<Individual> parents = randomSelectMates(2);
-                Individual parent = parents.get(0);
-                Individual mate = parents.get(1);
-
-                ArrayList<Individual> babies;
-                // Make babies
-                switch (recombinationStrat){
-                    case "BLX":
-                        babies = parent.mate(mate, recombinationStrat,alfa);
-                    case "whole-arith":
-                        babies = parent.mate(mate, recombinationStrat,alfa);
-                    default:
-                        babies = parent.mate(mate, recombinationStrat);
 
                 }
+                if (!areWeDone) {
+                    double[] evaluation_after = new double[offsprings.size()];
 
-                switch (mutationStrat) {
-                    case "uniform":
-                        mutate(babies, this.mutationRate);
-                        break;
-                    case "non-uniform-ctrl-det":
-                        double progress = (double) age / (double) MAX_AGE;
-                        double paramCtrlStdDev = 1 - 0.9 * progress;
-                        mutate(babies, paramCtrlStdDev, this.mean);
-                        break;
-                    case "non-uniform":
-                        mutate(babies, this.stdDeviation, this.mean);
-                        break;
-                    case "uncorrelated-with-n-steps":
-                        mutate(babies, this.t, this.t_prime, this.e);
-                        break;
-                    case "correlated":
-                        mutate(babies, this.t, this.t_prime, this.e, this.pi_angles, this.b);
-                        break;
-                    default:
-                    	throw new IllegalArgumentException("Typo in mutatation strat"); 
+                    for (int i = 0; i < evaluation_after.length; i++) {
+                        evaluation_after[i] = (double) evaluation_.evaluate(offsprings.get(i).genotype);
+                        offsprings.get(i).fitness = evaluation_after[i];
+                        EvaluationCounter.increaseEvaluation();
+                    }
+
+                    double better = 0;
+                    double worse = 0;
+
+                    for (int i = 0; i < evaluation_after.length; i++) {
+                        if (evaluation_after[i] > evaluation_before.get(i)) {
+                            better += 1;
+                        }
+                    }
+
+                    double ratio = better / evaluation_after.length;
+
+                    if (ratio > 0.2) this.stdAdaptiveControl = this.stdAdaptiveControl / 0.9;
+                    else if (ratio < 0.2) this.stdAdaptiveControl = this.stdAdaptiveControl * 0.9;
                 }
 
-                offsprings.addAll(babies);
+            } else {
+                while (matingPool.size() > 0) {
+
+                    ArrayList<Individual> parents = randomSelectMates(2);
+                    Individual parent = parents.get(0);
+                    Individual mate = parents.get(1);
+
+
+                    // Make babies
+                    ArrayList<Individual> babies = parent.mate(mate, recombinationStrat);
+
+                    switch (mutationStrat) {
+                        case "uniform":
+                            mutate(babies, this.mutationRate);
+                            break;
+                        case "non-uniform-ctrl-det":
+                            double progress = (double) age / (double) MAX_AGE;
+                            double paramCtrlStdDev = 1 - 0.9 * progress;
+                            mutate(babies, paramCtrlStdDev, this.mean);
+                            break;
+                        case "non-uniform":
+                            mutate(babies, this.stdDeviation, this.mean);
+                            break;
+                        case "uncorrelated-with-n-steps":
+                            mutate(babies, this.t, this.t_prime, this.e);
+                            break;
+                        case "correlated":
+                            mutate(babies, this.t, this.t_prime, this.e, this.pi_angles, this.b);
+                            break;
+                        default:
+                            throw new IllegalArgumentException("Typo in mutatation strat");
+                    }
+
+                    offsprings.addAll(babies);
+                }
             }
         }
     }
@@ -728,8 +737,6 @@ public class Population{
                 replacePopulationByAge();
                 break;
             default:
-                System.out.print("Wrong argument");
-                System.out.print(survivorSelectionStrat);
                 throw new IllegalArgumentException();
         }
         matingPool.clear();

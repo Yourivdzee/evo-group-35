@@ -2,7 +2,7 @@ import sys
 import os
 import math
 
-
+directory = sys.argv[1]
 scores = []
 times = []
 rootdir = os.getcwd()
@@ -10,18 +10,20 @@ rootdir = os.getcwd()
 for subdir, dirs, files in os.walk(rootdir):
     for foldername in os.listdir(subdir):
         try:
+            scores = []
+            times = []
             for filename in os.listdir(foldername):
                 if filename.endswith(".txt"):
                     this_file = subdir + "/" + foldername + "/" + filename
-		    print("Analysing folder -> " + this_file)
-		    with open(this_file) as myfile:
+                    print("Analysing folder -> " + this_file)
+                    with open(this_file) as myfile:
                         first_seven = list(myfile)[0:15]
                     with open(this_file) as myfile:
-                            last_two = list(myfile)[-2:]
-                            score = float(last_two[-2].split(" ")[1])
-                            time = float(last_two[-1].split(" ")[1].split("ms")[0])
-                            scores.append(score)
-                            times.append(time)
+                        last_two = list(myfile)[-2:]
+                        score = float(last_two[-2].split(" ")[1])
+                        time = float(last_two[-1].split(" ")[1].split("ms")[0])
+                        scores.append(score)
+                        times.append(time)
                         
 
             mean = sum(scores)/len(scores)
